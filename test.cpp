@@ -58,5 +58,10 @@ int main()
     cout<<"norm v2 = "<<vect2.norm()<<endl;
     cout<<"X ^ Y = ";x.vect_prod(y).display();
 
+    cout<<"x + y = ";x.addition(y).display();
+    cout<<"x - y = ";x.subtraction(y).display();
+
+    cout<<"V1.V2 = "<<vect1.scalar_prod(vect2)<<endl;
+
     return 0;
 } 

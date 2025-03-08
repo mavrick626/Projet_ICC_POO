@@ -6,7 +6,9 @@
 using namespace std;
 typedef unsigned int uint;
 
+//==============================================
 // Constructor
+//==============================================
 Vecteur::Vecteur(vector<double> const& coord)
 : coordonates_(coord) {}
 
@@ -15,8 +17,9 @@ void Vecteur::set_coord(unsigned int index, double value)
 {
     coordonates_[index] = value;
 }
-
+//==============================================
 // Other methods definition
+//==============================================
 void Vecteur::add(double value)
 {
     coordonates_.push_back(value);
@@ -45,30 +48,44 @@ bool Vecteur::compare(Vecteur const& v) const
 
     return same;
 }
-
+//==============================================
 // Math methods definition
-
+//==============================================
 Vecteur Vecteur::addition(Vecteur const& v) const
 {
-    size_t dimMax(max(coordonates_.size(), v.coordonates_.size()));
-    size_t dimMin(min(coordonates_.size(), v.coordonates_.size()));
+    size_t local_size(coordonates_.size());
+    size_t v_size(v.coordonates_.size());
+    size_t dimMax(max(local_size, v_size));
 
-    Vecteur& biggerVecteur(this);
-    const Vecteur& smallerVecteur(v);
+    vector<double> new_coord(dimMax, 0.);
 
-    vector<double> new_coord;
-
-    for(size_t i(0); i<dimMin; i++)
+    for(size_t i(0); i<dimMax; i++)
     {
-        new_coord.push_back(coordonates_[i] + v.coordonates_[i]);
-    }
+        if(i < local_size)
+        {
+            new_coord[i] = coordonates_[i];
+        }
+        else
+        {
+            new_coord[i] = 0.;
+        }
 
-    for(size_t i(dimMin); i<dimMax; i++)
-    {
-        new_coord.push_back();
+        if(i < v_size)
+        {
+            new_coord[i] += v.coordonates_[i];
+        }
+        else
+        {
+            new_coord[i] += 0.;
+        }
     }
 
     return Vecteur(new_coord);
+}
+
+Vecteur Vecteur::subtraction(Vecteur const& v) const
+{
+    return addition(v.opposite());
 }
 
 Vecteur Vecteur::mult(double scalar) const
@@ -77,6 +94,22 @@ Vecteur Vecteur::mult(double scalar) const
     for(double value : coordonates_) new_coord.push_back(value*scalar);
 
     return Vecteur(new_coord);
+}
+
+double Vecteur::scalar_prod(Vecteur const& v) const
+{
+    size_t local_size(coordonates_.size());
+    size_t v_size(v.coordonates_.size());
+    size_t dimMin(min(local_size, v_size));
+
+    double result(0.);
+
+    for(size_t i(0); i<dimMin; i++)
+    {
+        result += coordonates_[i]*v.coordonates_[i];
+    }
+
+    return result;
 }
 
 Vecteur Vecteur::vect_prod(Vecteur const& v) const
