@@ -65,6 +65,7 @@ Vecteur Vecteur::addition(Vecteur const& v) const
 
     for(size_t i(0); i<dimMax; i++)
     {
+        // plongement naturel de Rm dans Rn en ajoutant des 0 ∀ m<i≤n
         if(i < local_size)
         {
             new_coord.push_back(coordonates_[i]);
@@ -89,29 +90,24 @@ Vecteur Vecteur::addition(Vecteur const& v) const
 
 Vecteur Vecteur::subtraction(Vecteur const& v) const
 {
+    // u - v = u + (-v)
     return addition(v.opposite());
 }
 
 Vecteur Vecteur::mult(double scalar) const
 {
-    vector<double> new_coord;
-    for(double value : coordonates_) new_coord.push_back(value*scalar);
+    vector<double> new_coord(coordonates_);
+    for(double& value : new_coord) value *= scalar; // ui = a*ui, ∀i
 
     return Vecteur(new_coord);
 }
 
 double Vecteur::scalar_prod(Vecteur const& v) const
 {
-    size_t local_size(coordonates_.size());
-    size_t v_size(v.coordonates_.size());
-    size_t dimMin(min(local_size, v_size));
-
+    size_t dimMin(min(coordonates_.size(), v.coordonates_.size()));
     double result(0.);
 
-    for(size_t i(0); i<dimMin; i++)
-    {
-        result += coordonates_[i]*v.coordonates_[i];
-    }
+    for(size_t i(0); i<dimMin; i++) result += coordonates_[i]*v.coordonates_[i];
 
     return result;
 }
@@ -142,11 +138,8 @@ double Vecteur::norm() const
 double Vecteur::norm2() const
 {
     double sum(0.);
+    for(double value : coordonates_) sum += pow(value, 2);
 
-    for(double value : coordonates_) 
-    {
-        sum += pow(value, 2);
-    }
     return sum;
 }
 
@@ -157,9 +150,9 @@ Vecteur Vecteur::opposite() const
 
 Vecteur Vecteur::unitaire() const
 {
-    vector<double> new_coord;
+    vector<double> new_coord(coordonates_);
     double norm_ = norm();
+    for(double& value : new_coord) value /= norm_;
 
-    for(double value : coordonates_) new_coord.push_back(value/norm_);
     return Vecteur(new_coord);
 }
