@@ -13,7 +13,7 @@ Vecteur::Vecteur(vector<double> const& coord)
 : coordonates_(coord) {}
 
 //==============================================
-// Setter definitionµ
+// Setter definition
 //==============================================
 void Vecteur::set_coord(unsigned int index, double value)
 {
@@ -61,17 +61,17 @@ Vecteur Vecteur::addition(Vecteur const& v) const
     size_t v_size(v.coordonates_.size());
     size_t dimMax(max(local_size, v_size));
 
-    vector<double> new_coord(dimMax, 0.);
+    vector<double> new_coord;
 
     for(size_t i(0); i<dimMax; i++)
     {
         if(i < local_size)
         {
-            new_coord[i] = coordonates_[i];
+            new_coord.push_back(coordonates_[i]);
         }
         else
         {
-            new_coord[i] = 0.;
+            new_coord.push_back(0.);
         }
 
         if(i < v_size)
