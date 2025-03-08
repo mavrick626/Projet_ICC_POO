@@ -12,11 +12,14 @@ typedef unsigned int uint;
 Vecteur::Vecteur(vector<double> const& coord)
 : coordonates_(coord) {}
 
-// Setter definition
+//==============================================
+// Setter definitionµ
+//==============================================
 void Vecteur::set_coord(unsigned int index, double value)
 {
     coordonates_[index] = value;
 }
+
 //==============================================
 // Other methods definition
 //==============================================
@@ -48,6 +51,7 @@ bool Vecteur::compare(Vecteur const& v) const
 
     return same;
 }
+
 //==============================================
 // Math methods definition
 //==============================================
