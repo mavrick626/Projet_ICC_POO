@@ -12,6 +12,7 @@ int main()
     // v2 = (2.6, 3.5,  4.1)
     Vecteur vect2({2.6, 3.5, 4.1});
     Vecteur vect3;
+    Vecteur x({1., 0.});
 
     /* Cette partie
     * (1) pourrait être écrite autrement, par exemple avec des
@@ -57,7 +58,17 @@ int main()
     cout<<"3*v1 = ";vect1.mult(3).display();
     cout<<"v1*v2 = "<<vect1.scalar_prod(vect2)<<endl;
     cout<<"v2*v1 = "<<vect2.scalar_prod(vect1)<<endl;
-    cout<<"v1^v2 = ";vect1.vect_prod(vect2).display();
+    try
+    {
+        cout<<"v1^v2 = ";
+        vect1.vect_prod(vect2).display();
+        cout<<"v1^x = ";
+        vect1.vect_prod(x).display();
+    }
+    catch(const invalid_argument& err)
+    {
+        cerr<<"\nError : "<<err.what()<<endl;
+    }
     cout<<"||v1||2 = "<<vect1.norm2()<<endl;
     cout<<"||v1|| = "<<vect1.norm()<<endl;
     cout<<"||v2||2 = "<<vect2.norm2()<<endl;

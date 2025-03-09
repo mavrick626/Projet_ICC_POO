@@ -1,7 +1,8 @@
 #include <iostream>
-#include "Vecteur.h"
 #include <cmath>
 #include <algorithm>
+#include <exception>
+#include "Vecteur.h"
 
 using namespace std;
 typedef unsigned int uint;
@@ -15,7 +16,7 @@ Vecteur::Vecteur(vector<double> const& coord)
 //==============================================
 // Setter definition
 //==============================================
-void Vecteur::set_coord(unsigned int index, double value)
+void Vecteur::set_coord(uint index, double value)
 {
     coordonates_[index] = value;
 }
@@ -34,7 +35,7 @@ void Vecteur::display() const
     cout<<endl;
 }
 
-bool Vecteur::compare(Vecteur const& v) const
+bool Vecteur::compare(Vecteur const& v, uint precision) const
 {
     bool same(false);
     size_t dim = coordonates_.size();
@@ -45,7 +46,7 @@ bool Vecteur::compare(Vecteur const& v) const
 
         for(size_t i(0); i<dim && same; i++)
         {
-            if(abs(coordonates_[i]-v.coordonates_[i]) > 1e-10) same = false;
+            if(abs(coordonates_[i]-v.coordonates_[i]) > precision) same = false;
         }
     }
 
@@ -57,16 +58,16 @@ bool Vecteur::compare(Vecteur const& v) const
 //==============================================
 Vecteur Vecteur::addition(Vecteur const& v) const
 {
-    size_t local_size(coordonates_.size());
-    size_t v_size(v.coordonates_.size());
-    size_t dimMax(max(local_size, v_size));
+    size_t dim(coordonates_.size());
+    size_t v_dim(v.coordonates_.size());
+    size_t dimMax(max(dim, v_dim));
 
     vector<double> new_coord;
 
     for(size_t i(0); i<dimMax; i++)
     {
         // plongement naturel de Rm dans Rn en ajoutant des 0 ∀ m<i≤n
-        if(i < local_size)
+        if(i < dim)
         {
             new_coord.push_back(coordonates_[i]);
         }
@@ -75,7 +76,7 @@ Vecteur Vecteur::addition(Vecteur const& v) const
             new_coord.push_back(0.);
         }
 
-        if(i < v_size)
+        if(i < v_dim)
         {
             new_coord[i] += v.coordonates_[i];
         }
@@ -126,7 +127,7 @@ Vecteur Vecteur::vect_prod(Vecteur const& v) const
     }
     else
     {
-        return Vecteur({0.});
+        throw invalid_argument("Les vecteurs doivent etre en 3 dimensions !");
     }
 }
 
