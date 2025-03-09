@@ -56,14 +56,14 @@ int main()
     cout<<"-v1 = ";vect1.opposite().display();
     cout<<"-v2 + v1 = ";vect2.opposite().addition(vect1).display();
     cout<<"3*v1 = ";vect1.mult(3).display();
-    cout<<"v1*v2 = "<<vect1.scalar_prod(vect2)<<endl;
-    cout<<"v2*v1 = "<<vect2.scalar_prod(vect1)<<endl;
+    cout<<"v1*v2 = "<<vect1.dot_prod(vect2)<<endl;
+    cout<<"v2*v1 = "<<vect2.dot_prod(vect1)<<endl;
     try
     {
         cout<<"v1^v2 = ";
-        vect1.vect_prod(vect2).display();
+        vect1.cross_prod(vect2).display();
         cout<<"v1^x = ";
-        vect1.vect_prod(x).display();
+        vect1.cross_prod(x).display();
     }
     catch(const invalid_argument& err)
     {

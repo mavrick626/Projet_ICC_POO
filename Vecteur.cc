@@ -103,7 +103,7 @@ Vecteur Vecteur::mult(double scalar) const
     return Vecteur(new_coord);
 }
 
-double Vecteur::scalar_prod(Vecteur const& v) const
+double Vecteur::dot_prod(Vecteur const& v) const
 {
     size_t dimMin(min(coordonates_.size(), v.coordonates_.size()));
     double result(0.);
@@ -113,7 +113,7 @@ double Vecteur::scalar_prod(Vecteur const& v) const
     return result;
 }
 
-Vecteur Vecteur::vect_prod(Vecteur const& v) const
+Vecteur Vecteur::cross_prod(Vecteur const& v) const
 {
     if(coordonates_.size() == 3 && v.coordonates_.size() == 3)
     {
@@ -149,7 +149,7 @@ Vecteur Vecteur::opposite() const
     return mult(-1);
 }
 
-Vecteur Vecteur::unitaire() const
+Vecteur Vecteur::unit() const
 {
     vector<double> new_coord(coordonates_);
     double norm_ = norm();

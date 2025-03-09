@@ -21,14 +21,14 @@ class Vecteur
         Vecteur subtraction(Vecteur const&) const;
 
         Vecteur mult(double) const;
-        double scalar_prod(Vecteur const&) const;
-        Vecteur vect_prod(Vecteur const&) const;
+        double dot_prod(Vecteur const&) const;
+        Vecteur cross_prod(Vecteur const&) const;
 
         double norm() const;
         double norm2() const;
 
         Vecteur opposite() const;
-        Vecteur unitaire() const;
+        Vecteur unit() const;
 
     private:
         std::vector<double> coordonates_;
