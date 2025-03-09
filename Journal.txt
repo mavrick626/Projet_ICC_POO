@@ -1,2 +1,15 @@
-Semaine 1:
-Formation du binome. 
+A faire pour plus tard :
+    -prise en main de OpenGL
+
+
+# Semaine 1 :
+    Formation du binome, découverte du projet et révisions base du C++
+
+# Semaine 2 : 
+    Mise en place d'un environnement de travail (git, github)
+    Retour difficile dans le rythme du travail du semestre après 3 semaines
+    de vacances -> Exo de POO mais pas encore de code pour le projet
+
+# Semaine 3 :
+    Programmation de la class Vecteur et création du Makefile -> tout est OK
+    pour l'instant !

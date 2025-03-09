@@ -1,2 +1,14 @@
-Semaine 2:
-On plonge naturellement le vecteur de dimension inférieure dans l'espace du vecteur de dimension supérieure.
+# Semaine 2 :
+    - Q1.1 : un vecteur mathématique à n-dimension est principalement 
+    caractérisé par ses coordonnées. Nous avons donc décidé de caractériser
+    la class Vecteur par un attribut "coordonates_", un vector<double> qui 
+    stocke les n coordonnées du vecteur courant. Cet attribut est private.
+    En public, nous avons défini les différentes méthodes utiles à la
+    manipulation du vecteur, une fonction setter pour accéder aux coordonnées
+    et une série de méthodes pour effectuer des opérationsmathématiques.
+
+    -Q1.2 : Pour gérer les opérations entre 2 vecteurs de dimensions différentes,
+    nous avons choisi de plonger naturellement le vecteur de Rm dans Rn (m < n).
+    Mathématiquement, on traite le plus petit vecteur comme s'il avait des
+    coordonnées 0.0 pour tout i de m+1 à n. Cette solution nous semblait être
+    la plus naturelle. (Attention nous ne modifions pas le plus petit vecteur !)
