@@ -1,0 +1,2 @@
+Semaine 2:
+On plonge naturellement le vecteur de dimension inférieure dans l'espace du vecteur de dimension supérieure.
