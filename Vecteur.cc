@@ -5,7 +5,6 @@
 #include "Vecteur.h"
 
 using namespace std;
-typedef unsigned int uint;
 
 //==============================================
 // Constructor
@@ -16,7 +15,7 @@ Vecteur::Vecteur(vector<double> const& coord)
 //==============================================
 // Setter definition
 //==============================================
-void Vecteur::set_coord(uint index, double value)
+void Vecteur::set_coord(unsigned int index, double value)
 {
     coordonates_[index] = value;
 }
@@ -35,7 +34,7 @@ void Vecteur::display() const
     cout<<endl;
 }
 
-bool Vecteur::compare(Vecteur const& v, uint precision) const
+bool Vecteur::compare(Vecteur const& v, double precision) const
 {
     bool same(false);
     size_t dim = coordonates_.size();

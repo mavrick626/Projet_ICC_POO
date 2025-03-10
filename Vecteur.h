@@ -14,7 +14,7 @@ class Vecteur
     // Other methods
         void add(double);
         void display() const;
-        bool compare(Vecteur const&, unsigned int precision=1e-10) const;
+        bool compare(Vecteur const&, double precision=1e-10) const;
 
     // Math methods
         Vecteur addition(Vecteur const&) const;
