@@ -12,8 +12,8 @@ class Vecteur
         Vecteur(std::vector<double> const&);
 
     // Getter
-    double get_coord(unsigned int) const;
-    size_t dimension() const;
+        double get_coord(unsigned int) const;
+        size_t dimension() const;
 
     // Setter
         void set_coord(unsigned int, double);
