@@ -18,18 +18,18 @@ class Vecteur
 
     // Math methods
         Vecteur addition(Vecteur const&) const;
-        Vecteur subtraction(Vecteur const&) const;
+        Vecteur soustraction(Vecteur const&) const;
 
         Vecteur mult(double) const;
-        double scalar_prod(Vecteur const&) const;
+        double prod_scalaire(Vecteur const&) const;
         Vecteur vect_prod(Vecteur const&) const;
 
-        double norm() const;
-        double norm2() const;
+        double norme() const;
+        double norme2() const;
 
-        Vecteur opposite() const;
+        Vecteur oppose() const;
         Vecteur unitaire() const;
 
     private:
-        std::vector<double> coordonates_;
+        std::vector<double> coordonees_;
 };
