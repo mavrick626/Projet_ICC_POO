@@ -7,7 +7,7 @@ class Vecteur
 {
     public:
     // Constructeurs
-        Vecteur(unsigned int dimension);
+        explicit Vecteur(unsigned int dimension);
         Vecteur(double, double, double);
         Vecteur(std::vector<double> const&);
 
@@ -22,8 +22,11 @@ class Vecteur
         void augmente(double);
 
     // Méthodes mathématiques
-        double norm() const;
-        double norm2() const;
+        double norme() const;
+        double norme2() const;
+
+        Vecteur& operator+=(Vecteur const&);
+        Vecteur& operator*=(double);
 
     private:
         std::vector<double> coordonnees_;
@@ -35,14 +38,14 @@ std::ostream& operator<<(std::ostream&, Vecteur const&);
 const bool operator==(Vecteur const&, Vecteur const&);
 const bool operator!=(Vecteur const&, Vecteur const&);
 // operations qui permettent de définir un corps
-const Vecteur operator+(Vecteur const&, Vecteur const&);
-const Vecteur operator*(double, Vecteur const&);
+const Vecteur operator+(Vecteur, Vecteur const&);
+const Vecteur operator*(double, Vecteur);
 // produit scalaire et vectoriel
 const double operator*(Vecteur const&, Vecteur const&);
 const Vecteur operator^(Vecteur const&, Vecteur const&);
 // operations complémentaires à la structure du corps
-const Vecteur operator*(Vecteur const&, double); // commutativité
-const Vecteur operator-(Vecteur const&); // opposé
+const Vecteur operator*(Vecteur, double); // commutativité
+const Vecteur operator-(Vecteur); // opposé
 const Vecteur operator-(Vecteur const&, Vecteur const&); // soustraction
 // operateur unaire
 const Vecteur operator~(Vecteur const&);

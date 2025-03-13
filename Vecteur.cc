@@ -50,17 +50,35 @@ void Vecteur::augmente(double composante)
 //==============================================
 // Math méthodes
 //==============================================
-double Vecteur::norm() const
+double Vecteur::norme() const
 {
-    return pow(norm2(), .5);
+    return pow(norme2(), .5);
 }
 
-double Vecteur::norm2() const
+double Vecteur::norme2() const
 {
     double somme(0.);
     for(double composante : coordonnees_) somme += pow(composante, 2);
 
     return somme;
+}
+
+Vecteur& Vecteur::operator+=(Vecteur const& v)
+{
+    size_t u_dim(coordonnees_.size());
+    size_t v_dim(v.coordonnees_.size());
+
+    if(u_dim < v_dim) coordonnees_.resize(v_dim, 0.);
+    for(size_t i(0); i<v_dim; i++) coordonnees_[i] += v.coordonnees_[i];
+
+    return *this;
+}
+
+Vecteur& Vecteur::operator*=(double scalaire)
+{
+    for(size_t i(0); i<coordonnees_.size(); i++) coordonnees_[i]*=scalaire;
+
+    return *this;
 }
 
 //==============================================
@@ -103,38 +121,15 @@ const bool operator!=(Vecteur const& u, Vecteur const& v)
     return !(u==v);
 }
 // Opérations de l'espace vectoriel Rn, adition interne
-const Vecteur operator+(Vecteur const& u, Vecteur const& v)
+const Vecteur operator+(Vecteur u, Vecteur const& v)
 {
-    size_t u_dim(u.dimension());
-    size_t v_dim(v.dimension());
-    size_t dimMax(max(u_dim, v_dim));
-
-    vector<double> nouvelles_coord;
-
-    for(size_t i(0); i<dimMax; i++)
-    {
-        // plongement naturel de Rm dans Rn en ajoutant des 0 ∀ m<i≤n
-        if(i < u_dim) nouvelles_coord.push_back(u.get_coord(i));
-        else nouvelles_coord.push_back(0.);
-
-        if(i < v_dim) nouvelles_coord[i] += v.get_coord(i);
-        else nouvelles_coord[i] += 0.;
-    }
-
-    return Vecteur(nouvelles_coord);
+    u += v;
+    return u;
 }
 // Multiplication externe par un scalaire
-const Vecteur operator*(double scalar, Vecteur const& u)
+const Vecteur operator*(double scalaire, Vecteur u)
 {   
-    size_t dim(u.dimension());
-    vector<double> nouvelles_coord;
-
-    for(size_t i(0); i<dim; i++)
-    {
-        nouvelles_coord.push_back(u.get_coord(i)*scalar);
-    }
-
-    return Vecteur(nouvelles_coord);
+    return u*=scalaire;
 }
 // Opérateur produit scalaire
 const double operator*(Vecteur const& u, Vecteur const& v)
@@ -167,9 +162,9 @@ const Vecteur operator^(Vecteur const& u, Vecteur const& v)
 }
 
 // Opérateur inverse
-const Vecteur operator-(Vecteur const& u)
+const Vecteur operator-(Vecteur u)
 {
-    return (-1)*u;
+    return u*=(-1);
 }
 // Opérateur soustraction, addition de l'opposé
 const Vecteur operator-(Vecteur const& u, Vecteur const& v)
@@ -178,20 +173,20 @@ const Vecteur operator-(Vecteur const& u, Vecteur const& v)
     return u+(-v);
 }
 // Commutativité de la multiplication par un scalaire
-const Vecteur operator*(Vecteur const& u, double scalar)
+const Vecteur operator*(Vecteur u, double scalaire)
 {
-    return scalar*u;
+    return u*=scalaire;
 }
 // Vecteur unaire
 const Vecteur operator~(Vecteur const& u)
 {
-    double norm_(u.norm());
+    double norme_(u.norme());
     size_t dim_(u.dimension());
     vector<double> nouvelles_coord;
 
     for(size_t i(0); i<dim_; i++) 
     {
-        nouvelles_coord.push_back(u.get_coord(i)/norm_);
+        nouvelles_coord.push_back(u.get_coord(i)/norme_);
     }
     return Vecteur(nouvelles_coord); 
 }

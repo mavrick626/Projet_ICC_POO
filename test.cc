@@ -76,10 +76,10 @@ int main()
     {
         cerr<<"\nError : "<<err.what()<<endl;
     }
-    cout<<"||v1||2 = "<<vect1.norm2()<<endl;
-    cout<<"||v1|| = "<<vect1.norm()<<endl;
-    cout<<"||v2||2 = "<<vect2.norm2()<<endl;
-    cout<<"||v2|| = "<<vect2.norm()<<endl;
+    cout<<"||v1||2 = "<<vect1.norme2()<<endl;
+    cout<<"||v1|| = "<<vect1.norme()<<endl;
+    cout<<"||v2||2 = "<<vect2.norme2()<<endl;
+    cout<<"||v2|| = "<<vect2.norme()<<endl;
 
     return 0;
 } 
