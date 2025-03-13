@@ -1,12 +1,18 @@
 #pragma once
+
 #include <iostream>
 #include "Vecteur.h"
-using namespace std;
+#include "PointMateriel.h"
+#include "constantes.h"
 
-class GravitationConstante{
+class GravitationConstante
+{
     public : 
+        GravitationConstante(Vecteur=Vecteur(0., 0., -9.81));
+        Vecteur force(PointMateriel point, double temps=0);
 
     private:
-    Vecteur gravitation;
-
+        Vecteur gravitation();
 };
+
+std::ostream& operator<<(std::ostream&, GravitationConstante const&);
