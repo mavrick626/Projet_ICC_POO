@@ -7,126 +7,158 @@
 using namespace std;
 
 //==============================================
-// Constructor
+// Constructeurs
 //==============================================
+Vecteur::Vecteur(unsigned int dimension)
+: coordonnees_(vector<double> (dimension, 0.)) {}
+
+Vecteur::Vecteur(double x, double y, double z)
+: coordonnees_({x, y, z}) {}
+
 Vecteur::Vecteur(vector<double> const& coord)
-: coordonees_(coord) {}
+: coordonnees_(coord) {}
 
 //==============================================
-// Setter definition
+// getter définition
 //==============================================
-void Vecteur::set_coord(unsigned int index, double value)
+double Vecteur::get_coord(unsigned int index) const
 {
-    coordonees_[index] = value;
+    return coordonnees_[index];
+}
+
+size_t Vecteur::dimension() const
+{
+    return coordonnees_.size();
 }
 
 //==============================================
-// Other methods definition
+// Setter définition
 //==============================================
-void Vecteur::add(double value)
+void Vecteur::set_coord(unsigned int index, double composante)
 {
-    coordonees_.push_back(value);
+    coordonnees_[index] = composante;
 }
 
-void Vecteur::display() const
+//==============================================
+// Autre méthode
+//==============================================
+void Vecteur::augmente(double composante)
 {
-    for(double value : coordonees_) cout<<value<<" ";
-    cout<<endl;
+    coordonnees_.push_back(composante);
 }
 
-bool Vecteur::compare(Vecteur const& v, double precision) const
+//==============================================
+// Math méthodes
+//==============================================
+double Vecteur::norm() const
 {
-    bool same(false);
-    size_t dim = coordonees_.size();
+    return pow(norm2(), .5);
+}
 
-    if(dim == v.coordonees_.size())
+double Vecteur::norm2() const
+{
+    double somme(0.);
+    for(double composante : coordonnees_) somme += pow(composante, 2);
+
+    return somme;
+}
+
+//==============================================
+// Surcharge externe des opérateurs
+//==============================================
+// Opérateur d'affichage
+ostream& operator<<(ostream& sortie, Vecteur const& v)
+{
+    size_t dim(v.dimension());
+
+    sortie<<"(";
+    for(size_t i(0); i<dim; i++)
     {
-        same = true;
+        sortie<<v.get_coord(i);
+        if(i<dim-1) sortie<<", ";
+    }
+    sortie<<")";
 
-        for(size_t i(0); i<dim && same; i++)
+    return sortie;
+}
+// Opérateurs de comparaison
+const bool operator==(Vecteur const& u, Vecteur const& v)
+{
+    bool semblable(false);
+    size_t u_dim(u.dimension());
+
+    if(u_dim == v.dimension())
+    {
+        semblable = true;
+        for(size_t i(0); i<u_dim && semblable; i++)
         {
-            if(abs(coordonees_[i]-v.coordonees_[i]) > precision) same = false;
+            if(abs(u.get_coord(i)-v.get_coord(i)) > 1e-10) semblable = false;
         }
     }
-
-    return same;
+    return semblable;
 }
 
-//==============================================
-// Math methods definition
-//==============================================
-Vecteur Vecteur::addition(Vecteur const& v) const
+const bool operator!=(Vecteur const& u, Vecteur const& v)
 {
-    size_t dim(coordonees_.size());
-    size_t v_dim(v.coordonees_.size());
-    size_t dimMax(max(dim, v_dim));
+    return !(u==v);
+}
+// Opérations de l'espace vectoriel Rn, adition interne
+const Vecteur operator+(Vecteur const& u, Vecteur const& v)
+{
+    size_t u_dim(u.dimension());
+    size_t v_dim(v.dimension());
+    size_t dimMax(max(u_dim, v_dim));
 
-    vector<double> new_coord;
+    vector<double> nouvelles_coord;
 
     for(size_t i(0); i<dimMax; i++)
     {
         // plongement naturel de Rm dans Rn en ajoutant des 0 ∀ m<i≤n
-        if(i < dim)
-        {
-            new_coord.push_back(coordonees_[i]);
-        }
-        else
-        {
-            new_coord.push_back(0.);
-        }
+        if(i < u_dim) nouvelles_coord.push_back(u.get_coord(i));
+        else nouvelles_coord.push_back(0.);
 
-        if(i < v_dim)
-        {
-            new_coord[i] += v.coordonees_[i];
-        }
-        else
-        {
-            new_coord[i] += 0.;
-        }
+        if(i < v_dim) nouvelles_coord[i] += v.get_coord(i);
+        else nouvelles_coord[i] += 0.;
     }
 
-    return Vecteur(new_coord);
+    return Vecteur(nouvelles_coord);
 }
+// Multiplication externe par un scalaire
+const Vecteur operator*(double scalar, Vecteur const& u)
+{   
+    size_t dim(u.dimension());
+    vector<double> nouvelles_coord;
 
-Vecteur Vecteur::soustraction(Vecteur const& v) const
-{
-    // u - v = u + (-v)
-    return addition(v.oppose());
+    for(size_t i(0); i<dim; i++)
+    {
+        nouvelles_coord.push_back(u.get_coord(i)*scalar);
+    }
+
+    return Vecteur(nouvelles_coord);
 }
-
-Vecteur Vecteur::mult(double scalaire) const
+// Opérateur produit scalaire
+const double operator*(Vecteur const& u, Vecteur const& v)
 {
-    vector<double> new_coord(coordonees_);
-    for(double& value : new_coord) value *= scalaire; // ui = a*ui, ∀i
-
-    return Vecteur(new_coord);
-}
-
-<<<<<<< HEAD:Vecteur.cpp
-double Vecteur::prod_scalaire(Vecteur const& v) const
-=======
-double Vecteur::dot_prod(Vecteur const& v) const
->>>>>>> 7efc4d8f6c67b5261275fd49325eafb7d651c3ab:Vecteur.cc
-{
-    size_t dimMin(min(coordonees_.size(), v.coordonees_.size()));
+    // si les vecteurs sont de dimensions différentes, les termes de m à n sont nulles (m<n)
+    size_t dimMin(min(u.dimension(), v.dimension()));
     double result(0.);
 
-    for(size_t i(0); i<dimMin; i++) result += coordonees_[i]*v.coordonees_[i];
+    for(size_t i(0); i<dimMin; i++) result += u.get_coord(i)*v.get_coord(i);
 
     return result;
 }
-
-Vecteur Vecteur::cross_prod(Vecteur const& v) const
+// Opérateur produit vectoriel
+const Vecteur operator^(Vecteur const& u, Vecteur const& v)
 {
-    if(coordonees_.size() == 3 && v.coordonees_.size() == 3)
+    if(u.dimension() == 3 && v.dimension() == 3)
     {
-        vector<double> new_coord(3, 0.);
+        vector<double> nouvelles_coord(3, 0.);
 
-        new_coord[0] = coordonees_[1]*v.coordonees_[2] - coordonees_[2]*v.coordonees_[1];
-        new_coord[1] = coordonees_[2]*v.coordonees_[0] - coordonees_[0]*v.coordonees_[2];
-        new_coord[2] = coordonees_[0]*v.coordonees_[1] - coordonees_[1]*v.coordonees_[0];
+        nouvelles_coord[0] = u.get_coord(1)*v.get_coord(2) - u.get_coord(2)*v.get_coord(1);
+        nouvelles_coord[1] = u.get_coord(2)*v.get_coord(0) - u.get_coord(0)*v.get_coord(2);
+        nouvelles_coord[2] = u.get_coord(0)*v.get_coord(1) - u.get_coord(1)*v.get_coord(0);
 
-        return Vecteur(new_coord);
+        return Vecteur(nouvelles_coord);
     }
     else
     {
@@ -134,29 +166,32 @@ Vecteur Vecteur::cross_prod(Vecteur const& v) const
     }
 }
 
-double Vecteur::norme() const
+// Opérateur inverse
+const Vecteur operator-(Vecteur const& u)
 {
-    return pow(norme2(), .5);
+    return (-1)*u;
 }
-
-double Vecteur::norme2() const
+// Opérateur soustraction, addition de l'opposé
+const Vecteur operator-(Vecteur const& u, Vecteur const& v)
 {
-    double sum(0.);
-    for(double value : coordonees_) sum += pow(value, 2);
-
-    return sum;
+    // u - v = u + (-v)
+    return u+(-v);
 }
-
-Vecteur Vecteur::oppose() const
+// Commutativité de la multiplication par un scalaire
+const Vecteur operator*(Vecteur const& u, double scalar)
 {
-    return mult(-1);
+    return scalar*u;
 }
-
-Vecteur Vecteur::unit() const
+// Vecteur unaire
+const Vecteur operator~(Vecteur const& u)
 {
-    vector<double> new_coord(coordonees_);
-    double norme_ = norme();
-    for(double& value : new_coord) value /= norme_;
+    double norm_(u.norm());
+    size_t dim_(u.dimension());
+    vector<double> nouvelles_coord;
 
-    return Vecteur(new_coord);
+    for(size_t i(0); i<dim_; i++) 
+    {
+        nouvelles_coord.push_back(u.get_coord(i)/norm_);
+    }
+    return Vecteur(nouvelles_coord); 
 }

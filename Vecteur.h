@@ -1,45 +1,48 @@
 #pragma once
+
+#include <iostream>
 #include <vector>
 
 class Vecteur
 {
     public:
-    // Constructor
-        Vecteur() = default;
+    // Constructeurs
+        Vecteur(unsigned int dimension);
+        Vecteur(double, double, double);
         Vecteur(std::vector<double> const&);
+
+    // Getter
+    double get_coord(unsigned int) const;
+    size_t dimension() const;
 
     // Setter
         void set_coord(unsigned int, double);
 
-    // Other methods
-        void add(double);
-        void display() const;
-        bool compare(Vecteur const&, double precision=1e-10) const;
+    // Autres méthodes utiles
+        void augmente(double);
 
-    // Math methods
-        Vecteur addition(Vecteur const&) const;
-        Vecteur soustraction(Vecteur const&) const;
-
-        Vecteur mult(double) const;
-<<<<<<< HEAD
-        double prod_scalaire(Vecteur const&) const;
-        Vecteur vect_prod(Vecteur const&) const;
-=======
-        double dot_prod(Vecteur const&) const;
-        Vecteur cross_prod(Vecteur const&) const;
->>>>>>> 7efc4d8f6c67b5261275fd49325eafb7d651c3ab
-
-        double norme() const;
-        double norme2() const;
-
-<<<<<<< HEAD
-        Vecteur oppose() const;
-        Vecteur unitaire() const;
-=======
-        Vecteur opposite() const;
-        Vecteur unit() const;
->>>>>>> 7efc4d8f6c67b5261275fd49325eafb7d651c3ab
+    // Méthodes mathématiques
+        double norm() const;
+        double norm2() const;
 
     private:
-        std::vector<double> coordonees_;
+        std::vector<double> coordonnees_;
 };
+
+// operateur affichage
+std::ostream& operator<<(std::ostream&, Vecteur const&);
+// operateur de comparaison
+const bool operator==(Vecteur const&, Vecteur const&);
+const bool operator!=(Vecteur const&, Vecteur const&);
+// operations qui permettent de définir un corps
+const Vecteur operator+(Vecteur const&, Vecteur const&);
+const Vecteur operator*(double, Vecteur const&);
+// produit scalaire et vectoriel
+const double operator*(Vecteur const&, Vecteur const&);
+const Vecteur operator^(Vecteur const&, Vecteur const&);
+// operations complémentaires à la structure du corps
+const Vecteur operator*(Vecteur const&, double); // commutativité
+const Vecteur operator-(Vecteur const&); // opposé
+const Vecteur operator-(Vecteur const&, Vecteur const&); // soustraction
+// operateur unaire
+const Vecteur operator~(Vecteur const&);
