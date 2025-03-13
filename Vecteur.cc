@@ -5,7 +5,6 @@
 #include "Vecteur.h"
 
 using namespace std;
-typedef unsigned int uint;
 
 //==============================================
 // Constructor
@@ -16,7 +15,7 @@ Vecteur::Vecteur(vector<double> const& coord)
 //==============================================
 // Setter definition
 //==============================================
-void Vecteur::set_coord(uint index, double value)
+void Vecteur::set_coord(unsigned int index, double value)
 {
     coordonees_[index] = value;
 }
@@ -35,7 +34,7 @@ void Vecteur::display() const
     cout<<endl;
 }
 
-bool Vecteur::compare(Vecteur const& v, uint precision) const
+bool Vecteur::compare(Vecteur const& v, double precision) const
 {
     bool same(false);
     size_t dim = coordonees_.size();
@@ -103,7 +102,11 @@ Vecteur Vecteur::mult(double scalaire) const
     return Vecteur(new_coord);
 }
 
+<<<<<<< HEAD:Vecteur.cpp
 double Vecteur::prod_scalaire(Vecteur const& v) const
+=======
+double Vecteur::dot_prod(Vecteur const& v) const
+>>>>>>> 7efc4d8f6c67b5261275fd49325eafb7d651c3ab:Vecteur.cc
 {
     size_t dimMin(min(coordonees_.size(), v.coordonees_.size()));
     double result(0.);
@@ -113,7 +116,7 @@ double Vecteur::prod_scalaire(Vecteur const& v) const
     return result;
 }
 
-Vecteur Vecteur::vect_prod(Vecteur const& v) const
+Vecteur Vecteur::cross_prod(Vecteur const& v) const
 {
     if(coordonees_.size() == 3 && v.coordonees_.size() == 3)
     {
@@ -149,7 +152,7 @@ Vecteur Vecteur::oppose() const
     return mult(-1);
 }
 
-Vecteur Vecteur::unitaire() const
+Vecteur Vecteur::unit() const
 {
     vector<double> new_coord(coordonees_);
     double norme_ = norme();
