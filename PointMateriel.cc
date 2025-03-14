@@ -18,12 +18,12 @@ PointMateriel::PointMateriel(double m,  Vecteur pos,
 //==============================================
 // Setter
 //==============================================
-void PointMateriel::set_position(Vecteur const& pos)
+void PointMateriel::set_etat(Vecteur const& pos)
 {
     etat = pos;
 }
 
-void PointMateriel::set_vitesse(Vecteur const& v)
+void PointMateriel::set_derivee_etat(Vecteur const& v)
 {
     derivee_etat = v;
 }
@@ -31,12 +31,17 @@ void PointMateriel::set_vitesse(Vecteur const& v)
 //==============================================
 // Getter
 //==============================================
-Vecteur PointMateriel::get_position() const
+double PointMateriel::get_masse() const
+{
+    return masse;
+}
+
+Vecteur PointMateriel::get_etat() const
 {
     return etat;
 }
 
-Vecteur PointMateriel::get_vitesse() const
+Vecteur PointMateriel::get_derivee_etat() const
 {
     return derivee_etat;
 }
@@ -54,7 +59,21 @@ Vecteur PointMateriel::vitesse() const
     return derivee_etat;
 }
 
-double PointMateriel::evolution(double temps)
+Vecteur PointMateriel::evolution(double temps)
 {
-    return temps;
+    return (1/masse)*ChampForces;
+}
+
+//==============================================
+// Surcharge opérateurs externes
+//==============================================
+ostream& operator<<(ostream& sortie, PointMateriel const& p)
+{
+    sortie<<"Masse : "<<p.get_masse()<<"Kg"<<endl;
+    sortie<<"Position : ";
+    for(size_t i(0); i<3; i++) sortie<<p.position().get_coord(i)<<" ";
+    sortie<<"\nVitesse : ";
+    for(size_t i(0); i<3; i++) sortie<<p.vitesse().get_coord(i)<<" ";
+    
+    return sortie;
 }

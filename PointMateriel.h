@@ -10,15 +10,16 @@ class PointMateriel{
         PointMateriel();
         PointMateriel(double, Vecteur, Vecteur, Vecteur);
     // Setter
-        void set_position(Vecteur const&);
-        void set_vitesse(Vecteur const&);
+        void set_etat(Vecteur const&);
+        void set_derivee_etat(Vecteur const&);
     // Getter
-        Vecteur get_position() const; 
-        Vecteur get_vitesse() const;
+        double get_masse() const;
+        Vecteur get_etat() const; 
+        Vecteur get_derivee_etat() const;
     // Autres méthodes
         Vecteur position() const;
         Vecteur vitesse() const;
-        double evolution(double);
+        Vecteur evolution(double);
 
     private:
         double masse;
@@ -26,3 +27,5 @@ class PointMateriel{
         Vecteur derivee_etat;
         Vecteur ChampForces;
 };
+
+std::ostream& operator<<(std::ostream&, PointMateriel const&);
