@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Vecteur.h"
+
 namespace constantes {
-    inline constexpr Vecteur g(0.0, 0.0, -9.81); 
+    inline const Vecteur g(0.0, 0.0, -9.81); 
 }    

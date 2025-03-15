@@ -3,16 +3,20 @@
 #include <iostream>
 #include "Vecteur.h"
 #include "PointMateriel.h"
-#include "constantes.h"
+#include "Constantes.h"
 
 class GravitationConstante
 {
     public : 
-        GravitationConstante(Vecteur=Vecteur(0., 0., -9.81));
-        Vecteur force(PointMateriel point, double temps=0);
+    // Constructeur
+        GravitationConstante(Vecteur=constantes::g);
+    // Getter
+        Vecteur get_champs() const;
+    // Méthode
+        Vecteur force(PointMateriel const& point, double temps=0.) const;
 
     private:
-        Vecteur gravitation();
+        Vecteur gravitation;
 };
 
 std::ostream& operator<<(std::ostream&, GravitationConstante const&);

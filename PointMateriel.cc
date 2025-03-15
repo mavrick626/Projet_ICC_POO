@@ -7,17 +7,19 @@ using namespace std;
 //==============================================
 // Constructeurs
 //==============================================
-PointMateriel::PointMateriel()
-: PointMateriel(0., Vecteur(0., 0., 0.) ,Vecteur(0., 0., 0.), Vecteur(0., 0., 0.)) {}
-
 PointMateriel::PointMateriel(double m,  Vecteur pos,
     Vecteur v, Vecteur f)
 : masse(m), etat(pos), 
-    derivee_etat(v), ChampForces(f) {}
+    derivee_etat(v), champForces(f) {}
 
 //==============================================
 // Setter
 //==============================================
+void PointMateriel::set_masse(double m)
+{
+    masse = m;
+}
+
 void PointMateriel::set_etat(Vecteur const& pos)
 {
     etat = pos;
@@ -26,6 +28,11 @@ void PointMateriel::set_etat(Vecteur const& pos)
 void PointMateriel::set_derivee_etat(Vecteur const& v)
 {
     derivee_etat = v;
+}
+
+void PointMateriel::set_champForce(Vecteur const& f)
+{
+    champForces = f;
 }
 
 //==============================================
@@ -46,6 +53,11 @@ Vecteur PointMateriel::get_derivee_etat() const
     return derivee_etat;
 }
 
+Vecteur PointMateriel::get_champForces() const
+{
+    return champForces;
+}
+
 //==============================================
 // Autres méthodes
 //==============================================
@@ -59,9 +71,9 @@ Vecteur PointMateriel::vitesse() const
     return derivee_etat;
 }
 
-Vecteur PointMateriel::evolution(double temps)
+Vecteur PointMateriel::evolution(double temps) const
 {
-    return (1/masse)*ChampForces;
+    return (1/masse)*champForces;
 }
 
 //==============================================
@@ -69,11 +81,19 @@ Vecteur PointMateriel::evolution(double temps)
 //==============================================
 ostream& operator<<(ostream& sortie, PointMateriel const& p)
 {
-    sortie<<"Masse : "<<p.get_masse()<<"Kg"<<endl;
+    sortie<<"Masse : "<<p.get_masse()<<" kg"<<endl;
+
     sortie<<"Position : ";
-    for(size_t i(0); i<3; i++) sortie<<p.position().get_coord(i)<<" ";
+    Vecteur pos(p.position());
+    for(size_t i(0); i<3; i++) sortie<<pos.get_coord(i)<<" ";
+    
     sortie<<"\nVitesse : ";
-    for(size_t i(0); i<3; i++) sortie<<p.vitesse().get_coord(i)<<" ";
+    Vecteur v(p.vitesse());
+    for(size_t i(0); i<3; i++) sortie<<v.get_coord(i)<<" ";
+
+    sortie<<"\nForce : ";
+    Vecteur f(p.get_champForces());
+    for(size_t i(0); i<3; i++) sortie<<f.get_coord(i)<<" ";
     
     return sortie;
 }
