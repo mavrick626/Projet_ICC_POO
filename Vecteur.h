@@ -8,12 +8,12 @@ class Vecteur
     public:
     // Constructeurs
         explicit Vecteur(unsigned int dimension);
-        Vecteur(double, double, double);
+        Vecteur(double x, double y, double z);
         Vecteur(std::vector<double> const&);
 
     // Getter
-        double get_coord(unsigned int) const;
-        size_t dimension() const;
+    double get_coord(unsigned int) const;
+    size_t dimension() const;
 
     // Setter
         void set_coord(unsigned int, double);

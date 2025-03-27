@@ -1,12 +1,14 @@
 #include <iostream>
 #include "GravitationConstante.h"
+// Inclusion du vrai PointMateriel
+#include "PointMateriel.h"
 
 using namespace std;
 
 //==============================================
 // Constructeur
 //==============================================
-GravitationConstante::GravitationConstante(Vecteur forces)
+GravitationConstante::GravitationConstante(Vecteur const& forces)
 : gravitation(forces) {}
 
 //==============================================
@@ -16,12 +18,13 @@ Vecteur GravitationConstante::get_champs() const
 {
     return gravitation;
 }
+
 //==============================================
 // Méthodes
 //==============================================
-Vecteur GravitationConstante::force(PointMateriel const& p, double t) const
+Vecteur GravitationConstante::force(PointMateriel* const p, double t) const
 {
-    return p.get_masse()*gravitation;
+    return ((*p).get_masse())*gravitation;
 }
 
 //==============================================
@@ -32,8 +35,7 @@ ostream& operator<<(ostream& sortie, GravitationConstante const& champs)
     sortie<<"Champs de force : "<<endl;
     sortie<<"Vecteur : ";
     Vecteur force(champs.get_champs());
-    for(size_t i(0); i<3; i++) sortie<<force.get_coord(i)<<" ";
-    sortie<<"\nIntensite : "<<force.norme()<<" N";
+    sortie<<force;
 
     return sortie;
 }
