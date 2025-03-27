@@ -29,6 +29,6 @@ class PointMateriel{
         Vecteur etat;
         Vecteur derivee_etat;
         GravitationConstante* champForces;
-};
+    };
 
 std::ostream& operator<<(std::ostream&, PointMateriel const&);
