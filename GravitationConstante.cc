@@ -1,7 +1,5 @@
 #include <iostream>
 #include "GravitationConstante.h"
-// Inclusion du vrai PointMateriel
-#include "PointMateriel.h"
 
 using namespace std;
 
@@ -22,9 +20,9 @@ Vecteur GravitationConstante::get_champs() const
 //==============================================
 // Méthodes
 //==============================================
-Vecteur GravitationConstante::force(PointMateriel* const p, double t) const
+Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const
 {
-    return ((*p).get_masse())*gravitation;
+    return p.get_masse()*gravitation;
 }
 
 //==============================================

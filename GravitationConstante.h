@@ -1,13 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include "Vecteur.h"
+#include "ChampsForce.h"
 #include "Constantes.h"
+#include "ObjetPhysique.h"
 
-// Proto class temporaire
-class PointMateriel;
-
-class GravitationConstante
+class GravitationConstante : public ChampsForce
 {
     public : 
     // Constructeur
@@ -15,7 +13,7 @@ class GravitationConstante
     // Getter
         Vecteur get_champs() const;
     // Méthode
-        Vecteur force(PointMateriel* const point, double temps=0.) const;
+        virtual Vecteur force(ObjetPhysique const& point, double temps=0.) const override;
 
     private:
         Vecteur gravitation;

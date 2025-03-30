@@ -6,15 +6,18 @@
 class ObjetMobile 
 {
     public:
+    // Constructeur
+        ObjetMobile(Vecteur const& E, Vecteur const& E_point);
+    // Getter
         Vecteur get_E() const;
         Vecteur get_E_point() const;
-
-        void set_E(Vecteur E);
-        void set_E_point(Vecteur E_point);
-
-        virtual Vecteur evolution(double t) const; //retourne le vecteur E''
+    // Setter
+        void set_E(Vecteur const& E);
+        void set_E_point(Vecteur const& E_point);
+    // Autres méthodes
+        virtual Vecteur evolution(double t) const = 0; //retourne le vecteur E''
     
-    private:
+    protected:
         Vecteur E;
         Vecteur E_point;
 
