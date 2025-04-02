@@ -22,6 +22,7 @@ Vecteur GravitationConstante::get_champs() const
 //==============================================
 Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const
 {
+    // p = m*g
     return p.get_masse()*gravitation;
 }
 
