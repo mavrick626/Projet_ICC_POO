@@ -3,13 +3,13 @@
 #include <iostream>
 #include "ObjetMobile.h"
 #include "Contrainte.h"
-#include "ChampsForce.h"
+#include "ChampForce.h"
 
 class ObjetPhysique : public ObjetMobile
 {
     public :
         ObjetPhysique(Vecteur const& e, Vecteur const& e_point, double m,
-            ChampsForce* champ, Contrainte* cont, unsigned int dim_esp_ph=3);
+            ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph=3);
         ~ObjetPhysique();
 
         double get_masse() const;
@@ -20,7 +20,7 @@ class ObjetPhysique : public ObjetMobile
 
     protected :
         Contrainte* contraintes;
-        ChampsForce* champs;
+        ChampForce* champs;
         double masse;
         unsigned int dim_espace_physique;
 

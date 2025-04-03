@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ChampsForce.h"
+#include "ChampForce.h"
 #include "ObjetPhysique.h"
 
 class ForceCentrale : public ChampsForce

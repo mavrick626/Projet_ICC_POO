@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "ChampsForce.h"
+#include "ChampForce.h"
 #include "Constantes.h"
 #include "ObjetPhysique.h"
 

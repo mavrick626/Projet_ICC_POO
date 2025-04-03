@@ -6,7 +6,7 @@ using namespace std;
 //==============================================
 // Constructeurs
 //==============================================
-PointMateriel::PointMateriel(ChampsForce* gc, Contrainte* cont, double m,
+PointMateriel::PointMateriel(ChampForce* gc, Contrainte* cont, double m,
     Vecteur const& p, Vecteur const& v)
 : ObjetPhysique(p, v, m, gc, cont) {}
 

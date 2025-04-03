@@ -7,7 +7,7 @@ using namespace std;
 // Constructeur
 //==============================================
 ObjetPhysique::ObjetPhysique(Vecteur const& e, Vecteur const& e_point, double m, 
-    ChampsForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
+    ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
 : ObjetMobile(e, e_point), masse(m),
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
 
