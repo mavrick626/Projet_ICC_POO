@@ -3,15 +3,15 @@
 //==============================================
 // Constructeur
 //==============================================
-ForceCentrale::ForceCentrale(ObjetPhysique* pt_obj)
-: centre(pt_obj) {}
+ForceCentrale::ForceCentrale(ObjetPhysique const& ref_obj)
+: centre(ref_obj) {}
 
 //==============================================
 // Méthode
 //==============================================
 Vecteur ForceCentrale::quadratique_inverse(ObjetPhysique const& autre) const
 {
-    Vecteur pos1(centre->position());
+    Vecteur pos1(centre.position());
     Vecteur pos2(autre.position());
     Vecteur quadra_inv(pos1.dimension());
 

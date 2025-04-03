@@ -16,7 +16,7 @@ int main()
 
     Libre l;
     PointMateriel terre(nullptr, &l, Mt, Vecteur(0,0,-Rt), Vecteur(0,0,0));
-    ChampNewtonien gravite(&terre);
+    ChampNewtonien gravite(terre);
 
     PointMateriel pomme(&gravite, &l, .1, Vecteur(0,0,10), Vecteur(0,0,0));
 

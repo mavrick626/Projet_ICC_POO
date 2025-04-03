@@ -6,10 +6,10 @@
 class ForceCentrale : public ChampForce
 {
     public :
-        ForceCentrale(ObjetPhysique* pt_obj);
-        virtual Vecteur force(ObjetPhysique const& obj, double t=0.) const = 0;
+        ForceCentrale(ObjetPhysique const&);
+        virtual Vecteur force(ObjetPhysique const&, double t=0.) const = 0;
 
     protected :
-        ObjetPhysique* centre;
+        ObjetPhysique const& centre;
         Vecteur quadratique_inverse(ObjetPhysique const& autre) const;
 };

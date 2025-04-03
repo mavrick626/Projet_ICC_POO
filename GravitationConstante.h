@@ -5,7 +5,7 @@
 #include "Constantes.h"
 #include "ObjetPhysique.h"
 
-class GravitationConstante : public ChampsForce
+class GravitationConstante : public ChampForce
 {
     public : 
     // Constructeur
