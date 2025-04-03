@@ -3,7 +3,7 @@
 #include "ChampForce.h"
 #include "ObjetPhysique.h"
 
-class ForceCentrale : public ChampsForce
+class ForceCentrale : public ChampForce
 {
     public :
         ForceCentrale(ObjetPhysique* pt_obj);
