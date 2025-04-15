@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ForceCentrale.h"
+#include "ObjetPhysique.h"
+#include "Vecteur.h"
 #include "constantes.h"
 
 class ChampNewtonien : public ForceCentrale

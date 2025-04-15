@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "Vecteur.h"
 #include "ChampForce.h"
 #include "Constantes.h"
 #include "ObjetPhysique.h"

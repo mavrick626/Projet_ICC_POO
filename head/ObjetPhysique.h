@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include "Vecteur.h"
 #include "ObjetMobile.h"
 #include "Contrainte.h"
 #include "ChampForce.h"
@@ -11,7 +12,7 @@ class ObjetPhysique : public ObjetMobile
     public :
         ObjetPhysique(std::string const& nom, Vecteur const& e, Vecteur const& e_point, double m,
             ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph=3);
-        ~ObjetPhysique();
+        virtual ~ObjetPhysique() override;
 
         double get_masse() const;
         std::string get_nom() const;
@@ -26,10 +27,10 @@ class ObjetPhysique : public ObjetMobile
         Vecteur vitesse() const;
 
     protected :
-        Contrainte* contraintes;
-        ChampForce* champs;
-        double masse;
         std::string nom;
+        double masse;
+        ChampForce* champs;
+        Contrainte* contraintes;
         unsigned int dim_espace_physique;
 };
 

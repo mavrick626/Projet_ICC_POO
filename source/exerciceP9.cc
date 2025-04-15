@@ -1,9 +1,11 @@
 #include <iostream>
-#include "PointMateriel.h"
+
+#include "IntegrateurEulerCromer.h"
 #include "Libre.h"
 #include "ChampNewtonien.h"
-#include "IntegrateurEulerCromer.h"
+#include "PointMateriel.h"
 #include "Systeme.h"
+#include "TextViewer.h"
 
 using namespace std;
 
@@ -13,24 +15,7 @@ int main()
     
     double Rt(6371e3);
     double Mt(5.972e24);
-    /*
-    IntegrateurEulerCromer intEC(dt);
 
-    Libre l;
-    PointMateriel terre("Terre", nullptr, &l, Mt, Vecteur(0,0,-Rt), Vecteur(0,0,0));
-    ChampNewtonien gravite(terre);
-
-    PointMateriel pomme("Pomme", &gravite, &l, .1, Vecteur(0,0,10), Vecteur(0,0,0));
-
-    cout<<0*dt<<"  "<<pomme.position().get_coord(2)<<endl;
-    int i(1);
-    while(pomme.position().get_coord(2)>1e-9)
-    {
-        intEC.integre(pomme, i*dt);
-        i++;
-    }
-    cout<<"t = "<<i*dt<<endl;
-    */
    Systeme sys;
 
     unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(IntegrateurEulerCromer(dt)));
@@ -52,17 +37,19 @@ int main()
     sys.ajout_objet(move(terre));
     sys.ajout_objet(move(pomme));
 
-    sys.att_cont(0, 0);
+    sys.attribuer_cont(0, 0);
 
-    sys.att_cont(0, 1);
-    sys.att_champ(0, 1);
+    sys.attribuer_cont(0, 1);
+    sys.attribuer_champ(0, 1);
 
-    cout<<sys<<endl;
+    TextViewer viewer(cout);
+
+    viewer.dessine(sys);
 
     for(int i(0); i<1400; i++)
     {
         sys.evolue();
-        if((i+1)%100 == 0) cout<<sys<<endl;
+        if((i+1)%100 == 0) viewer.dessine(sys);
     }
 
     return 0;

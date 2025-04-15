@@ -23,6 +23,7 @@ Vecteur PointMateriel::evolution(double temps) const
 //==============================================
 ostream& operator<<(ostream& sortie, PointMateriel const& p)
 {
+    sortie<<p.get_nom()<<endl;
     sortie<<p;
     
     return sortie;

@@ -34,7 +34,7 @@ void Systeme::ajout_objet(unique_ptr<ObjetPhysique> && obj)
     objets.push_back(move(obj));
 }
 
-void Systeme::att_cont(size_t i, size_t j)
+void Systeme::attribuer_cont(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
@@ -42,7 +42,7 @@ void Systeme::att_cont(size_t i, size_t j)
     }
 }
 
-void Systeme::att_champ(size_t i, size_t j)
+void Systeme::attribuer_champ(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
@@ -68,6 +68,12 @@ ostream& Systeme::affiche(ostream& sortie) const
         sortie<<"Objet no "<<i+1<<" : "<<endl;
         sortie<<*objets[i]<<endl;
     }
+/*
+    for(size_t i(0); i<contraintes.size(); i++)
+    {
+        sortie<<"contrainte no "<<i+1<<" : ";
+        sortie<<*contraintes[i]<<endl;
+    }*/
     sortie<<"///////////////////////////////////////////////////"<<endl;
 
     return sortie;

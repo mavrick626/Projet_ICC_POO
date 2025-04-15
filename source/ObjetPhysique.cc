@@ -6,15 +6,15 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-ObjetPhysique::ObjetPhysique(string const& nom, Vecteur const& e, Vecteur const& e_point, double m, 
+ObjetPhysique::ObjetPhysique(string const& n, Vecteur const& e, Vecteur const& e_point, double m, 
     ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
-: nom(nom), ObjetMobile(e, e_point), masse(m),
+: ObjetMobile(e, e_point), nom(n), masse(m),
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
 
 //==============================================
 // Déstructeur
 //==============================================
-ObjetPhysique::~ObjetPhysique()
+ObjetPhysique::~ObjetPhysique() 
 {
     // Supression des pointeurs
     delete champs;

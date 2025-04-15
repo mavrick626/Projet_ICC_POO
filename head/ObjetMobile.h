@@ -8,6 +8,7 @@ class ObjetMobile
     public:
     // Constructeur
         ObjetMobile(Vecteur const& E, Vecteur const& E_point);
+        virtual ~ObjetMobile() = default;
     // Getter
         Vecteur get_E() const;
         Vecteur get_E_point() const;

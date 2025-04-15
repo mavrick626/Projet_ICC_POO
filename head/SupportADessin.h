@@ -1,6 +1,7 @@
 #pragma once
 
-#include "PointMateriel.h"
+class PointMateriel;
+class Systeme;
 
 class SupportADessin
 {
@@ -9,4 +10,5 @@ class SupportADessin
         // on suppose ici que les supports ne seront ni copiés ni déplacés
     
         virtual void dessine(PointMateriel const&) = 0;
+        virtual void dessine(Systeme const&) = 0;
 };

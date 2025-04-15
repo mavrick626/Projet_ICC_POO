@@ -3,37 +3,34 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <initializer_list>
 
+#include "SupportADessin.h"
 #include "Dessinable.h"
 #include "Integrateur.h"
 #include "ChampForce.h"
 #include "Contrainte.h"
 #include "ObjetPhysique.h"
 
-class Systeme 
+class Systeme : public Dessinable
 {
     public :
     // Constructeurs
         Systeme();
-    /*    Systeme(std::unique_ptr<Integrateur> && , 
-            std::initializer_list<std::unique_ptr<ChampForce> &&>,
-            std::initializer_list<std::unique_ptr<Contrainte> &&>, 
-            std::initializer_list<std::unique_ptr<ObjetPhysique> &&>, 
-            double t=0.);*/
+        Systeme(Systeme const&) = delete; // interdiction de copier le système
     
-    // Méthodes modif du système
+    // Méthodes ajout éléments
         void ajout_inte(std::unique_ptr<Integrateur> &&);
         void ajout_champ(std::unique_ptr<ChampForce> &&);
         void ajout_contrainte(std::unique_ptr<Contrainte> &&);
         void ajout_objet(std::unique_ptr<ObjetPhysique> &&);
-
-        void att_cont(size_t, size_t);
-        void att_champ(size_t, size_t);
+    // Méthodes attributation
+        void attribuer_cont(size_t, size_t);
+        void attribuer_champ(size_t, size_t);
 
         void evolue();
-
         std::ostream& affiche(std::ostream&) const;
+        virtual void dessine_sur(SupportADessin& support) override
+        { support.dessine(*this); }
 
     private :
         std::unique_ptr<Integrateur> integrateur;

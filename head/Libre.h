@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "Vecteur.h"
 #include "ObjetPhysique.h"
 #include "Contrainte.h"
@@ -20,4 +21,7 @@ class Libre : public Contrainte
 
         virtual Vecteur vitesse(ObjetPhysique const& obj) const override
         { return obj.get_E_point(); }
+
+        virtual void affiche(std::ostream& sortie) const override
+        { sortie<<"contrainte libre"; }
 };

@@ -1,22 +1,33 @@
+# Répertoires
+SRCDIR = source
+INCDIR = head
+BUILDDIR = build
+
+# Chemins fichiers
+EXEC = exerciceP9
+SRC = $(wildcard $(SRCDIR)/*.cc)
+OBJ = $(SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
+
+# Compilateur
 CC = g++
-CXXFLAGS = -std=c++17 -pedantic -Wall
+CXXFLAGS = -std=c++17 -pedantic -Wall -I$(INCDIR)
 
-EXEC = testPomme
-SRC = $(wildcard *.cc)
-OBJ = $(SRC:.cc=.o)
-
+# Cible
 all: $(EXEC)
 
-%.o : %.cc %.h
-	$(CC) -c $< -o $@
+# Compilation fichiers sources
+$(BUILDDIR)/%.o : $(SRCDIR)/%.cc 
+	$(CC) -c $< -o $@ $(CXXFLAGS)
 
+# Edition de liens, création exécutable
 $(EXEC) : $(OBJ)
 	$(CC) $^ -o $@
 
-# remove all file.o
+# Suppression tous file.o
 clean:
-	del /Q *.o
+	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 
-# remove all file.o + file.exe
+# Supperssoin tous file.o + file.exe
 cleanall:
-	del /Q *.o, *.exe
+	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
+	if exist $(EXEC).exe del /Q $(EXEC).exe
