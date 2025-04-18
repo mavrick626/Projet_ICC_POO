@@ -4,7 +4,7 @@ INCDIR = head
 BUILDDIR = build
 
 # Chemins fichiers
-EXEC = exerciceP9
+EXEC = exerciceP9-S3-1
 SRC = $(wildcard $(SRCDIR)/*.cc)
 OBJ = $(SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
 
@@ -23,11 +23,11 @@ $(BUILDDIR)/%.o : $(SRCDIR)/%.cc
 $(EXEC) : $(OBJ)
 	$(CC) $^ -o $@
 
-# Suppression tous file.o
+# Supression tous file.o
 clean:
 	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 
-# Supperssoin tous file.o + file.exe
+# Supressoin tous file.o + file.exe
 cleanall:
 	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 	if exist $(EXEC).exe del /Q $(EXEC).exe

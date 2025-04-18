@@ -1,7 +1,6 @@
 #include "Systeme.h"
 #include <iostream>
 #include <memory>
-#include <initializer_list>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ Systeme::Systeme()
 : integrateur(nullptr), temps(0.) {}
 
 //==============================================
-// Méthodes
+// Méthodes ajout éléments
 //==============================================
 void Systeme::ajout_inte(unique_ptr<Integrateur> && inte)
 {
@@ -34,6 +33,9 @@ void Systeme::ajout_objet(unique_ptr<ObjetPhysique> && obj)
     objets.push_back(move(obj));
 }
 
+//==============================================
+// Méthodes attribution champ/contrainte
+//==============================================
 void Systeme::attribuer_cont(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
@@ -50,6 +52,9 @@ void Systeme::attribuer_champ(size_t i, size_t j)
     }
 }
 
+//==============================================
+// Méthodes
+//==============================================
 void Systeme::evolue()
 {
     for(auto& pt_obj : objets)
@@ -68,12 +73,22 @@ ostream& Systeme::affiche(ostream& sortie) const
         sortie<<"Objet no "<<i+1<<" : "<<endl;
         sortie<<*objets[i]<<endl;
     }
-/*
+    sortie<<endl;
+
+    for(size_t i(0); i<champs.size(); i++)
+    {
+        sortie<<"Champ no "<<i+1<<" : ";
+        sortie<<*champs[i]<<endl;
+    }
+    sortie<<endl;
+
     for(size_t i(0); i<contraintes.size(); i++)
     {
-        sortie<<"contrainte no "<<i+1<<" : ";
+        sortie<<"Contrainte no "<<i+1<<" : ";
         sortie<<*contraintes[i]<<endl;
-    }*/
+    }
+    sortie<<endl;
+
     sortie<<"///////////////////////////////////////////////////"<<endl;
 
     return sortie;

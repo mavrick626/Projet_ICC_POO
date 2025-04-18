@@ -16,3 +16,11 @@ class Contrainte
         virtual void affiche(std::ostream&)const = 0;
   
 };
+
+/* 'inline' permet de correctement définir une fonction dans un .h
+    pour ne pas avoir à créer un .cc juste pour ça */
+inline std::ostream& operator<<(std::ostream& sortie, Contrainte const& cont)
+{
+    cont.affiche(sortie);
+    return sortie;
+}

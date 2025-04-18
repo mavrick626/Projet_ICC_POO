@@ -1,4 +1,7 @@
+#include <iostream>
 #include "ForceCentrale.h"
+
+using namespace std;
 
 //==============================================
 // Constructeur
@@ -9,6 +12,11 @@ ForceCentrale::ForceCentrale(ObjetPhysique const& ref_obj)
 //==============================================
 // Méthode
 //==============================================
+void ForceCentrale::afficher(ostream& sortie) const
+{
+    sortie<<"centre : "<<centre.position()<<", massse : "<<centre.get_masse();
+}
+
 Vecteur ForceCentrale::quadratique_inverse(ObjetPhysique const& autre) const
 {
     Vecteur pos1(centre.position());

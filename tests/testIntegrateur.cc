@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "PointMateriel.h"
 #include "GravitationConstante.h"
 #include "IntegrateurEulerCromer.h"
@@ -16,7 +17,7 @@ int main()
     // Contraintes sur l'objet
     Libre l;
     // Objet
-    PointMateriel pomme(&gravite, &l, .127, Vecteur(0, 0, 1) ,Vecteur(0, 1, 2));
+    PointMateriel pomme("pomme", .127,&gravite, &l, Vecteur(0, 0, 1) ,Vecteur(0, 1, 2));
     cout<<pomme<<endl;
     cout<<"==========================="<<endl;
 

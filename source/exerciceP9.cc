@@ -16,33 +16,35 @@ int main()
     double Rt(6371e3);
     double Mt(5.972e24);
 
-   Systeme sys;
+    TextViewer viewer(cout);
+    Systeme sys;
 
     unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(IntegrateurEulerCromer(dt)));
     unique_ptr<Libre> libre(make_unique<Libre>(Libre()));
 
     unique_ptr<ObjetPhysique> terre(make_unique<PointMateriel>(
-        PointMateriel("Terre", nullptr, nullptr, Mt, Vecteur(0, 0, -Rt))));
+        PointMateriel("Terre", Mt, nullptr, nullptr, Vecteur(0, 0, -Rt))));
 
     unique_ptr<ObjetPhysique> pomme(make_unique<PointMateriel>(
-        PointMateriel("Pomme", nullptr, nullptr, 0.1, Vecteur(0,0,10))));
+        PointMateriel("Pomme", 0.1, nullptr, nullptr, Vecteur(0,0,10))));
     
-    unique_ptr<ChampForce> ch(make_unique<ChampNewtonien>(ChampNewtonien(*terre)));
+    unique_ptr<ChampForce> ch_t(make_unique<ChampNewtonien>(ChampNewtonien(*terre)));
+    unique_ptr<ChampForce> ch_p(make_unique<ChampNewtonien>(ChampNewtonien(*pomme)));
 
     sys.ajout_inte(move(inte));
 
     sys.ajout_contrainte(move(libre));
-    sys.ajout_champ(move(ch));
+    sys.ajout_champ(move(ch_t));
+    sys.ajout_champ(move(ch_p));
 
     sys.ajout_objet(move(terre));
     sys.ajout_objet(move(pomme));
 
-    sys.attribuer_cont(0, 0);
+    sys.attribuer_cont(0, 0); // contrainte 0 à obj 0
+    sys.attribuer_champ(1, 0); // champ 1 à obj 0
 
     sys.attribuer_cont(0, 1);
     sys.attribuer_champ(0, 1);
-
-    TextViewer viewer(cout);
 
     viewer.dessine(sys);
 

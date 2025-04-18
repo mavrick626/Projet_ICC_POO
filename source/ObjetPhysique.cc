@@ -6,7 +6,7 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-ObjetPhysique::ObjetPhysique(string const& n, Vecteur const& e, Vecteur const& e_point, double m, 
+ObjetPhysique::ObjetPhysique(string const& n,  double m, Vecteur const& e, Vecteur const& e_point,
     ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
 : ObjetMobile(e, e_point), nom(n), masse(m),
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
@@ -42,11 +42,6 @@ ChampForce* ObjetPhysique::get_champs() const
 //==============================================
 // Setter
 //==============================================
-void ObjetPhysique::set_nom(string const& n)
-{
-    nom = n;
-}
-
 void ObjetPhysique::set_contrainte(Contrainte* pt_cont)
 {
     contraintes = pt_cont;
@@ -75,17 +70,21 @@ Vecteur ObjetPhysique::vitesse() const
     return contraintes->vitesse(*this);
 }
 
+void ObjetPhysique::afficher(ostream& sortie) const
+{
+    sortie<<nom<<endl;
+    ObjetMobile::afficher(sortie); sortie<<endl;
+    sortie<<position()<<" # position physique"<<endl;
+    sortie<<vitesse()<<" # vitesse physique"<<endl;
+    sortie<<masse<<" # masse"<<endl;
+    sortie<<"contrainte : "<<*contraintes;
+}
+
 //==============================================
 // Surhcarge opérateurs externes
 //==============================================
 ostream& operator<<(ostream& sortie, ObjetPhysique const& obj)
 {
-    sortie<<obj.get_nom()<<endl;
-    sortie<<obj.get_E()<<" # parametre"<<endl;
-    sortie<<obj.get_E_point()<<" # vitesse"<<endl;
-    sortie<<obj.position()<<" # position physique"<<endl;
-    sortie<<obj.vitesse()<<" # vitesse physique"<<endl;
-    sortie<<obj.get_masse()<<" # masse"<<endl;
-
+    obj.afficher(sortie);
     return sortie;
 }

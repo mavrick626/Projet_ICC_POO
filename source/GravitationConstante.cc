@@ -26,15 +26,8 @@ Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const
     return p.get_masse()*gravitation;
 }
 
-//==============================================
-// Surcharge opérateurs externes
-//==============================================
-ostream& operator<<(ostream& sortie, GravitationConstante const& champs)
+void GravitationConstante::afficher(ostream& sortie) const
 {
-    sortie<<"Champs de force : "<<endl;
-    sortie<<"Vecteur : ";
-    Vecteur force(champs.get_champs());
-    sortie<<force;
-
-    return sortie;
+    sortie<<"Champ gravitationnel : ";
+    sortie<<gravitation;
 }

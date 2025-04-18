@@ -6,25 +6,19 @@ using namespace std;
 //==============================================
 // Constructeurs
 //==============================================
-PointMateriel::PointMateriel(string const& n,ChampForce* gc, Contrainte* cont, double m,
-    Vecteur const& p, Vecteur const& v)
-: ObjetPhysique(n, p, v, m, gc, cont) {}
+PointMateriel::PointMateriel(string const& n, double m,ChampForce* gc, Contrainte* cont,
+    Vecteur const& p, Vecteur const& v, unsigned int dim_esp_ph)
+: ObjetPhysique(n, m, p, v, gc, cont, dim_esp_ph) {}
 
 //==============================================
 // Autres méthodes
 //==============================================
 Vecteur PointMateriel::evolution(double temps) const
 {
-    return champs->force(*this) * (1/masse);
+    return champs->force(*this) * (1/masse); // a = F/m
 }
 
-//==============================================
-// Surcharge opérateurs externes
-//==============================================
-ostream& operator<<(ostream& sortie, PointMateriel const& p)
+void PointMateriel::afficher(ostream& sortie) const
 {
-    sortie<<p.get_nom()<<endl;
-    sortie<<p;
-    
-    return sortie;
+    ObjetPhysique::afficher(sortie);
 }

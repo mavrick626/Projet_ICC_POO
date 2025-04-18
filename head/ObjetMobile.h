@@ -6,7 +6,7 @@
 class ObjetMobile 
 {
     public:
-    // Constructeur
+    // Constructeur/Destructeur
         ObjetMobile(Vecteur const& E, Vecteur const& E_point);
         virtual ~ObjetMobile() = default;
     // Getter
@@ -17,6 +17,7 @@ class ObjetMobile
         void set_E_point(Vecteur const& E_point);
     // Autres méthodes
         virtual Vecteur evolution(double t) const = 0; //retourne le vecteur E''
+        virtual void afficher(std::ostream&) const;
     
     protected:
         Vecteur E;

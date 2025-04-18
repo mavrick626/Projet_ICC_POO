@@ -36,15 +36,19 @@ void ObjetMobile::set_E_point(Vecteur const& new_E_point)
 }
 
 //==============================================
+// Méthode
+//==============================================
+void ObjetMobile::afficher(ostream& sortie) const
+{
+    sortie<<E<<" # parametre"<<endl;
+    sortie<<E_point<<" # vitesse";
+}
+
+//==============================================
 // Surcharge opérateurs
 //==============================================
 ostream& operator<<(ostream& sortie, ObjetMobile const& obj)
 {
-    sortie<<"Etat : ";
-    sortie<<obj.get_E()<<endl;
-
-    sortie<<"Derivee etat : ";
-    sortie<<obj.get_E_point();
-
+    obj.afficher(sortie);
     return sortie;
 }
