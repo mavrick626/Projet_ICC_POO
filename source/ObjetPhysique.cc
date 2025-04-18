@@ -12,16 +12,6 @@ ObjetPhysique::ObjetPhysique(string const& n,  double m, Vecteur const& e, Vecte
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
 
 //==============================================
-// Déstructeur
-//==============================================
-ObjetPhysique::~ObjetPhysique() 
-{
-    // Supression des pointeurs
-    delete champs;
-    delete contraintes;
-}
-
-//==============================================
 // Getter
 //==============================================
 double ObjetPhysique::get_masse() const
