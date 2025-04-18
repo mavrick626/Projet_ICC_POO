@@ -104,12 +104,12 @@ void Systeme::affiche_pos(ostream& sortie) const
     sortie<<"-------------------------------------------"<<endl;
 }
 
-void Systeme::affiche_gnu(FILE* f) const
+void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const
 {
     for(auto const& obj : objets)
     {
         Vecteur const& pos(obj->position());
-        fprintf(f, "%f %f\n", pos.get_coord(0), pos.get_coord(2));
+        fprintf(f, "%f %f\n", pos.get_coord(x), pos.get_coord(y));
     }
 }
 //==============================================

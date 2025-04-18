@@ -4,9 +4,13 @@ INCDIR = head
 BUILDDIR = build
 
 # Chemins fichiers
-EXEC = exerciceP9-S3-1
+EXEC = exerciceP9-Ex7-3
+
 SRC = $(wildcard $(SRCDIR)/*.cc)
-OBJ = $(SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
+EXCLUDE = $(SRCDIR)/exerciceP9-Ex3-1.cc $(SRCDIR)/exerciceP9.cc $(SRCDIR)/testIntegrateur.cc $(SRCDIR)/testPointMateriel.cc $(SRCDIR)/testPomme.cc $(SRCDIR)/testVecteur.cc
+
+F_SRC = $(filter-out $(EXCLUDE), $(SRC))
+OBJ = $(F_SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
 
 # Compilateur
 CC = g++

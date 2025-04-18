@@ -19,17 +19,17 @@ int main()
     PositionViewer viewer(cout);
     Systeme sys;
 
-    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(IntegrateurEulerCromer(dt)));
-    unique_ptr<Libre> libre(make_unique<Libre>(Libre()));
+    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));
+    unique_ptr<Libre> libre(make_unique<Libre>());
 
     unique_ptr<ObjetPhysique> terre(make_unique<PointMateriel>(
-        PointMateriel("Terre", Mt, Vecteur(0, 0, -Rt))));
+        "Terre", Mt, Vecteur(0, 0, -Rt)));
 
     unique_ptr<ObjetPhysique> pomme(make_unique<PointMateriel>(
-        PointMateriel("Pomme", 0.1, Vecteur(0,0,10))));
+        "Pomme", 0.1, Vecteur(0,0,10)));
     
-    unique_ptr<ChampForce> ch_t(make_unique<ChampNewtonien>(ChampNewtonien(*terre)));
-    unique_ptr<ChampForce> ch_p(make_unique<ChampNewtonien>(ChampNewtonien(*pomme)));
+    unique_ptr<ChampForce> ch_t(make_unique<ChampNewtonien>(*terre));
+    unique_ptr<ChampForce> ch_p(make_unique<ChampNewtonien>(*pomme));
 
     sys.ajout_inte(move(inte));
 

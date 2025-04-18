@@ -15,16 +15,15 @@ using namespace std;
 
 int main()
 {
-    PositionViewer console(cout);
-    GnuplotViewer plot;
+    GnuplotViewer plot(0, 2);
     Systeme sys;
 
-    double dt(1e-1);
+    double dt(5e-2);
 
     double h(20.);
     double d(50.);
     double v(pow(9.82*(d*d+h*h)/(2*h),.5));
-    double tg(h/d);
+    double a(atan(h/d));
     double t(0.);
     double tf(pow(d*d+h*h, .5)/v);
 
@@ -38,7 +37,7 @@ int main()
     unique_ptr<ObjetPhysique> fromage(make_unique<PointMateriel>
     (PointMateriel("fromage", 5, Vecteur(d, 0, h))));
     unique_ptr<ObjetPhysique> pierre(make_unique<PointMateriel>
-    (PointMateriel("pierre", 1, Vecteur(0, 0, 0), Vecteur(v*cos(atan(tg)), 0, v*sin(atan(tg))))));
+    (PointMateriel("pierre", 1, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a)))));
 
     sys.ajout_inte(move(inte));
     sys.ajout_champ(move(gravite));
@@ -54,13 +53,10 @@ int main()
 
     while(t < tf)
     {
-        sys.dessine_sur(console);
         sys.dessine_sur(plot);
         sys.evolue();
         t+=dt;
     }
-
-    plot.print();
 
     return 0;
 }

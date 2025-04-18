@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {   
-    GnuplotViewer plot;
+    GnuplotViewer plot(1, 2);
     double dt(.01);
     // Intégrateur
     IntegrateurEulerCromer intEC(dt);
@@ -19,7 +19,7 @@ int main()
     // Contraintes sur l'objet
     Libre l;
     // Objet
-    PointMateriel pomme("pomme", .127, Vecteur(0, 0, 1) ,Vecteur(1, 0, 2), &gravite, &l);
+    PointMateriel pomme("pomme", .127, Vecteur(0, 0, 1) ,Vecteur(0, 1, 2), &gravite, &l);
 
     double t(0.);
     while(pomme.position().get_coord(2) > 0)
@@ -28,8 +28,6 @@ int main()
         intEC.integre(pomme, t, dt);
         t+=dt;
     }
-
-    plot.print();
 
     return 0;
 }
