@@ -2,19 +2,19 @@
 
 #include <iostream>
 #include "SupportADessin.h"
-#include "PointMateriel.h"
 #include "Systeme.h"
+#include "PointMateriel.h"
 
-class TextViewer : public SupportADessin
+class PositionViewer : public SupportADessin
 {
     public :
-        TextViewer(std::ostream& s) : sortie(&s) {}
+        PositionViewer(std::ostream& s) : sortie(&s) {}
 
         virtual void dessine(PointMateriel const& point) override
-        { *sortie<<point<<std::endl; }
-
+        { *sortie<<point.position()<<std::endl; }
+        
         virtual void dessine(Systeme const& sys) override
-        { *sortie<<sys<<std::endl; }
+        { sys.affiche_pos(*sortie); }
 
     private :
         std::ostream* sortie;

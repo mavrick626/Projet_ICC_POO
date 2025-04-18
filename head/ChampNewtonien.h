@@ -1,10 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include "constantes.h"
 #include "ForceCentrale.h"
 #include "Vecteur.h"
 #include "ObjetPhysique.h"
-#include "constantes.h"
 
 class ChampNewtonien : public ForceCentrale
 {

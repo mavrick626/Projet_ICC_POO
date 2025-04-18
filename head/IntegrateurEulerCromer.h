@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Integrateur.h"
+#include "ObjetMobile.h"
 
 class IntegrateurEulerCromer : public Integrateur
 { 

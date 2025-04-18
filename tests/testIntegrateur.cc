@@ -4,11 +4,13 @@
 #include "GravitationConstante.h"
 #include "IntegrateurEulerCromer.h"
 #include "Libre.h"
+#include "GnuplotViewer.h"
 
 using namespace std;
 
 int main()
 {   
+    GnuplotViewer plot;
     double dt(.01);
     // Intégrateur
     IntegrateurEulerCromer intEC(dt);
@@ -17,17 +19,17 @@ int main()
     // Contraintes sur l'objet
     Libre l;
     // Objet
-    PointMateriel pomme("pomme", .127,&gravite, &l, Vecteur(0, 0, 1) ,Vecteur(0, 1, 2));
-    cout<<pomme<<endl;
-    cout<<"==========================="<<endl;
+    PointMateriel pomme("pomme", .127, Vecteur(0, 0, 1) ,Vecteur(1, 0, 2), &gravite, &l);
 
-    for(int i(1); i<=10; i++)
+    double t(0.);
+    while(pomme.position().get_coord(2) > 0)
     {
-        intEC.integre(pomme, i*dt, dt);
-        cout<<"t = "<<i*dt<<endl;
-        cout<<pomme.get_E()<<endl;
-        cout<<"==========================="<<endl;
+        pomme.dessine_sur(plot);
+        intEC.integre(pomme, t, dt);
+        t+=dt;
     }
+
+    plot.print();
 
     return 0;
 }

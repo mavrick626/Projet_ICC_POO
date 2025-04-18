@@ -1,9 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include "Contrainte.h"
 #include "Vecteur.h"
 #include "ObjetPhysique.h"
-#include "Contrainte.h"
 
 class Libre : public Contrainte
 {

@@ -10,33 +10,33 @@ using namespace std;
 // Constructeurs
 //==============================================
 Vecteur::Vecteur(unsigned int dimension)
-: coordonnees_(vector<double> (dimension, 0.)) {}
+: coordonnees(vector<double> (dimension, 0.)) {}
 
 Vecteur::Vecteur(double x, double y, double z)
-: coordonnees_({x, y, z}) {}
+: coordonnees({x, y, z}) {}
 
 Vecteur::Vecteur(vector<double> const& coord)
-: coordonnees_(coord) {}
+: coordonnees(coord) {}
 
 //==============================================
 // getter définition
 //==============================================
-double Vecteur::get_coord(unsigned int index) const
+double Vecteur::get_coord(size_t index) const
 {
-    return coordonnees_[index];
+    return coordonnees[index];
 }
 
 size_t Vecteur::dimension() const
 {
-    return coordonnees_.size();
+    return coordonnees.size();
 }
 
 //==============================================
 // Setter définition
 //==============================================
-void Vecteur::set_coord(unsigned int index, double composante)
+void Vecteur::set_coord(size_t index, double composante)
 {
-    coordonnees_[index] = composante;
+    if(index < dimension()) coordonnees[index] = composante;
 }
 
 //==============================================
@@ -44,7 +44,7 @@ void Vecteur::set_coord(unsigned int index, double composante)
 //==============================================
 void Vecteur::augmente(double composante)
 {
-    coordonnees_.push_back(composante);
+    coordonnees.push_back(composante);
 }
 
 //==============================================
@@ -58,25 +58,25 @@ double Vecteur::norme() const
 double Vecteur::norme2() const
 {
     double somme(0.);
-    for(double composante : coordonnees_) somme += pow(composante, 2);
+    for(double composante : coordonnees) somme += pow(composante, 2);
 
     return somme;
 }
 
 Vecteur& Vecteur::operator+=(Vecteur const& v)
 {
-    size_t u_dim(coordonnees_.size());
-    size_t v_dim(v.coordonnees_.size());
+    size_t u_dim(coordonnees.size());
+    size_t v_dim(v.coordonnees.size());
 
-    if(u_dim < v_dim) coordonnees_.resize(v_dim, 0.);
-    for(size_t i(0); i<v_dim; i++) coordonnees_[i] += v.coordonnees_[i];
+    if(u_dim < v_dim) coordonnees.resize(v_dim, 0.);
+    for(size_t i(0); i<v_dim; i++) coordonnees[i] += v.coordonnees[i];
 
     return *this;
 }
 
 Vecteur& Vecteur::operator*=(double scalaire)
 {
-    for(size_t i(0); i<coordonnees_.size(); i++) coordonnees_[i]*=scalaire;
+    for(size_t i(0); i<coordonnees.size(); i++) coordonnees[i]*=scalaire;
 
     return *this;
 }

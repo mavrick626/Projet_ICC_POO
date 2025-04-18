@@ -2,12 +2,10 @@
 
 #include <iostream>
 #include <string>
-#include "Vecteur.h"
 #include "ObjetMobile.h"
+#include "Vecteur.h"
 #include "Contrainte.h"
 #include "ChampForce.h"
-#include "SupportADessin.h"
-#include "Dessinable.h"
 
 class ObjetPhysique : public ObjetMobile
 {
@@ -15,6 +13,7 @@ class ObjetPhysique : public ObjetMobile
     // Constructeur/Desrtructeur
         ObjetPhysique(std::string const& nom, double m, Vecteur const& e, Vecteur const& e_point,
             ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph);
+
     // Getter
         double get_masse() const;
         std::string get_nom() const;

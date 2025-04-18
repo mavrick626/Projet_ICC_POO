@@ -12,11 +12,11 @@ class Vecteur
         Vecteur(std::vector<double> const&);
 
     // Getter
-    double get_coord(unsigned int) const;
-    size_t dimension() const;
+        double get_coord(size_t) const;
+        size_t dimension() const;
 
     // Setter
-        void set_coord(unsigned int, double);
+        void set_coord(size_t, double);
 
     // Autres méthodes utiles
         void augmente(double);
@@ -29,7 +29,7 @@ class Vecteur
         Vecteur& operator*=(double);
 
     private:
-        std::vector<double> coordonnees_;
+        std::vector<double> coordonnees;
 };
 
 // operateur affichage

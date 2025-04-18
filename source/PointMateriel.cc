@@ -6,8 +6,8 @@ using namespace std;
 //==============================================
 // Constructeurs
 //==============================================
-PointMateriel::PointMateriel(string const& n, double m,ChampForce* gc, Contrainte* cont,
-    Vecteur const& p, Vecteur const& v, unsigned int dim_esp_ph)
+PointMateriel::PointMateriel(string const& n, double m, Vecteur const& p,
+    Vecteur const& v, ChampForce* gc, Contrainte* cont, unsigned int dim_esp_ph)
 : ObjetPhysique(n, m, p, v, gc, cont, dim_esp_ph) {}
 
 //==============================================

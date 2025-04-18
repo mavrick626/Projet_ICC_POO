@@ -10,14 +10,6 @@ GravitationConstante::GravitationConstante(Vecteur const& forces)
 : gravitation(forces) {}
 
 //==============================================
-// Getter
-//==============================================
-Vecteur GravitationConstante::get_champs() const
-{
-    return gravitation;
-}
-
-//==============================================
 // Méthodes
 //==============================================
 Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const

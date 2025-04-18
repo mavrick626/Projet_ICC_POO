@@ -4,7 +4,7 @@ INCDIR = head
 BUILDDIR = build
 
 # Chemins fichiers
-EXEC = exerciceP9
+EXEC = exerciceP9-S3-1
 SRC = $(wildcard $(SRCDIR)/*.cc)
 OBJ = $(SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
 

@@ -17,18 +17,20 @@ class Systeme : public Dessinable
     // Constructeurs
         Systeme();
         Systeme(Systeme const&) = delete; // interdiction de copier le système
-    
-    // Méthodes ajout éléments
+    // Méthodes d'ajout d'éléments
         void ajout_inte(std::unique_ptr<Integrateur> &&);
         void ajout_champ(std::unique_ptr<ChampForce> &&);
         void ajout_contrainte(std::unique_ptr<Contrainte> &&);
         void ajout_objet(std::unique_ptr<ObjetPhysique> &&);
-    // Méthodes attributation
+    // Méthodes d'attributation
         void attribuer_cont(size_t, size_t);
         void attribuer_champ(size_t, size_t);
-
+    // Autres méthodes
         void evolue();
-        std::ostream& affiche(std::ostream&) const;
+
+        void affiche(std::ostream&) const;
+        void affiche_pos(std::ostream&) const;
+        void affiche_gnu(FILE*) const;
         virtual void dessine_sur(SupportADessin& support) override
         { support.dessine(*this); }
 
