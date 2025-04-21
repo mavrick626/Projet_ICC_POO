@@ -7,7 +7,12 @@ BUILDDIR = build
 EXEC = exerciceP9-Ex7-3
 
 SRC = $(wildcard $(SRCDIR)/*.cc)
-EXCLUDE = $(SRCDIR)/exerciceP9-Ex3-1.cc $(SRCDIR)/exerciceP9.cc $(SRCDIR)/testIntegrateur.cc $(SRCDIR)/testPointMateriel.cc $(SRCDIR)/testPomme.cc $(SRCDIR)/testVecteur.cc
+EXCLUDE = $(SRCDIR)/exerciceP9-Ex3-1.cc\
+		$(SRCDIR)/exerciceP9.cc \
+		$(SRCDIR)/testIntegrateur.cc \
+		$(SRCDIR)/testPointMateriel.cc \
+		$(SRCDIR)/testPomme.cc \
+		$(SRCDIR)/testVecteur.cc
 
 F_SRC = $(filter-out $(EXCLUDE), $(SRC))
 OBJ = $(F_SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
@@ -29,9 +34,12 @@ $(EXEC) : $(OBJ)
 
 # Supression tous file.o
 clean:
+#	 rm -f $(BUILDDIR)/*.o
 	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 
 # Supressoin tous file.o + file.exe
 cleanall:
+#	 rm -f $(BUILDDIR)/*.o
+#	 rm -f $(EXEC)
 	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 	if exist $(EXEC).exe del /Q $(EXEC).exe

@@ -41,7 +41,7 @@ void Systeme::attribuer_cont(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
-        (*objets[j]).set_contrainte(&(*contraintes[i]));
+        (*objets[j]).set_contrainte(contraintes[i].get());
     }
 }
 
@@ -49,12 +49,12 @@ void Systeme::attribuer_champ(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
-        (*objets[j]).set_champ(&(*champs[i]));
+        (*objets[j]).set_champ(champs[i].get());
     }
 }
 
 //==============================================
-// Méthodes
+// Evolution
 //==============================================
 void Systeme::evolue()
 {
@@ -66,6 +66,9 @@ void Systeme::evolue()
     temps += integrateur->get_dt();
 }   
 
+//==============================================
+// Différents formats d'affichage
+//==============================================
 void Systeme::affiche(ostream& sortie) const
 {
     sortie<<"Systeme a t = "<<temps<<" : "<<endl;
@@ -112,6 +115,7 @@ void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const
         fprintf(f, "%f %f\n", pos.get_coord(x), pos.get_coord(y));
     }
 }
+
 //==============================================
 // Surcharge opérateur
 //==============================================

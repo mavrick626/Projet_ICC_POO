@@ -18,7 +18,8 @@ GnuplotViewer::GnuplotViewer(size_t x, size_t y)
     fprintf(gnuplotpipe, "set title 'Trajectoire'\n");
     fprintf(gnuplotpipe, "set xlabel 'x'\n");
     fprintf(gnuplotpipe, "set ylabel 'y'\n");
-    fprintf(gnuplotpipe, "plot '-' with points pt 7 ps 1title 'position'\n");  
+    fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
+    fprintf(gnuplotpipe, "plot '-' with points pt 7 ps 1 title 'position'\n");  
 }
 
 GnuplotViewer::~GnuplotViewer()
@@ -28,7 +29,7 @@ GnuplotViewer::~GnuplotViewer()
     cout<<"Graphe affiche ! Appuie sur Enter pour quitter..."<<endl;
     cin.get();
 
-    _pclose(gnuplotpipe);
+    _pclose(gnuplotpipe); // windows : _pclose, linux/mac : pclose
 }
 
 //==============================================
