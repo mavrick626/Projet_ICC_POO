@@ -11,12 +11,13 @@ class ObjetPhysique : public ObjetMobile
 {
     public :
     // Constructeur/Desrtructeur
-        ObjetPhysique(std::string const& nom, double m, Vecteur const& e, Vecteur const& e_point,
+        ObjetPhysique(std::string const& nom, double m, double q, Vecteur const& e, Vecteur const& e_point,
             ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph);
 
     // Getter
-        double get_masse() const;
         std::string get_nom() const;
+        double get_masse() const;
+        double get_q() const;
         ChampForce* get_champs() const;
     // Setter
         void set_contrainte(Contrainte*);
@@ -32,6 +33,7 @@ class ObjetPhysique : public ObjetMobile
     protected :
         const std::string nom;
         double masse;
+        double charge;
         ChampForce* champs;
         Contrainte* contraintes;
         const unsigned int dim_espace_physique;

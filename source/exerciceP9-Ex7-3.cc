@@ -37,7 +37,7 @@ int main()
     unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));
     
     unique_ptr<ObjetPhysique> soleil(make_unique<PointMateriel>("Soleil", Ms));
-    unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>("Satellite", 1e3, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
+    unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
 
     unique_ptr<Contrainte> libre(make_unique<Libre>());
     unique_ptr<ChampForce> gravite(make_unique<ChampNewtonien>(*soleil));

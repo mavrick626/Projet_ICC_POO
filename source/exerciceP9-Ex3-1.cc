@@ -35,9 +35,9 @@ int main()
     unique_ptr<Contrainte> libre(make_unique<Libre>(Libre()));
 
     unique_ptr<ObjetPhysique> fromage(make_unique<PointMateriel>
-    (PointMateriel("fromage", 5, Vecteur(d, 0, h))));
+    (PointMateriel("fromage", 5, 0, Vecteur(d, 0, h))));
     unique_ptr<ObjetPhysique> pierre(make_unique<PointMateriel>
-    (PointMateriel("pierre", 1, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a)))));
+    (PointMateriel("pierre", 1, 0, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a)))));
 
     sys.ajout_inte(move(inte));
     sys.ajout_champ(move(gravite));

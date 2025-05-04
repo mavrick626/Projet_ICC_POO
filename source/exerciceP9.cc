@@ -23,10 +23,10 @@ int main()
     unique_ptr<Libre> libre(make_unique<Libre>());
 
     unique_ptr<ObjetPhysique> terre(make_unique<PointMateriel>(
-        "Terre", Mt, Vecteur(0, 0, -Rt)));
+        "Terre", Mt, 0, Vecteur(0, 0, -Rt)));
 
     unique_ptr<ObjetPhysique> pomme(make_unique<PointMateriel>(
-        "Pomme", 0.1, Vecteur(0,0,10)));
+        "Pomme", 0.1, 0, Vecteur(0,0,10)));
     
     unique_ptr<ChampForce> ch_t(make_unique<ChampNewtonien>(*terre));
     unique_ptr<ChampForce> ch_p(make_unique<ChampNewtonien>(*pomme));

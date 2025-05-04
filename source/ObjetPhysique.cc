@@ -6,22 +6,27 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-ObjetPhysique::ObjetPhysique(string const& n,  double m, Vecteur const& e, Vecteur const& e_point,
+ObjetPhysique::ObjetPhysique(string const& n,  double m, double q, Vecteur const& e, Vecteur const& e_point,
     ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
-: ObjetMobile(e, e_point), nom(n), masse(m),
+: ObjetMobile(e, e_point), nom(n), masse(m), charge(q),
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
 
 //==============================================
 // Getter
 //==============================================
+string ObjetPhysique::get_nom() const
+{
+    return nom;
+}
+
 double ObjetPhysique::get_masse() const
 {
     return masse;
 }
 
-string ObjetPhysique::get_nom() const
+double ObjetPhysique::get_q() const
 {
-    return nom;
+    return charge;
 }
 
 ChampForce* ObjetPhysique::get_champs() const
@@ -67,6 +72,7 @@ void ObjetPhysique::afficher(ostream& sortie) const
     sortie<<position()<<" # position physique"<<endl;
     sortie<<vitesse()<<" # vitesse physique"<<endl;
     sortie<<masse<<" # masse"<<endl;
+    sortie<<charge<<" # charge elec"<<endl;
     sortie<<"contrainte : "<<*contraintes;
 }
 

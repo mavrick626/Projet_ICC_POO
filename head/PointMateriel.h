@@ -12,7 +12,7 @@ class PointMateriel : public ObjetPhysique, public virtual Dessinable
 {
     public:
     // Constructeurs
-        PointMateriel(std::string const&, double m, Vecteur const& p=Vecteur(0., 0., 0.),
+        PointMateriel(std::string const&, double m, double q=0., Vecteur const& p=Vecteur(0., 0., 0.),
         Vecteur const& v=Vecteur(0., 0., 0.), ChampForce* gc=nullptr, Contrainte* cont=nullptr, unsigned int dim_esp_ph=3);
     // Méthodes
         virtual Vecteur evolution(double) const override;
