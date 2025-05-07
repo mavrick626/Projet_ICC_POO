@@ -18,6 +18,9 @@ GnuplotViewer::GnuplotViewer(size_t x, size_t y)
     fprintf(gnuplotpipe, "set title 'Trajectoire'\n");
     fprintf(gnuplotpipe, "set xlabel 'x'\n");
     fprintf(gnuplotpipe, "set ylabel 'y'\n");
+    //fprintf(gnuplotpipe, "set size ratio -1\n");
+    //fprintf(gnuplotpipe, "set xrange [-2.2:2.2]\n");
+    //fprintf(gnuplotpipe, "set yrange [-.2:2.4]\n");
     fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
     fprintf(gnuplotpipe, "plot '-' with points pt 7 ps 1 title 'position'\n");  
 }

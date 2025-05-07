@@ -36,7 +36,7 @@ int main()
     sys.attribuer_cont(0, 0);
     sys.attribuer_champ(0, 0);
 
-    for(int i(0); i<30; i++)
+    for(int i(0); i<1000; i++)
     {
         sys.evolue();
         sys.dessine_sur(viewer);

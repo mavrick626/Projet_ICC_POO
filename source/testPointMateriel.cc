@@ -11,8 +11,8 @@ int main()
     GravitationConstante champs;
     Libre libre;
 
-    PointMateriel p1("point 1", 10, Vecteur(1, 2, 3), Vecteur(0, .1, .2), &champs, &libre);
-    PointMateriel p2("Point 2", .1, Vecteur(3, 1, 10), Vecteur(.2, .2, 0), &champs, &libre);
+    PointMateriel p1("point 1", 10, 0, Vecteur(1, 2, 3), Vecteur(0, .1, .2), &champs, &libre);
+    PointMateriel p2("Point 2", .1, 0, Vecteur(3, 1, 10), Vecteur(.2, .2, 0), &champs, &libre);
 
     cout<<champs<<endl<<endl;
     cout<<p1<<endl;

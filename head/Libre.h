@@ -9,7 +9,7 @@ class Libre : public Contrainte
 {
     public :
     // Aucun contrainte donc la force appliquée est simplement la somme des force extérieures
-        virtual Vecteur applique_force(ObjetPhysique const& obj,  Vecteur const& force, double t) const override
+        virtual Vecteur applique_force(ObjetPhysique const& obj,  Vecteur const& force, double t=0.) const override
         {
             if(obj.get_masse() != 0) return force*(1/obj.get_masse()); // a = F/m
             return force;

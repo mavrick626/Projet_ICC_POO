@@ -69,11 +69,14 @@ void ObjetPhysique::afficher(ostream& sortie) const
 {
     sortie<<nom<<endl;
     ObjetMobile::afficher(sortie); sortie<<endl;
-    sortie<<position()<<" # position physique"<<endl;
-    sortie<<vitesse()<<" # vitesse physique"<<endl;
+    if(contraintes != nullptr)
+    {
+        sortie<<position()<<" # position physique"<<endl;
+        sortie<<vitesse()<<" # vitesse physique"<<endl;
+    }
     sortie<<masse<<" # masse"<<endl;
     sortie<<charge<<" # charge elec"<<endl;
-    sortie<<"contrainte : "<<*contraintes;
+    if(contraintes != nullptr) sortie<<"contrainte : "<<*contraintes;
 }
 
 //==============================================
