@@ -13,11 +13,12 @@ ContrainteSpherique::ContrainteSpherique(double l)
 //==============================================
 // Méthodes
 //==============================================
-Vecteur ContrainteSpherique::applique_force(ObjetPhysique const& obj, Vecteur const& f, double t) const
+Vecteur ContrainteSpherique::applique_force(ObjetPhysique const& obj, Vecteur const& f, double t)
 {
     return Vecteur({theta_pp(obj, f), phi_pp(obj, f)});
 }
 
+// Calcule de la position et de la vitesse physique en coordonnées cartésiennes
 Vecteur ContrainteSpherique::position(ObjetPhysique const& obj) const
 {
     double theta(obj.get_E().get_coord(0));
@@ -38,6 +39,7 @@ Vecteur ContrainteSpherique::vitesse(ObjetPhysique const& obj) const
         + (theta_p*cos(theta)*sin(phi)+phi_p*sin(theta)*cos(phi))*j);
 }
 
+// override de l'affichage
 void ContrainteSpherique::affiche(ostream& sortie) const
 {
     sortie<<"Contrainte spherique : L = "<<L<<endl;
@@ -46,6 +48,7 @@ void ContrainteSpherique::affiche(ostream& sortie) const
 //==============================================
 // Méthodes utilitaires
 //==============================================
+// Calcul des différents vecteurs unitaires du repère en coordonnées sphériques
 Vecteur ContrainteSpherique::u_rho(ObjetPhysique const& obj) const
 {
     double theta(obj.get_E().get_coord(0));
@@ -69,6 +72,7 @@ Vecteur ContrainteSpherique::u_phi(ObjetPhysique const& obj) const
     return -sin(phi)*d + cos(phi)*j;
 }
 
+// Calcul des accélérations angulaire
 double ContrainteSpherique::theta_pp(ObjetPhysique const& obj, Vecteur const& f) const
 {
     double theta(obj.get_E().get_coord(0));

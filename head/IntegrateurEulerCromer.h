@@ -5,7 +5,7 @@
 
 class IntegrateurEulerCromer : public Integrateur
 { 
-    public:
+    public :
         IntegrateurEulerCromer(double dt);
-        virtual void integre(ObjetMobile& obj, double t, double dt=0.) const override;
+        virtual void integre(ObjetMobile& obj, double t) const override;
 };

@@ -7,7 +7,7 @@
 #include "PositionViewer.h"
 #include "GnuplotViewer.h"
 #include "Systeme.h"
-#include "IntegrateurEulerCromer.h"
+#include "IntegrateurRungeKutta.h"
 #include "ChampNewtonien.h"
 #include "Libre.h"
 #include "PointMateriel.h"
@@ -25,19 +25,19 @@ int main()
     double Rt(1*UA); // rayon orbite Terre
     double Rm(1.52*UA); // rayon orbite Mars
 
-    double annee(365*24*3600); // 1 an en seconde
-    double Vt(2*M_PI*Rt/annee); // v rotation Terre
-    double v(Vt*pow((2*Rm)/(Rm+Rt), 0.5)); //v0 du satellite
+    double annee(365.*24.*3600.); // 1 an en seconde
+    double Vt(2*M_PI * (Rt/annee)); // v rotation Terre
+    double v(Vt*pow((2*Rm)/(Rm+Rt), .5)); //v0 du satellite
 
     double t(0.); 
     double tf(1.414*annee); // Durée orbite satellite
+    double dt(14*24.*3600.); // pas de temps (1semaine en secondes)
 
-    double dt(7*24*3600); // pas de temps (1semaine en secondes)
-
-    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));
+    unique_ptr<Integrateur> inte(make_unique<IntegrateurRungeKutta>(dt));
     
     unique_ptr<ObjetPhysique> soleil(make_unique<PointMateriel>("Soleil", Ms));
-    unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
+    unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>
+        ("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
 
     unique_ptr<Contrainte> libre(make_unique<Libre>());
     unique_ptr<ChampForce> gravite(make_unique<ChampNewtonien>(*soleil));
@@ -45,9 +45,9 @@ int main()
 
     sys.ajout_inte(move(inte));
 
+    sys.ajout_contrainte(move(libre));
     sys.ajout_champ(move(gravite));
     sys.ajout_champ(move(ch_s));
-    sys.ajout_contrainte(move(libre));
 
     sys.ajout_objet(move(soleil));
     sys.ajout_objet(move(sat));
@@ -62,7 +62,7 @@ int main()
     {
         sys.evolue();
         sys.dessine_sur(plot);
-        t+=dt;
+        t+= dt;
     }
 
     return 0;

@@ -27,17 +27,15 @@ int main()
     double t(0.);
     double tf(pow(d*d+h*h, .5)/v);
 
-    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>
-        (IntegrateurEulerCromer(dt)));
+    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));
 
-    unique_ptr<ChampForce> gravite(make_unique<GravitationConstante>
-        (GravitationConstante()));
-    unique_ptr<Contrainte> libre(make_unique<Libre>(Libre()));
+    unique_ptr<ChampForce> gravite(make_unique<GravitationConstante>());
+    unique_ptr<Contrainte> libre(make_unique<Libre>());
 
     unique_ptr<ObjetPhysique> fromage(make_unique<PointMateriel>
-    (PointMateriel("fromage", 5, 0, Vecteur(d, 0, h))));
+    ("fromage", 5, 0, Vecteur(d, 0, h)));
     unique_ptr<ObjetPhysique> pierre(make_unique<PointMateriel>
-    (PointMateriel("pierre", 1, 0, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a)))));
+    ("pierre", 1, 0, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a))));
 
     sys.ajout_inte(move(inte));
     sys.ajout_champ(move(gravite));

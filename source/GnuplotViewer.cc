@@ -41,7 +41,7 @@ GnuplotViewer::~GnuplotViewer()
 void GnuplotViewer::dessine(PointMateriel const& point)
 {
     Vecteur const& pos = point.position();
-    fprintf(gnuplotpipe, "%f %f\n", pos.get_coord(0), pos.get_coord(1));
+    fprintf(gnuplotpipe, "%f %f\n", pos.get_coord(x), pos.get_coord(y));
 }
 
 void GnuplotViewer::dessine(Systeme const& sys)

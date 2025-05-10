@@ -12,7 +12,7 @@ Vecteur const& v, ChampForce* ch, Contrainte* cont, unsigned int dim_esp_ph)
 : PointMateriel(n ,m, q, p, v, ch, cont, dim_esp_ph) { renormaliser(); }
 
 //==============================================
-// Méthodes
+// Méthodes pour set les valeurs angulaires et les normaliser
 //==============================================
 void PointVectAngulaire::set_E(Vecteur const& e)
 {

@@ -11,7 +11,7 @@ class Contrainte
     // Destructeur
         virtual ~Contrainte() = default;
     // Méthodes
-        virtual Vecteur applique_force(ObjetPhysique const&, Vecteur const& force, double t) const = 0;
+        virtual Vecteur applique_force(ObjetPhysique const&, Vecteur const& force, double t) = 0;
         virtual Vecteur position(ObjetPhysique const&) const = 0;
         virtual Vecteur vitesse(ObjetPhysique const&) const = 0;
         virtual void affiche(std::ostream&)const = 0;

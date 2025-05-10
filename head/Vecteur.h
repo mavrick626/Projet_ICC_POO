@@ -5,7 +5,7 @@
 
 class Vecteur
 {
-    public:
+    public :
     // Constructeurs
         explicit Vecteur(unsigned int dimension);
         Vecteur(double x, double y, double z);
@@ -28,7 +28,7 @@ class Vecteur
         Vecteur& operator+=(Vecteur const&);
         Vecteur& operator*=(double);
 
-    private:
+    private :
         std::vector<double> coordonnees;
 };
 
@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream&, Vecteur const&);
 // operateur de comparaison
 const bool operator==(Vecteur const&, Vecteur const&);
 const bool operator!=(Vecteur const&, Vecteur const&);
-// operations qui permettent de définir un corps
+// operations avec le corps des scalaires
 const Vecteur operator+(Vecteur, Vecteur const&);
 const Vecteur operator*(double, Vecteur);
 // produit scalaire et vectoriel

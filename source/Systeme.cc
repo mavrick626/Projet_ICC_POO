@@ -8,11 +8,11 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-Systeme::Systeme()
-: integrateur(nullptr), temps(0.) {}
+Systeme::Systeme(double t)
+: integrateur(nullptr), temps(t) { if(t<0) temps=0.;}
 
 //==============================================
-// Méthodes ajout éléments
+// Méthodes d'ajout des différentes types d'éléments
 //==============================================
 void Systeme::ajout_inte(unique_ptr<Integrateur> && inte)
 {
@@ -35,7 +35,7 @@ void Systeme::ajout_objet(unique_ptr<ObjetPhysique> && obj)
 }
 
 //==============================================
-// Méthodes attribution champ/contrainte
+// Méthodes attribution du champ/contrainte i à l'objet j
 //==============================================
 void Systeme::attribuer_cont(size_t i, size_t j)
 {
@@ -54,20 +54,23 @@ void Systeme::attribuer_champ(size_t i, size_t j)
 }
 
 //==============================================
-// Evolution
+// Evolution, fais évoluer tous les objets du système
 //==============================================
 void Systeme::evolue()
 {
-    for(auto& pt_obj : objets)
+    if(integrateur != nullptr)
     {
-        if(pt_obj->get_champs() != nullptr) integrateur->integre((*pt_obj), temps);
+        temps += integrateur->get_dt();
+        for(auto& pt_obj : objets)
+        {
+            if(pt_obj->get_champs() != nullptr) integrateur->integre((*pt_obj), temps);
+        }
     }
-
-    temps += integrateur->get_dt();
+    else cerr<<"Le systeme n'a pas d'integrateur,  evolution impossible !"<<endl;
 }   
 
 //==============================================
-// Différents formats d'affichage
+// Différents formats d'affichage (Text, Position, Gnuplot)
 //==============================================
 void Systeme::affiche(ostream& sortie) const
 {
@@ -117,7 +120,7 @@ void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const
 }
 
 //==============================================
-// Surcharge opérateur
+// Surcharge de l'opérateur d'affichage
 //==============================================
 ostream& operator<<(ostream& sortie, Systeme const& sys)
 {

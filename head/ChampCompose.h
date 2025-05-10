@@ -9,8 +9,9 @@
 class ChampCompose : public ChampForce
 {
     public :
+    // Ajouter un champ à la composition
         void ajout_champ(std::unique_ptr<ChampForce> &&);
-
+    // Autres méthodes
         virtual Vecteur force(ObjetPhysique const& obj, double t=0.) const override;
         virtual void afficher(std::ostream& sortie) const override;
 

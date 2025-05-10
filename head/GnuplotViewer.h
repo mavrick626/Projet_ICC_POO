@@ -7,10 +7,11 @@
 
 class GnuplotViewer : public SupportADessin
 {
-    public:
+    public :
+    // Constructeur/Déstructeur
         GnuplotViewer(size_t, size_t);
         ~GnuplotViewer();
-
+    // Méthodes
         virtual void dessine(PointMateriel const&) override;
         virtual void dessine(Systeme const&) override;
 

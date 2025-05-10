@@ -6,6 +6,9 @@
 class IntegrateurNewmark : public Integrateur
 {
     public :
-        IntegrateurNewmark(double dt);
-        virtual void integre(ObjetMobile& obj, double t, double dt=0.) const override;
+        IntegrateurNewmark(double dt, double epsilon=1e-9);
+        virtual void integre(ObjetMobile& obj, double t) const override;
+
+    private : 
+        const double epsilon;
 };

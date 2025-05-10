@@ -19,6 +19,7 @@ class ObjetPhysique : public ObjetMobile
         double get_masse() const;
         double get_q() const;
         ChampForce* get_champs() const;
+        int get_dim_espace_physique() const;
     // Setter
         void set_contrainte(Contrainte*);
         void set_champ(ChampForce*);

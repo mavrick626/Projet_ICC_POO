@@ -15,7 +15,7 @@ class Systeme : public Dessinable
 {
     public :
     // Constructeurs
-        Systeme();
+        Systeme(double t=0.);
         Systeme(Systeme const&) = delete; // interdiction de copier le système
     // Méthodes d'ajout d'éléments
         void ajout_inte(std::unique_ptr<Integrateur> &&);

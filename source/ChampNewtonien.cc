@@ -23,6 +23,7 @@ Vecteur ChampNewtonien::force(ObjetPhysique const& obj, double t) const
     return f;
 }
 
+// override de l'affiche
 void ChampNewtonien::afficher(ostream& sortie) const
 {
     sortie<<"Champ newtonien, ";

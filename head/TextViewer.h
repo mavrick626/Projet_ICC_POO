@@ -8,8 +8,9 @@
 class TextViewer : public SupportADessin
 {
     public :
+    // Constructeur
         TextViewer(std::ostream& s) : sortie(s) {}
-
+    // Méthodes
         virtual void dessine(PointMateriel const& point) override
         { sortie<<point<<std::endl; }
 

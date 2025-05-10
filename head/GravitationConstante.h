@@ -15,6 +15,6 @@ class GravitationConstante : public ChampForce
         virtual Vecteur force(ObjetPhysique const& point, double temps=0.) const override;
         virtual void afficher(std::ostream&) const override;
 
-    private:
+    private :
         const Vecteur gravitation;
 };

@@ -7,5 +7,5 @@ class IntegrateurRungeKutta : public Integrateur
 {
     public :
         IntegrateurRungeKutta(double dt);
-        virtual void integre(ObjetMobile&, double t, double dt=0.) const override;
+        virtual void integre(ObjetMobile&, double t) const override;
 };

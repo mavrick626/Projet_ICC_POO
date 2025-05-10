@@ -25,7 +25,7 @@ int main()
     while(pomme.position().get_coord(2) > 0)
     {
         pomme.dessine_sur(plot);
-        intEC.integre(pomme, t, dt);
+        intEC.integre(pomme, t);
         t+=dt;
     }
 

@@ -6,8 +6,9 @@
 class PositionViewer : public TextViewer
 {
     public :
+    // Constructeur
         PositionViewer(std::ostream& s) : TextViewer(s) {}
-
+    // Méthodes 
         virtual void dessine(PointMateriel const& point) override
         { sortie<<point.position()<<std::endl; }
         

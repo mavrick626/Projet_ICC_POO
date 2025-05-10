@@ -36,7 +36,7 @@ void ObjetMobile::set_E_point(Vecteur const& new_E_point)
 }
 
 //==============================================
-// Méthode
+// Méthode d'affichage au niveau de l'objet mobile
 //==============================================
 void ObjetMobile::afficher(ostream& sortie) const
 {
@@ -45,7 +45,7 @@ void ObjetMobile::afficher(ostream& sortie) const
 }
 
 //==============================================
-// Surcharge opérateurs
+// Surcharge opérateurs d'affichage
 //==============================================
 ostream& operator<<(ostream& sortie, ObjetMobile const& obj)
 {

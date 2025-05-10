@@ -34,6 +34,10 @@ ChampForce* ObjetPhysique::get_champs() const
     return champs;
 }
 
+int ObjetPhysique::get_dim_espace_physique() const
+{
+    return dim_espace_physique;
+}
 //==============================================
 // Setter
 //==============================================
@@ -50,11 +54,13 @@ void ObjetPhysique::set_champ(ChampForce* pt_champ)
 //==============================================
 // Méthodes
 //==============================================
+// Calcul de la force générée par le champ
 Vecteur ObjetPhysique::force(double t) const
 {
     return champs->force(*this);
 }
 
+// Calcul des vecteurs position/vitesse physique selon la contrainte
 Vecteur ObjetPhysique::position() const
 {
     return contraintes->position(*this);
@@ -65,6 +71,7 @@ Vecteur ObjetPhysique::vitesse() const
     return contraintes->vitesse(*this);
 }
 
+// override de l'affichage
 void ObjetPhysique::afficher(ostream& sortie) const
 {
     sortie<<nom<<endl;
@@ -80,7 +87,7 @@ void ObjetPhysique::afficher(ostream& sortie) const
 }
 
 //==============================================
-// Surhcarge opérateurs externes
+// Surhcarge opérateurs externes d'affichage
 //==============================================
 ostream& operator<<(ostream& sortie, ObjetPhysique const& obj)
 {

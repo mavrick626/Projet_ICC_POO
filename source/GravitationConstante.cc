@@ -10,14 +10,14 @@ GravitationConstante::GravitationConstante(Vecteur const& forces)
 : gravitation(forces) {}
 
 //==============================================
-// Méthodes
+// Méthodes, force retourne le vecteur force p=mg
 //==============================================
 Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const
 {
-    // p = m*g
     return p.get_masse()*gravitation;
 }
 
+// Override de l'affichage
 void GravitationConstante::afficher(ostream& sortie) const
 {
     sortie<<"Champ gravitationnel : ";

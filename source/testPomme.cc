@@ -2,18 +2,20 @@
 #include "PointMateriel.h"
 #include "Libre.h"
 #include "ChampNewtonien.h"
-#include "IntegrateurEulerCromer.h"
+#include "IntegrateurRungeKutta.h"
+#include <iomanip>
 
 using namespace std;
 
 int main()
 {
+    cout<<setprecision(7);
     double dt(1e-3);
     
     double Rt(6371e3);
     double Mt(5.972e24);
     
-    IntegrateurEulerCromer intEC(dt);
+    IntegrateurRungeKutta intEC(dt);
 
     Libre l;
     PointMateriel terre("Terre", Mt, 0, Vecteur(0,0,-Rt), Vecteur(0,0,0), nullptr, &l);
@@ -22,13 +24,11 @@ int main()
     PointMateriel pomme("Pomme", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0), &gravite, &l);
 
     cout<<0*dt<<"  "<<pomme.position().get_coord(2)<<endl;
-    int i(1);
-    while(pomme.position().get_coord(2)>1e-9)
+    for(int i(0); i<100; i++)
     {
         intEC.integre(pomme, i*dt);
-        i++;
+        cout<<(i+1)*dt<<"  "<<pomme.position().get_coord(2)<<endl;
     }
-    cout<<"t = "<<i*dt<<endl;
 
     return 0;
 }
