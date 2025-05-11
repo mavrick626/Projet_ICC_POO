@@ -24,4 +24,6 @@ class Libre : public Contrainte
 
         virtual void affiche(std::ostream& sortie) const override
         { sortie<<"contrainte libre"; }
+
+        virtual void set_temps(double) {}
 };

@@ -23,11 +23,11 @@ GnuplotViewer::GnuplotViewer(size_t x, size_t y)
     //fprintf(gnuplotpipe, "set yrange [-.2:2.4]\n");
     fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
     // pour points
-    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with points pt 7 ps 2 lc rgb variable notitle\n");
+    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with points pt 7 ps 1 lc rgb variable notitle\n");
     // pour ligne 
-    fprintf(gnuplotpipe, "plot '-' using 1:2:3 with line lw 2 lc rgb variable notitle\n");
+    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with line lw 2 lc rgb variable notitle\n");
     // pour ligne et points
-    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with linesp pt 2 ps 1 lw 2 lc rgb variable notitle\n");
+    fprintf(gnuplotpipe, "plot '-' using 1:2:3 with linesp pt 2 ps 1 lw 1.5 lc rgb variable notitle\n");
 }
 
 GnuplotViewer::~GnuplotViewer()

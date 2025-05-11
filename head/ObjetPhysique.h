@@ -18,7 +18,7 @@ class ObjetPhysique : public ObjetMobile
         std::string get_nom() const;
         double get_masse() const;
         double get_q() const;
-        int get_dim_espace_physique() const;
+        unsigned int get_dim_espace_physique() const;
     // Setter
         void set_contrainte(Contrainte*);
         void set_champ(ChampForce*);

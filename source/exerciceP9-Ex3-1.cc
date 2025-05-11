@@ -49,6 +49,9 @@ int main()
     sys.attribuer_cont(0, 0);
     sys.attribuer_cont(0, 1);
 
+    sys.attribuer_inte(0, 0);
+    sys.attribuer_inte(0, 1);
+
     while(t < tf)
     {
         sys.dessine_sur(plot);

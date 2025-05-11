@@ -16,7 +16,7 @@ Vecteur ChampCompose::force(ObjetPhysique const& obj, double t) const
     Vecteur result(obj.get_E().dimension());
 
     // Somme des vecteurs forces causées par les différents champs
-    for(auto const& pt_ch : champs) result += pt_ch->force(obj, t);
+    for(auto const& pt_ch : champs)result += pt_ch->force(obj, t); 
 
     return result;
 }
@@ -27,7 +27,7 @@ void ChampCompose::afficher(std::ostream& sortie) const
     sortie<<"Champ compose : "<<std::endl;
     for(auto const& pt : champs)
     {
-        pt->afficher(sortie);
+        sortie<<"- ";pt->afficher(sortie);
         sortie<<std::endl;
     }
 }

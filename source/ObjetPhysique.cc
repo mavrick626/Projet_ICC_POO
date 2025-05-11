@@ -29,7 +29,7 @@ double ObjetPhysique::get_q() const
     return charge;
 }
 
-int ObjetPhysique::get_dim_espace_physique() const
+unsigned int ObjetPhysique::get_dim_espace_physique() const
 {
     return dim_espace_physique;
 }

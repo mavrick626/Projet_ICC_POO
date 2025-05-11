@@ -15,9 +15,9 @@ PointMateriel::PointMateriel(string const& n, double m, double q, Vecteur const&
 //==============================================
 /* Méthode qui retourne l'accélération selon l'équation du mouvement
 pour un point massie (a = F/M, calculée à travers la contrainte)*/
-Vecteur PointMateriel::evolution(double temps) const
+Vecteur PointMateriel::evolution(double t) const
 {
-    if(contraintes != nullptr) return contraintes->applique_force(*this, force(temps), temps);
+    if(contraintes != nullptr) return contraintes->applique_force(*this, force(t), t);
     return Vecteur(E.dimension());
 }
 

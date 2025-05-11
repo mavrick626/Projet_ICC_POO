@@ -68,11 +68,9 @@ void Systeme::evolue()
 {
     if(integrateurs.size() != 0)
     {
-        for(auto& pt_obj : objets)
-        {
-            pt_obj->integre(temps);
-        }
         temps += integrateurs[0]->get_dt();
+        for(auto& pt_obj : objets) pt_obj->integre(temps);
+        
     }
     else cerr<<"Le systeme n'a pas d'integrateur,  evolution impossible !"<<endl;
 }   

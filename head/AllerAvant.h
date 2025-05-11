@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Libre.h"
+#include "Contrainte.h"
 #include "ObjetPhysique.h"
 
-class AllerAvant : public Libre
+class AllerAvant : public Contrainte
 {
     public :
         AllerAvant(double v, double t=0.);
@@ -12,9 +12,9 @@ class AllerAvant : public Libre
         virtual Vecteur position(ObjetPhysique const&) const override;
         virtual Vecteur vitesse(ObjetPhysique const&) const override;
         virtual void affiche(std::ostream&) const override;
+        virtual void set_temps(double) override;
         
     private :
         const double v_scalaire;
-        double t;
-        void set_temps(double);
+        double temps;
 };

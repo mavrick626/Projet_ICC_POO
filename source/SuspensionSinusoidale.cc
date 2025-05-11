@@ -11,10 +11,10 @@ SuspensionSinusoidale::SuspensionSinusoidale(double k, double a, double l)
 Vecteur SuspensionSinusoidale::force(ObjetPhysique const& obj, double t) const
 {
     double x(obj.position().get_coord(0));
-    double y(obj.position().get_coord(1));
+    double y(obj.position().get_coord(2));
 
     double norme(k*(A*sin(2.*M_PI*(x/L)) - y));
-    return Vecteur(norme);
+    return Vecteur(0, 0, norme);
 }
 
 void SuspensionSinusoidale::afficher(ostream& sortie) const

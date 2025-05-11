@@ -35,6 +35,7 @@ int main()
     sys.ajout_objet(make_unique<PointMateriel> ("particule", masse, q, Vecteur(3) ,Vecteur(0.3, 0, 0)));
     sys.attribuer_cont(0, 0);
     sys.attribuer_champ(0, 0);
+    sys.attribuer_inte(0, 0);
 
     for(int i(0); i<1000; i++)
     {

@@ -46,6 +46,9 @@ int main()
     sys.attribuer_cont(0, 1);
     sys.attribuer_champ(0, 1);
 
+    sys.attribuer_inte(0, 0);
+    sys.attribuer_inte(0 ,1);
+
     sys.dessine_sur(viewer);
     for(int i(0); i<1426; i++)
     {

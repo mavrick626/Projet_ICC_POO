@@ -33,7 +33,8 @@ int main()
         "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 0})));
 
     sys.attribuer_champ(0, 0); 
-    sys.attribuer_cont(0, 0);   
+    sys.attribuer_cont(0, 0);  
+    sys.attribuer_inte(0, 0); 
 
     sys.dessine_sur(viewer);
     for(int i(0); i<4000; i++)
