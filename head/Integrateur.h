@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ObjetMobile.h"
+class ObjetMobile;
 
 class Integrateur
 {

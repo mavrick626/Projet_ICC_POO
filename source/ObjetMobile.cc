@@ -6,8 +6,8 @@ using namespace std;
 //==============================================
 // Constructeurs
 //==============================================
-ObjetMobile::ObjetMobile(Vecteur const& e, Vecteur const& e_point)
-: E(e), E_point(e_point) {}
+ObjetMobile::ObjetMobile(Vecteur const& e, Vecteur const& e_point, Integrateur* inte)
+: E(e), E_point(e_point), integrateur(inte) {}
 
 //==============================================
 // Getter
@@ -35,9 +35,22 @@ void ObjetMobile::set_E_point(Vecteur const& new_E_point)
     E_point = new_E_point;
 }
 
+void ObjetMobile::set_integrateur(Integrateur* inte) 
+{
+    integrateur = inte;
+}
+
 //==============================================
-// Méthode d'affichage au niveau de l'objet mobile
+// Méthodes
 //==============================================
+// integration de l'objet
+void ObjetMobile::integre(double t)
+{
+    if(integrateur != nullptr) integrateur->integre(*this, t);
+    else cerr<<"Aucun integrateur associe a cet objet !"<<endl;
+}
+
+// affichage au niveau de l'objet mobile
 void ObjetMobile::afficher(ostream& sortie) const
 {
     sortie<<E<<" # parametre"<<endl;

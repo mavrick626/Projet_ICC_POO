@@ -19,6 +19,7 @@ int main()
     GnuplotViewer plot(0, 1);
     Systeme sys;
 
+// Données du problème
     double UA(149.6e9); // Unité astronomique
     double Ms(1.989e30); // Masse solaire
     
@@ -31,32 +32,30 @@ int main()
 
     double t(0.); 
     double tf(1.414*annee); // Durée orbite satellite
-    double dt(14*24.*3600.); // pas de temps (1semaine en secondes)
+    double dt(24*3600.); // pas de temps (1semaine en secondes)
 
-    unique_ptr<Integrateur> inte(make_unique<IntegrateurRungeKutta>(dt));
-    
+// Initialisation du Système
     unique_ptr<ObjetPhysique> soleil(make_unique<PointMateriel>("Soleil", Ms));
     unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>
         ("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
 
-    unique_ptr<Contrainte> libre(make_unique<Libre>());
-    unique_ptr<ChampForce> gravite(make_unique<ChampNewtonien>(*soleil));
-    unique_ptr<ChampForce> ch_s(make_unique<ChampNewtonien>(*sat));
+    sys.ajout_inte(make_unique<IntegrateurRungeKutta>(dt));
 
-    sys.ajout_inte(move(inte));
-
-    sys.ajout_contrainte(move(libre));
-    sys.ajout_champ(move(gravite));
-    sys.ajout_champ(move(ch_s));
+    sys.ajout_contrainte(make_unique<Libre>());
+    sys.ajout_champ(make_unique<ChampNewtonien>(*soleil));
+    sys.ajout_champ(make_unique<ChampNewtonien>(*sat));
 
     sys.ajout_objet(move(soleil));
     sys.ajout_objet(move(sat));
 
+    sys.attribuer_inte(0, 0);
+    sys.attribuer_inte(0, 1);
     sys.attribuer_champ(0, 1);
     sys.attribuer_champ(1, 0);
     sys.attribuer_cont(0, 1);
     sys.attribuer_cont(0, 0);
 
+// Run de la simulation
     sys.dessine_sur(plot);
     while(t<tf)
     {

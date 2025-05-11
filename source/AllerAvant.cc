@@ -17,7 +17,7 @@ Vecteur AllerAvant::position(ObjetPhysique const& obj) const
     Vecteur pos(obj.get_dim_espace_physique());
 
     pos.set_coord(0, v_scalaire*t);
-    for(size_t i(0); i<pos.dimension()-1; i++)
+    for(size_t i(0); i<pos.dimension(); i++)
     {
         pos.set_coord(i+1, obj.get_E().get_coord(i));
     }

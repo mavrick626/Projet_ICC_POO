@@ -7,8 +7,8 @@ using namespace std;
 // Constructeurs
 //==============================================
 PointMateriel::PointMateriel(string const& n, double m, double q, Vecteur const& p,
-    Vecteur const& v, ChampForce* ch, Contrainte* cont, unsigned int dim_esp_ph)
-: ObjetPhysique(n, m, q, p, v, ch, cont, dim_esp_ph) {}
+    Vecteur const& v, ChampForce* ch, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph)
+: ObjetPhysique(n, m, q, p, v, ch, cont, inte, dim_esp_ph) {}
 
 //==============================================
 // Méthodes
@@ -17,11 +17,29 @@ PointMateriel::PointMateriel(string const& n, double m, double q, Vecteur const&
 pour un point massie (a = F/M, calculée à travers la contrainte)*/
 Vecteur PointMateriel::evolution(double temps) const
 {
-    return contraintes->applique_force(*this, force(temps), temps);
+    if(contraintes != nullptr) return contraintes->applique_force(*this, force(temps), temps);
+    return Vecteur(E.dimension());
 }
 
 // override de l'affichage (semblable à celui d'un ObjetPhysique)
 void PointMateriel::afficher(ostream& sortie) const
 {
     ObjetPhysique::afficher(sortie);
+}
+
+void PointMateriel::afficher_gnu(FILE* f, size_t x, size_t y) const
+{
+    fprintf(f, "%f %f %d\n", position().get_coord(x), position().get_coord(y), couleur());
+}
+
+int PointMateriel::couleur() const
+{
+    if(nom=="Soleil") return 0xFF8000; // orange
+    if(nom=="Satellite") return 0x990099; // violet
+    if(nom=="Terre") return 0x0000CC; // bleu
+    if(nom=="Mars") return 0xCC0000; // rouge
+    if(nom=="Pomme") return 0xFF0000; // rouge
+    if(nom=="Pierre") return 0x606060;
+
+    return 0x000000; // noir par défaut
 }

@@ -8,8 +8,8 @@ using namespace std;
 // Constructeur
 //==============================================
 PointVectAngulaire::PointVectAngulaire(string const& n, double m, double q, Vecteur const& p, 
-Vecteur const& v, ChampForce* ch, Contrainte* cont, unsigned int dim_esp_ph)
-: PointMateriel(n ,m, q, p, v, ch, cont, dim_esp_ph) { renormaliser(); }
+Vecteur const& v, ChampForce* ch, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph)
+: PointMateriel(n ,m, q, p, v, ch, cont, inte, dim_esp_ph) { renormaliser(); }
 
 //==============================================
 // Méthodes pour set les valeurs angulaires et les normaliser

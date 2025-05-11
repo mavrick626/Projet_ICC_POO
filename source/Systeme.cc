@@ -9,14 +9,14 @@ using namespace std;
 // Constructeur
 //==============================================
 Systeme::Systeme(double t)
-: integrateur(nullptr), temps(t) { if(t<0) temps=0.;}
+: temps(t) { if(t<0) temps=0.;}
 
 //==============================================
 // Méthodes d'ajout des différentes types d'éléments
 //==============================================
 void Systeme::ajout_inte(unique_ptr<Integrateur> && inte)
 {
-    integrateur = move(inte);
+    integrateurs.push_back(move(inte));
 }
 
 void Systeme::ajout_champ(unique_ptr<ChampForce> && champ)
@@ -41,7 +41,7 @@ void Systeme::attribuer_cont(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
-        (*objets[j]).set_contrainte(contraintes[i].get());
+        (*objets[j]).set_contrainte(&(*contraintes[i]));
     }
 }
 
@@ -49,7 +49,15 @@ void Systeme::attribuer_champ(size_t i, size_t j)
 {
     if(i<contraintes.size() && j<objets.size())
     {
-        (*objets[j]).set_champ(champs[i].get());
+        (*objets[j]).set_champ(&(*champs[i]));
+    }
+}
+
+void Systeme::attribuer_inte(size_t i, size_t j)
+{
+    if(i<integrateurs.size() && j<objets.size())
+    {
+        (*objets[j]).set_integrateur(&(*integrateurs[i]));
     }
 }
 
@@ -58,13 +66,13 @@ void Systeme::attribuer_champ(size_t i, size_t j)
 //==============================================
 void Systeme::evolue()
 {
-    if(integrateur != nullptr)
+    if(integrateurs.size() != 0)
     {
-        temps += integrateur->get_dt();
         for(auto& pt_obj : objets)
         {
-            if(pt_obj->get_champs() != nullptr) integrateur->integre((*pt_obj), temps);
+            pt_obj->integre(temps);
         }
+        temps += integrateurs[0]->get_dt();
     }
     else cerr<<"Le systeme n'a pas d'integrateur,  evolution impossible !"<<endl;
 }   
@@ -114,8 +122,7 @@ void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const
 {
     for(auto const& obj : objets)
     {
-        Vecteur const& pos(obj->position());
-        fprintf(f, "%f %f\n", pos.get_coord(x), pos.get_coord(y));
+        obj->afficher_gnu(f, x, y);
     }
 }
 

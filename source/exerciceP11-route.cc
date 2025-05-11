@@ -26,7 +26,7 @@ int main()
     total->ajout_champ(make_unique<SuspensionSinusoidale>(1e6, 0.1, 1.5));
 
     unique_ptr<PointMateriel> p(make_unique<PointMateriel>
-        ("point", 2500, 0., Vecteur(1), Vecteur(1), nullptr, nullptr, 2));
+        ("point", 2500, 0., Vecteur({5}), Vecteur(1), nullptr, nullptr, 2));
 
     Systeme sys;
 

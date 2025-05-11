@@ -12,13 +12,12 @@ class ObjetPhysique : public ObjetMobile
     public :
     // Constructeur/Desrtructeur
         ObjetPhysique(std::string const& nom, double m, double q, Vecteur const& e, Vecteur const& e_point,
-            ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph);
+            ChampForce* champ, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph);
 
     // Getter
         std::string get_nom() const;
         double get_masse() const;
         double get_q() const;
-        ChampForce* get_champs() const;
         int get_dim_espace_physique() const;
     // Setter
         void set_contrainte(Contrainte*);
@@ -30,7 +29,8 @@ class ObjetPhysique : public ObjetMobile
         Vecteur vitesse() const;
         
         virtual void afficher(std::ostream&) const override;
-
+        virtual void afficher_gnu(FILE*, size_t, size_t) const = 0;
+        
     protected :
         const std::string nom;
         double masse;

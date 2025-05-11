@@ -25,6 +25,7 @@ class Systeme : public Dessinable
     // Méthodes d'attributation
         void attribuer_cont(size_t, size_t);
         void attribuer_champ(size_t, size_t);
+        void attribuer_inte(size_t, size_t);
     // Autres méthodes
         void evolue();
 
@@ -35,7 +36,7 @@ class Systeme : public Dessinable
         { support.dessine(*this); }
 
     private :
-        std::unique_ptr<Integrateur> integrateur;
+        std::vector<std::unique_ptr<Integrateur>> integrateurs;
         std::vector<std::unique_ptr<ChampForce>> champs;
         std::vector<std::unique_ptr<Contrainte>> contraintes;
         std::vector<std::unique_ptr<ObjetPhysique>> objets;

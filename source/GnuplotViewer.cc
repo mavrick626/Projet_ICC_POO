@@ -22,7 +22,12 @@ GnuplotViewer::GnuplotViewer(size_t x, size_t y)
     //fprintf(gnuplotpipe, "set xrange [-2.2:2.2]\n");
     //fprintf(gnuplotpipe, "set yrange [-.2:2.4]\n");
     fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
-    fprintf(gnuplotpipe, "plot '-' with points pt 7 ps 1 title 'position'\n");  
+    // pour points
+    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with points pt 7 ps 2 lc rgb variable notitle\n");
+    // pour ligne 
+    fprintf(gnuplotpipe, "plot '-' using 1:2:3 with line lw 2 lc rgb variable notitle\n");
+    // pour ligne et points
+    //fprintf(gnuplotpipe, "plot '-' using 1:2:3 with linesp pt 2 ps 1 lw 2 lc rgb variable notitle\n");
 }
 
 GnuplotViewer::~GnuplotViewer()
@@ -40,8 +45,7 @@ GnuplotViewer::~GnuplotViewer()
 //==============================================
 void GnuplotViewer::dessine(PointMateriel const& point)
 {
-    Vecteur const& pos = point.position();
-    fprintf(gnuplotpipe, "%f %f\n", pos.get_coord(x), pos.get_coord(y));
+    point.afficher_gnu(gnuplotpipe, x, y);
 }
 
 void GnuplotViewer::dessine(Systeme const& sys)

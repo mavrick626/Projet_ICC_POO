@@ -7,8 +7,8 @@ using namespace std;
 // Constructeur
 //==============================================
 ObjetPhysique::ObjetPhysique(string const& n,  double m, double q, Vecteur const& e, Vecteur const& e_point,
-    ChampForce* champ, Contrainte* cont, unsigned int dim_esp_ph)
-: ObjetMobile(e, e_point), nom(n), masse(m), charge(q),
+    ChampForce* champ, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph)
+: ObjetMobile(e, e_point, inte), nom(n), masse(m), charge(q),
     champs(champ), contraintes(cont), dim_espace_physique(dim_esp_ph) {}
 
 //==============================================
@@ -27,11 +27,6 @@ double ObjetPhysique::get_masse() const
 double ObjetPhysique::get_q() const
 {
     return charge;
-}
-
-ChampForce* ObjetPhysique::get_champs() const
-{
-    return champs;
 }
 
 int ObjetPhysique::get_dim_espace_physique() const
@@ -57,7 +52,8 @@ void ObjetPhysique::set_champ(ChampForce* pt_champ)
 // Calcul de la force générée par le champ
 Vecteur ObjetPhysique::force(double t) const
 {
-    return champs->force(*this);
+    if(champs != nullptr) return champs->force(*this);
+    return Vecteur(E.dimension());
 }
 
 // Calcul des vecteurs position/vitesse physique selon la contrainte
