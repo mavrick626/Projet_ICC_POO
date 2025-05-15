@@ -7,7 +7,7 @@
 #include "PositionViewer.h"
 #include "GnuplotViewer.h"
 #include "Systeme.h"
-#include "IntegrateurRungeKutta.h"
+#include "IntegrateurNewmark.h"
 #include "ChampNewtonien.h"
 #include "Libre.h"
 #include "PointMateriel.h"
@@ -39,7 +39,10 @@ int main()
     unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>
         ("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
 
-    sys.ajout_inte(make_unique<IntegrateurRungeKutta>(dt));
+    /*!! Attention !! pour Newmark si dt est trop grand (~14jours),
+    il faut réduire l'épsilon du seuil de convergence pour ne pas partir
+    dans une boucle infinie. val de base 1e-6, sinon 1e-3 */ 
+    sys.ajout_inte(make_unique<IntegrateurNewmark>(dt));
 
     sys.ajout_contrainte(make_unique<Libre>());
     sys.ajout_champ(make_unique<ChampNewtonien>(*soleil));

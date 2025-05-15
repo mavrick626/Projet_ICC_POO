@@ -4,11 +4,11 @@ INCDIR = head
 BUILDDIR = build
 
 # Chemins fichiers
-EXEC = exerciceP11-route
+EXEC = exerciceP12
 
 SRC = $(wildcard $(SRCDIR)/*.cc)
 EXCLUDE = \
-		$(SRCDIR)/exerciceP12.cc \
+		$(SRCDIR)/exerciceP11-route.cc \
 		$(SRCDIR)/exerciceP11-spherique.cc\
 		$(SRCDIR)/exerciceP11-magnetique.cc \
 		$(SRCDIR)/exerciceP9-Ex3-1.cc \

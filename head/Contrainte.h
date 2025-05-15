@@ -15,8 +15,6 @@ class Contrainte
         virtual Vecteur position(ObjetPhysique const&) const = 0;
         virtual Vecteur vitesse(ObjetPhysique const&) const = 0;
         virtual void affiche(std::ostream&)const = 0;
-        virtual void set_temps(double) = 0;
-  
 };
 
 /* 'inline' permet de correctement définir une fonction dans un .h

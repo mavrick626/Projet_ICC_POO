@@ -12,7 +12,7 @@ class AllerAvant : public Contrainte
         virtual Vecteur position(ObjetPhysique const&) const override;
         virtual Vecteur vitesse(ObjetPhysique const&) const override;
         virtual void affiche(std::ostream&) const override;
-        virtual void set_temps(double) override;
+        void set_temps(double);
         
     private :
         const double v_scalaire;

@@ -26,11 +26,11 @@ int main()
     unique_ptr<ObjetPhysique> terre(make_unique<PointMateriel>(
         "Terre", Mt, 0, Vecteur(0,0,-Rt), Vecteur(0,0,0)));
     unique_ptr<ObjetPhysique> p1(make_unique<PointMateriel>(
-        "P1", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
+        "P_EC", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
     unique_ptr<ObjetPhysique> p2(make_unique<PointMateriel>(
-        "P2", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
+        "P_NM", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
     unique_ptr<ObjetPhysique> p3(make_unique<PointMateriel>(
-        "P2", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
+        "P_RK", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0)));
 
     sys.ajout_inte(make_unique<IntegrateurEulerCromer>(dt));
     sys.ajout_inte(make_unique<IntegrateurNewmark>(dt));
