@@ -26,6 +26,7 @@ int main()
     cout<<0*dt<<"  "<<pomme.position().get_coord(2)<<endl;
     for(int i(0); i<100; i++)
     {
+        pomme.energie();
         intEC.integre(pomme, i*dt);
         cout<<(i+1)*dt<<"  "<<pomme.position().get_coord(2)<<endl;
     }

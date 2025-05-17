@@ -16,6 +16,10 @@ class ChampElectroMag : public ChampForce
         {
             return obj.get_q()*(E + (obj.vitesse()^B)); // F = q*(E + v*B)
         }
+        virtual double potentiel(ObjetPhysique const&) const override
+        {
+            return 0.;
+        }
     // override de l'affichage
         virtual void afficher(std::ostream& sortie) const override
         { sortie<<"Champ electromagnétique constant : ";

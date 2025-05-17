@@ -4,9 +4,9 @@
 #include <cmath>
 
 #include "PositionViewer.h"
-#include "GnuplotViewer.h"
+#include "TextViewer.h"
 #include "Systeme.h"
-#include "IntegrateurEulerCromer.h"
+#include "IntegrateurNewmark.h"
 #include "GravitationConstante.h"
 #include "Libre.h"
 #include "PointMateriel.h"
@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer plot(0, 2);
+    TextViewer plot(cout);
     Systeme sys;
 
     double dt(5e-2);
@@ -27,7 +27,7 @@ int main()
     double t(0.);
     double tf(pow(d*d+h*h, .5)/v);
 
-    unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));
+    unique_ptr<Integrateur> inte(make_unique<IntegrateurNewmark>(dt));
 
     unique_ptr<ChampForce> gravite(make_unique<GravitationConstante>());
     unique_ptr<Contrainte> libre(make_unique<Libre>());

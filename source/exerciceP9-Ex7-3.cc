@@ -5,9 +5,9 @@
 #include <cmath>
 
 #include "PositionViewer.h"
-#include "GnuplotViewer.h"
+#include "TextViewer.h"
 #include "Systeme.h"
-#include "IntegrateurNewmark.h"
+#include "IntegrateurRungeKutta.h"
 #include "ChampNewtonien.h"
 #include "Libre.h"
 #include "PointMateriel.h"
@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer plot(0, 1);
+    TextViewer plot(cout);
     Systeme sys;
 
 // Données du problème
@@ -32,17 +32,17 @@ int main()
 
     double t(0.); 
     double tf(1.414*annee); // Durée orbite satellite
-    double dt(24*3600.); // pas de temps (1semaine en secondes)
+    double dt(14*24*3600.); // pas de temps (1semaine en secondes)
 
 // Initialisation du Système
     unique_ptr<ObjetPhysique> soleil(make_unique<PointMateriel>("Soleil", Ms));
     unique_ptr<ObjetPhysique> sat(make_unique<PointMateriel>
         ("Satellite", 1e3, 0, Vecteur(UA, 0, 0), Vecteur(0, v, 0)));
 
-    /*!! Attention !! pour Newmark si dt est trop grand (~14jours),
+    /*!! Attention !! pour RungeKutta si dt est trop grand (~14jours),
     il faut réduire l'épsilon du seuil de convergence pour ne pas partir
     dans une boucle infinie. val de base 1e-6, sinon 1e-3 */ 
-    sys.ajout_inte(make_unique<IntegrateurNewmark>(dt));
+    sys.ajout_inte(make_unique<IntegrateurRungeKutta>(dt));
 
     sys.ajout_contrainte(make_unique<Libre>());
     sys.ajout_champ(make_unique<ChampNewtonien>(*soleil));

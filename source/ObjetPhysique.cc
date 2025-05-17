@@ -67,6 +67,11 @@ Vecteur ObjetPhysique::vitesse() const
     return contraintes->vitesse(*this);
 }
 
+double ObjetPhysique::energie() const
+{
+    return energie_cin() + energie_pot();
+}
+
 // override de l'affichage
 void ObjetPhysique::afficher(ostream& sortie) const
 {
@@ -89,4 +94,20 @@ ostream& operator<<(ostream& sortie, ObjetPhysique const& obj)
 {
     obj.afficher(sortie);
     return sortie;
+}
+
+double ObjetPhysique::energie_cin() const
+{
+    if(contraintes != nullptr)     return (masse*(vitesse()*vitesse()))/2.;
+    return masse*(E_point*E_point)/2.;
+
+}
+
+double ObjetPhysique::energie_pot() const
+{
+    if(champs != nullptr)
+    {
+        return champs->potentiel(*this);
+    }
+    return 0.;
 }

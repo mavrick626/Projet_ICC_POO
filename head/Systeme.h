@@ -28,6 +28,7 @@ class Systeme : public Dessinable
         void attribuer_inte(size_t, size_t);
     // Autres méthodes
         void evolue();
+        double calcul_e_sys() const;
 
         void affiche(std::ostream&) const;
         void affiche_pos(std::ostream&) const;

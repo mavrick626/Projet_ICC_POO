@@ -13,6 +13,7 @@ class GravitationConstante : public ChampForce
         GravitationConstante(Vecteur const& gc=constantes::g);
     // Méthode
         virtual Vecteur force(ObjetPhysique const& point, double temps=0.) const override;
+        virtual double potentiel(ObjetPhysique const&) const override;
         virtual void afficher(std::ostream&) const override;
 
     private :

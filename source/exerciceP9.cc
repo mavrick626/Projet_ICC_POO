@@ -5,7 +5,7 @@
 #include "ChampNewtonien.h"
 #include "PointMateriel.h"
 #include "Systeme.h"
-#include "PositionViewer.h"
+#include "TextViewer.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ int main()
     double Rt(6371e3);
     double Mt(5.972e24);
 
-    PositionViewer viewer(cout);
+    TextViewer viewer(cout);
     Systeme sys;
 
     unique_ptr<Integrateur> inte(make_unique<IntegrateurEulerCromer>(dt));

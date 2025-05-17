@@ -13,5 +13,6 @@ class ChampNewtonien : public ForceCentrale
         ChampNewtonien(ObjetPhysique const& c);
     // Méthodes
         virtual Vecteur force(ObjetPhysique const&, double t=.0) const override;
+        virtual double potentiel(ObjetPhysique const&) const override;
         virtual void afficher(std::ostream& sortie) const override;
 };

@@ -12,6 +12,7 @@ class ChampForce
         virtual ~ChampForce() = default;
     // Méthodes
         virtual Vecteur force(ObjetPhysique const& obj, double t=0.) const = 0;
+        virtual double potentiel(ObjetPhysique const&) const = 0;
         virtual void afficher(std::ostream& sortie) const = 0;
 };
 

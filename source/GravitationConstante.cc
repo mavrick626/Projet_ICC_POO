@@ -17,6 +17,11 @@ Vecteur GravitationConstante::force(ObjetPhysique const& p, double t) const
     return p.get_masse()*gravitation;
 }
 
+double GravitationConstante::potentiel(ObjetPhysique const& obj) const
+{
+    return obj.get_masse()*obj.position().get_coord(2)*(-gravitation.get_coord(2));
+}
+
 // Override de l'affichage
 void GravitationConstante::afficher(ostream& sortie) const
 {

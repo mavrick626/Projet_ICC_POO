@@ -27,10 +27,15 @@ class ObjetPhysique : public ObjetMobile
         Vecteur force(double t=0) const;
         Vecteur position() const;
         Vecteur vitesse() const;
+        double energie() const;
         
         virtual void afficher(std::ostream&) const override;
         virtual void afficher_gnu(FILE*, size_t, size_t) const = 0;
         
+    private :
+        double energie_cin() const;
+        double energie_pot() const;
+    
     protected :
         const std::string nom;
         double masse;

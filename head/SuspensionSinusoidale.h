@@ -9,6 +9,7 @@ class SuspensionSinusoidale : public ChampForce
     public :
         SuspensionSinusoidale(double, double, double);
         virtual Vecteur force(ObjetPhysique const&, double t) const override;
+        virtual double potentiel(ObjetPhysique const&) const override;
         virtual void afficher(std::ostream&) const override;
 
     private :

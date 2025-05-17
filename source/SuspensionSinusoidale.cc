@@ -17,6 +17,13 @@ Vecteur SuspensionSinusoidale::force(ObjetPhysique const& obj, double t) const
     return Vecteur(0, 0, norme);
 }
 
+double SuspensionSinusoidale::potentiel(ObjetPhysique const& obj) const
+{
+    double x(obj.position().get_coord(0));
+    double y(obj.position().get_coord(2));
+    return pow(k*(A*sin(2.*M_PI*(x/L)) - y), 2)/2.;
+}
+
 void SuspensionSinusoidale::afficher(ostream& sortie) const
 {
     sortie<<"Champ rappel sinusoidale : ";

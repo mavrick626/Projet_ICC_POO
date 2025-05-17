@@ -9,7 +9,7 @@ using namespace std;
 // Constructeur
 //==============================================
 Systeme::Systeme(double t)
-: temps(t) { if(t<0) temps=0.;}
+: temps(t) { if(t<0) temps=0.; }
 
 //==============================================
 // Méthodes d'ajout des différentes types d'éléments
@@ -70,10 +70,17 @@ void Systeme::evolue()
     {
         temps += integrateurs[0]->get_dt();
         for(auto& pt_obj : objets) pt_obj->integre(temps);
-        
     }
     else cerr<<"Le systeme n'a pas d'integrateur,  evolution impossible !"<<endl;
 }   
+
+double Systeme::calcul_e_sys() const
+{
+    double energie(0.);
+    for(auto const& pt : objets) energie += pt->energie();
+
+    return energie;
+}
 
 //==============================================
 // Différents formats d'affichage (Text, Position, Gnuplot)
@@ -100,6 +107,8 @@ void Systeme::affiche(ostream& sortie) const
         sortie<<"Contrainte no "<<i+1<<" : ";
         sortie<<*contraintes[i]<<endl;
     }
+    cout<<"Energie mecanique : "<<calcul_e_sys()<<endl;
+
     sortie<<endl;
 
     sortie<<"-------------------------------------------"<<endl;

@@ -21,6 +21,14 @@ Vecteur ChampCompose::force(ObjetPhysique const& obj, double t) const
     return result;
 }
 
+double ChampCompose::potentiel(ObjetPhysique const& obj) const
+{
+    double sum(0.);
+    for(auto const& pt : champs) sum += pt->potentiel(obj);
+
+    return sum;
+}
+
 // override de l'affichage
 void ChampCompose::afficher(std::ostream& sortie) const
 {

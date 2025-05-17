@@ -12,6 +12,7 @@ class ForceCentrale : public ChampForce
         ForceCentrale(ObjetPhysique const&);
     // Méthodes
         virtual Vecteur force(ObjetPhysique const&, double t=0.) const = 0;
+        virtual double potentiel(ObjetPhysique const&) const = 0;
         virtual void afficher(std::ostream&) const override;
 
     protected :

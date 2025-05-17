@@ -23,6 +23,11 @@ Vecteur ChampNewtonien::force(ObjetPhysique const& obj, double t) const
     return f;
 }
 
+double ChampNewtonien::potentiel(ObjetPhysique const& obj) const
+{
+    return (constantes::G)*obj.get_masse()*centre.get_masse()/(obj.position()-centre.position()).norme();
+}
+
 // override de l'affiche
 void ChampNewtonien::afficher(ostream& sortie) const
 {
