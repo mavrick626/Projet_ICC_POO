@@ -1,5 +1,5 @@
 # Semaine 2 :
-    - Q1.1 : un vecteur mathématique à n-dimension est principalement 
+    - P1.1 : un vecteur mathématique à n-dimension est principalement 
     caractérisé par ses coordonnées. Nous avons donc décidé de caractériser
     la class Vecteur par un attribut "coordonates_", un vector<double> qui 
     stocke les n coordonnées du vecteur courant. Cet attribut est private.
@@ -7,8 +7,62 @@
     manipulation du vecteur, une fonction setter pour accéder aux coordonnées
     et une série de méthodes pour effectuer des opérationsmathématiques.
 
-    -Q1.2 : Pour gérer les opérations entre 2 vecteurs de dimensions différentes,
+    -P1.2 : Pour gérer les opérations entre 2 vecteurs de dimensions différentes,
     nous avons choisi de plonger naturellement le vecteur de Rm dans Rn (m < n).
     Mathématiquement, on traite le plus petit vecteur comme s'il avait des
     coordonnées 0.0 pour tout i de m+1 à n. Cette solution nous semblait être
     la plus naturelle. (Attention nous ne modifions pas le plus petit vecteur !)
+
+# Semaine 4-5 : 
+    - P4.1 : Non, nous avons pas ajouté de constructeur de copie. La classe 
+    Vecteur n'a comme attribut qu'un vector<double>, nous avons donc jugé que
+    le constrcuteur de copie par défault était tout à fait suffisant.
+
+    - P4.2 : 
+
+    - P4.3 : Nous avons introduit l'opérateur d'affichage "operator<<" et
+    l'opérateur d'égalité "operator==", ce dernier nous a permis de dféinir en 
+    même temps l'opérateur "!=". Les opérateur "<<" et "==" exécute le même code
+    qui avait été écrit pour affiche() et compare().
+
+# Semaine 6 :
+    - P6.1 : La classe Integrateur est conçue avec un seul attribut, son pas de
+    temps dt, qui doit être fourni explicitement à la construction et qui est un
+    double constant. En plus d'un constructeur et d'un destructeur (virtual), la
+    classe a sa méthode integre() qui est virtuelle pure à ce stade.
+
+    - P6.2 : IntegrateurEulerCromer hérite directement de la classe intégrateur.
+    La méthode virtuelle integre() est redéfinie dans IntegrateurEulerCromer 
+    comme décrit dans le complément mathématique.
+
+    - P7.1 : Nous avons fait hériter GravitationConstante de la classe ChampForce.
+    La méthode force(...) de GravitationConstante est maintenant une redéfinition
+    de cette méthode virtuelle pure dans la classe ChampForce.
+
+    - P7.2 : Encore une fois cette relation entre ObjetPhysique et PointMateriel
+    se traduit par une relation d'héritage. PointMateriel est une classe fille de 
+    ObjetPhysique, elle-même hérite de ObjetMobile.
+
+# Semaine 7 :  
+    - P8.1 : Il  faut faire attention au rôle de ces pointeurs. Si les pointeurs
+    servent à référencer un objet éxistant indépendemment ailleur pas trop de soucis.
+    mais si les pointeurs servent à allouer dynamiquement de la mémoire, il faut
+    bien penser à libérer cette mémoire à la destruction de l'objet. Pour l'allocation
+    dynamiquement l'usage d'unique_ptr facilite la libération de la mémoire.
+    Il faut aussi se poser la question de qui est propriétaires des objets pointés.
+
+    - P8.2 : La classe Systeme a comme attribut un unique_ptr sur un Integrateur,
+    une collection hétérogène de unique_ptr sur des Contrainte, une sur des ChampForce
+    et une sur des ObjetPhysique, elle possède en plus un attribut temps. La classe
+    possède un constructeur par défault qui initialise le temps à 0 et n'initialise pas
+    les pointeurs/collection de pointeurs. Les unique_ptr doivent être ajouter
+    après la création. Le systeme a une méthode evolu() qui fait évoluer tous ses
+    ObjetPhysique en fonction des ChampForce, Contrainte et de l'Integrateur.
+
+# Semaine 11 : 
+    - P12.1 : Nous avons modifier Systeme pour qu'elle puisse prendre un collection
+    hétérogène d'Integrateur. Nous avons aussi modifié ObjetMobile pour qu'elle aie 
+    un pointeur, à la C car il référence, sur un Integrateur. Cela permet d'attribuer
+    individuellement un Integrateur à un ObjetPhysique du Systeme; pour, par exemple, 
+    simuler un même objet avec deux intégrateurs différents. Dans cette conception, 
+    le "même objet" est en fait un objet qui éxiste 2x à l'identique dans le systeme.

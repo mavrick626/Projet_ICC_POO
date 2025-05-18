@@ -11,5 +11,51 @@ A faire pour plus tard :
     de vacances -> Exo de POO mais pas encore de code pour le projet
 
 # Semaine 3 :
-    Programmation de la class Vecteur et création du Makefile -> tout est OK
+    Programmation de la classe Vecteur et création du Makefile -> tout est OK
     pour l'instant !
+
+# Semaine 4 : 
+    Amélioration de la classe Vecteur et surcharge et des différents opérateurs
+    algébriques. Création de PointMatériel et de notre premier champ de force. 
+    Pour l'instant tout roule, le partage de constantes à travers différents fichiers
+    fonctionnent.
+
+# Semaine 5 :
+    Le projet est à jour donc pas de grosse modification à part quelques petits détails.
+    Paul-Emile commence à regarder un peu les graphismes mais a des problèmes avec
+    Qt.
+
+# Semaine 6 : 
+    Mise en place de l'héritage avec ObjetMobile, ChampForce et Contrainte. Un peu
+    de mal au début à bien comprendre les consignes mais une fois lancés, on a 
+    compris la structure générale et les intéractions entre les différents class.
+    Les tests fonctionnent comme prévu. Première grosse semaine de prog mais le
+    résultat fait plaisir.
+
+# Semaine 7 :
+    Petit blocage sur la manière de conceptualiser et mettre en place système. On 
+    a un peu de "retard" niveau prog,  faut faire système ce week-end.
+    
+    Update : dimanche, système fonctionne et le TextViewer aussi
+
+# Semaine 8-9 :
+    Problèmes de graphismes. Ajout des exercices serie3 exo 1 et serie7 exo 3. 
+    Très satisfaisant de voir les simulations décrire le mouvement prévu !
+    Mise en place d'un GnuplotViewer à défault des graphismes Qt.
+
+# Semaine 10 :
+    On a décidé de commencer par simuler la particule chargée dans un champ
+    magnétique. Les nouveux champs/contraintes s'intègrent parfaitement dans
+    le système. Le résultat est rapide et bon. On un peu de temps donc on ajoute
+    la simulation du pendule sphérique. Plus compliqué, mauvaise compréhension du
+    complément mathématiques.
+
+# Semaine 11 : 
+    Ajout des intégrateurs Newmark et RungeKutta comme décrit dans le complément
+    mathématiques. Modification de système et ObjetMobile pour pouvoir attribuer 
+    différents intégrateurs à différents objets, cf. conception.
+
+# Semaine 12 : 
+    Comme extension, on a fait le troisième exercice complexe, on a donc fait les 3.
+    On  avait déjà ajouté les 2 intégrateurs. On a ajouté le calcul de l'énergie du
+    système et ObjetPhysique, ça a l'air de bien fonctionner.
