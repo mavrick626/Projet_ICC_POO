@@ -117,12 +117,34 @@ void Systeme::affiche(ostream& sortie) const
 void Systeme::affiche_pos(ostream& sortie) const
 {
     sortie<<"Positions a t = "<<temps<<" : "<<endl;
-    for(size_t i(0); i<objets.size(); i++)
+    for(auto const& pt : objets)
     {
-        sortie<<objets[i]->get_nom()<<" : ";
-        sortie<<objets[i]->position()<<endl;
+        sortie<<pt->get_nom()<<" : ";
+        sortie<<pt->position()<<endl;
     }
     sortie<<"-------------------------------------------"<<endl;
+}
+
+void Systeme::affiche_e(std::ostream& sortie) const
+{
+    sortie<<"Energie a t = "<<temps<<" : "<<endl;
+    sortie<<" - cinetique : ";
+    double e_cin(0.0);
+    for(auto const& pt : objets)
+    {
+        e_cin +=  pt->energie_cin();
+    }
+    cout<<e_cin<<endl;
+
+    sortie<<" - potentiel : ";
+    double e_pot(0.);
+    for(auto const& pt : objets)
+    {
+        e_pot +=  pt->energie_pot();
+    }
+    sortie<<e_pot<<endl;
+    sortie<<"Total = "<<e_cin+e_pot<<endl;
+
 }
 
 void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const

@@ -32,6 +32,7 @@ class Systeme : public Dessinable
 
         void affiche(std::ostream&) const;
         void affiche_pos(std::ostream&) const;
+        void affiche_e(std::ostream&) const;
         void affiche_gnu(FILE*, size_t, size_t) const;
         virtual void dessine_sur(SupportADessin& support) override
         { support.dessine(*this); }
