@@ -27,9 +27,14 @@ void PointMateriel::afficher(ostream& sortie) const
     ObjetPhysique::afficher(sortie);
 }
 
-void PointMateriel::afficher_gnu(FILE* f, size_t x, size_t y) const
+void PointMateriel::afficher_gnu(FILE* f, size_t x, size_t y, bool trois_d) const
 {
-    fprintf(f, "%f %f %d\n", position().get_coord(x), position().get_coord(y), couleur());
+    Vecteur pos(position());
+
+    if(trois_d)
+    { fprintf(f, "%f %f %f %d\n", pos.get_coord(0), pos.get_coord(1), pos.get_coord(2), couleur()); }
+    else
+    { fprintf(f, "%f %f %d\n", pos.get_coord(x), pos.get_coord(y), couleur()); }
 }
 
 int PointMateriel::couleur() const

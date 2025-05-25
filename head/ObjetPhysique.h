@@ -30,7 +30,7 @@ class ObjetPhysique : public ObjetMobile
         double energie() const;
         
         virtual void afficher(std::ostream&) const override;
-        virtual void afficher_gnu(FILE*, size_t, size_t) const = 0;
+        virtual void afficher_gnu(FILE*, size_t, size_t, bool) const = 0;
         
         double energie_cin() const;
         double energie_pot() const;

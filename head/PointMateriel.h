@@ -19,7 +19,7 @@ class PointMateriel : public ObjetPhysique, public virtual Dessinable
     // Méthodes
         virtual Vecteur evolution(double t) const override;
         virtual void afficher(std::ostream&) const override;
-        virtual void afficher_gnu(FILE*, size_t, size_t) const override;
+        virtual void afficher_gnu(FILE*, size_t, size_t, bool) const override;
 
         virtual void dessine_sur(SupportADessin& support) override
         { support.dessine(*this); }

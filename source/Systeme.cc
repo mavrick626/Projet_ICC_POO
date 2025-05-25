@@ -147,11 +147,11 @@ void Systeme::affiche_e(std::ostream& sortie) const
 
 }
 
-void Systeme::affiche_gnu(FILE* f, size_t x, size_t y) const
+void Systeme::affiche_gnu(FILE* f, size_t x, size_t y, bool trois_d) const
 {
     for(auto const& obj : objets)
     {
-        obj->afficher_gnu(f, x, y);
+        obj->afficher_gnu(f, x, y, trois_d);
     }
 }
 

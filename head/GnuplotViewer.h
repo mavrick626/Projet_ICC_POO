@@ -9,7 +9,7 @@ class GnuplotViewer : public SupportADessin
 {
     public :
     // Constructeur/Déstructeur
-        GnuplotViewer(size_t, size_t);
+        GnuplotViewer(size_t, size_t, bool trois_d=false);
         ~GnuplotViewer();
     // Méthodes
         virtual void dessine(PointMateriel const&) override;
@@ -19,4 +19,5 @@ class GnuplotViewer : public SupportADessin
         FILE* gnuplotpipe;
         size_t x;
         size_t y;
+        bool dim;
 };

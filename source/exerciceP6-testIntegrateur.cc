@@ -4,13 +4,13 @@
 #include "GravitationConstante.h"
 #include "IntegrateurEulerCromer.h"
 #include "Libre.h"
-#include "TextViewer.h"
+#include "PositionViewer.h"
 
 using namespace std;
 
 int main()
 {   
-    TextViewer plot(cout);
+    PositionViewer viewer(cout);
     double dt(.05);
     // Intégrateur
     IntegrateurEulerCromer intEC(dt);
@@ -25,8 +25,7 @@ int main()
     pomme.energie();
     while(pomme.position().get_coord(2) > 0)
     {
-        pomme.dessine_sur(plot);
-        cout<<pomme.energie()<<endl;
+        pomme.dessine_sur(viewer);  
         intEC.integre(pomme, t);
         t+=dt;
     }
