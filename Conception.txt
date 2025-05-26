@@ -1,0 +1,203 @@
+Conception du projet de POO : 
+
+De manière générale l'utilisation de pointeur à la C sert à référencer tout
+en permettant de de ne pas définir l'attribut à la construction et de le changer.
+Cela permet aussi d'insister sur le fait que l'élément pointé n'appartient pas à
+l'objet ayant le pointeur et que les 2 éléments peuvent éxister indépendamment.
+Au contraire, les référence insiste sur la dépendance de l'objet avec la référence
+vis-à-vis de l'objet référencé. Pour l'allocation dynamique, nous n'avons utilsé que
+des smart pointers, unique_ptr.
+
+1. La classe Vecteur : 
+    Nous avons développé cette classe comme décrite dans l'énoncé, mais au lieu 
+    d'utiliser des initializer_list à la construction, nous utilisons directement
+    des vector<double>. Cela nous permet de les manipuler plus facilement et de
+    les construire petit à petit dans les méthodes qui revoient un nouveau Vecteur,
+    cf. les différents opérateurs alggébriques.
+
+2. Les Objets : 
+    La classe mère est celle des ObjetMobile, elle a comme classes filles les
+    classes ObjetPhysique et PointMateriel(Angulaire).
+
+    ObjetMobile : cette classe représente un objet intégrable, c'est l'abstraction
+    mathématique de nos objets. Elle a comme attributs un vecteur état (E) et un 
+    Vecteur état dérivé (E', vitesse), comme interface, getter, setter et la méthode
+    évolue qui est virtuelle pure à ce stade.
+    !!! modif, pour l'exercice P12, nous avons ajouter comme attribut un Integrateur*
+    et une methode integre qui appelle la méthode integrede l'intérgateur attribué.
+    Cette conception nous permet d'attribuer un integrateur spécifique à chaque objet
+    d'un systeme !!!
+
+    ObjetPhysique : cette classe ajoute les attributs/méthodes physiques à nos objets.
+    On ajoute un nom (utile pour surveiller l'évolution quand il y en a plusieurs),
+    une masse (nous avons jugé que tout objet physique à comme caractéristique une masse), 
+    un ChampForce* et un Contrainte*. L'utilisation de pointeur pour référencer nous permet
+    de ne pas spécifier ces attributs à la construction et de les modifier plus tard. 
+    Cela faisait aussi plus de sens pour nous, les champs et contraintes n'appartiennent pas
+    aux objets, ceux-ci baignent dedans, les pointeurs nous "montrent" donc à  quoi tel objet
+    est soumis.
+    !!! Pour les exercices P11, nous avons ajouter un attributs charge (nulle par défaut), 
+    cela nous semblait faire du sens physique et facilitait l'intégration !!!
+    Nous avons ajouter un série de getter/setter, mais surtout des méthodes pour calculer 
+    la position/vitesse physique des objets dans l'espace physique à 3 dim. Il y a aussi
+    différentes methodes d'affichage.
+    !!! Nous avons ajouter des méthodes pour calculer l'énergie mécanique d'un objet,
+    cf. extension !!!
+
+    PointMateriel : cette classe précise le cas d'un point physique materiel, on y précise 
+    principalement la méthode evolution qui est définie par l'équation du mouvement a = F/m.
+    On défini aussi la manière d'afficher un point sur un GnuPlot avec une méthode privé
+    couleur().
+
+    PointMaterielAngulaire : elle hérite de PointMateriel, elle est un cas particulier d'un 
+    point dont les vecteurs E et E' contient des angles entre [-2π, 2π],  on ajoute donc
+    une méthode pour faire les modulo des coordonnées et on l'appelle à la construction et
+    au set des coordonnées (on a du pour ça passer le set_coord() en virtual dans ObjetMobile).
+
+3. Les Contraintes : 
+    La classe mère est simplement Contrainte, dont hérite Libre, ContrainteSpherique et
+    AllerAvant. Elles reprèsentent une contrainte imposé sur la mouvement d'un objet.
+
+    Contrainte : c'est une classe abstraite qui n'a aucun attribut et dont toutes les
+    méthodes sont virtuelles pures. Les méthodes sont applique_force(), position() et 
+    vitesse() qui calcul comment s'applique la force, calcul la position et la vitesse
+    dans l'espace physique 3d suivant la contrainte imposée.
+
+    Libre : la contrainte la plus simple est de n'avoir aucune contrainte. Ses méthodes
+    sont définies en appliquant simplement la 2nd loi de Newton, position() et vitesse()
+    retournent E et E'.
+
+    ContrainteSpherique : elle représente la contrainte d'un point se déplassant suivant 
+    un pendule sphérique ou roulant sur la paroi d'un bol. Elle prend à la contruction un
+    attribut L, la distance entre la point et le centre de rotation, la longueur de la 
+    tige dans le cas d'un pendule. Il y a une série de méthodes private auxiliaires qui
+    servent à passer des coordonnées sphériques à cartesiennes et à calculer les accélérations.
+    Les méthodes pour la force, la position et vitesse sont redéfinies suivant le complément
+    mathématique pour s'appliquer selon un repère sphérique.
+
+    AllerAvant : utile pour l'exerciceP11 salaire de la peur, elle modélise un mouvement
+    rectiligne uniforme dans une direction. La vitesse de translation est ici un attribut
+    de la contrainte et plus de l'objet, comme si la contrainte forçait le déplacement de
+    l'objet le long d'un rail. Elle a aussi un attribut temps et un setter associé pour 
+    suivre la durée du déplacement et mettre à jour la position. Du point de vu de la force,
+    elle agit comme une contrainte libre.
+
+4. Les ChampForce : 
+    La classe mère est ChampForce, elle est à la base de toutes les modélisations de forces.
+    Elle a comme classes filles directes : GravitationConstante, ForceCentrale, ChampCompose, 
+    ForceElectroMag et FrottementFLuide. ForceCentrale a elle-même comme classe fille ChampNewtonien.
+
+    ChampForce : elle n'a aucun attribut et sa méthode principale est force() qui retourne le vecteur
+    force que le champ applique sur l'objet qui baignent dedans, cette méthode est ici virtuelle
+    pure. Il y a aussi un méthode d'affichage textuelle et une surcharge de l'opérateur d'affichage.
+    Elle est la modélisations la plus générale d'un champ.
+
+    GravitationConstante : elle représente un champs de pesanteur constant, elle modélise le poids
+    qu'on ressent à la surface d'un astre. Elle a un attribut gravitation qui est le veceteur
+    d'accélération constante qu'on objet ressent (g pour la Terre). La force qu'elle applique 
+    est simplement le poids, p = m*g. 
+
+    ForceCentrale : cette classe est encore une classe abstraite, elle représente un champ qui 
+    est lié à la présence d'un corps central, elle servira à modéliser la gravitation de Newton
+    (on pourrait aussi l'utiliser pour modéliser un champ électrique produit par d'un charge 
+    ponctuelle). Elle a donc comme attribut une référence sur un ObjetPhysique, l'utilisation
+    d'une référence est justifiée car un tel champ à besoin d'un corps central pour exister et 
+    ça n'aurait pas de sens de changer ce corps central, ça ne serait plus le même champ. On ajoute
+    aussi la méthod quadra_inverse() qui prend un autre ObjetPhysique et renvoie un vecteur dans la 
+    direction du corps centrale et dont la norme et l'inverse du carré de la distante entre l'objet
+    et le corps central. Cette méthode est protected car elle n'a pas utile à un utilisateur externe
+    mais sera appelé depuis les classes filles. La méthode force n'est pas encore définie.
+
+    ForceElectroMag : cette classe prend 2 vecteurs en attributs, représantant un champ électrique et 
+    un champ magnétique. Sa méthode force calcul la force de Lorentz que subit un ObjetPhysique chargé
+    (c'est pour une question de généralité que l'attribut charge est implémenté au niveau d'ObjetPhysique).
+
+    FrottementFLuide : cette classe modélise simplement des frottements dans un fluide. Elle a un
+    attribut λ (lambda), le coéfficient de friction et retourne une force -λ*v.
+
+    ChampCompose : cette classe représente le champ résultant de la composition de plusieurs champs.
+    Elle est conçu comme un Systeme de champ (cf. Systeme). Elle a en attribut un vector de 
+    unique_ptr<ChampForce>. Sa méthode force retourne la somme des forces induites par chacun des champs
+    et elle a une méthode ajout_champ pour ajouter des champs à la composition.
+
+    ChampNewtonien : cette classe hérite de ForceCentrale, on y défini la méthode force qui retourne le 
+    vecteur force calculé selon la loi de la gravitation universelle.
+
+    !!! Pour mettre en place l'extension de calcul de l'énergie mécanique, nous avons ajouter une méthode
+    potentiel() dans ChampForce qui est redéfinie pour les différents champs et qui calcul le potentiel 
+    associé à chacun d'entre eux. Les forces non conservatives (comme les frottements) retournent un 
+    potentiel nul !!!
+
+5. Integrateur :
+    La classe mère  Integrateur est abstrainte et représente ce qu'est un intérgateur numérique. Elle a
+    comme classes filles les différents intérgateurs présentés dans le complément mathématique : Euler-Cromer, 
+    Runge-Kutta et Newmark.
+
+    Integrateur : cette classe a comme attribut un pas de temps dt donné et fixé à la construction , sa 
+    principale méthode est integre() qui prend un ObjetMobile (l'abstraction mathématique de nos objets)
+    et l'intègre numériquement pour le déplacer selon les contraintes/forces. Cette méthode est void car 
+    elle utilise directement les getter/setter d'ObjetMobile pour mettre à jour les vecteur E et E'.
+
+    IntegrateurEulerCromer : cette classe définit la méthode integre() pour applique la méthode d'intégration
+    du 1er ordre de Euler-Cromer.
+
+    IntegrateurNewmark : cet integrateur utilise une méthode itérative tant que 2 quantités ne sont pas 
+    suffisament proche (cf. complément mathématique), nous avons donc ajouter comme attribut epsilon qui 
+    est constant et dont la valeur par défaut est 1e-6. Sa méthode integre est redéfinie  est utilise la
+    méthode de Newmark avec une boucle while et toutes les variables temporaires nécessaires à la méthode.
+    Sur des grands pats de temps (dt >> 1) il faut diminuer le epsilon (1e-3, cf. exerciceP8-Ex7-3) car
+    l'imprécision de l'intérgateur peut créer une boucle infinie dans la méthode integre si on éxige une 
+    trop grande précision.
+
+    IntegrateurRungeKutta : la méthode integre() suit la méthode du complément mathématique, on voit dans
+    la formule du complément que la méthode evolue() de l'ObjetMobile est appelée mais avec des vecteur E et E'
+    différents de ceux au temps n-1. Comme notre méthode evolue accède à ces vecteur via les getter d'ObjetMobile,
+    nous modifons plusieurs fois au cours de la méthode integre les vecteur E et E' de l'objet pour que la 
+    méthode evolue utilise les bons vecteurs au bon moment. 
+
+6. Systeme : 
+    La classe Systeme représente un systeme physique dans sa globalité, comme décrit dans l'énoncer, 
+    elle contient des ObjetPhysique, des ChampForce, Contrainte, et des Integrateur (plusieurs, cf.P12).
+    Elle a aussi un attribut temps. Cette classe repose sur des collections hétérogènes pour les différents
+    types d'éléments et pouvoir utiliser le polymorphisme. Systeme a donc des vector<unique_ptr>, cela
+    garantit aussi que le Systeme est le propriétaire des objets qu'il simule, ce qui fait plus de sens.
+    Les unique_ptr faciltient aussi la gestion de l'allocation dynamique. Il ne peut être construit que vide,
+    en fixant sont temps (=0 par défaut). Des méthodes permettent d'ajouter des unique_ptr dans les différents
+    vector et des méthodes d'attributions lient les ObjetPhysique aux ChampForce, Contrainte et Integrateur.
+    Une méthode evolue va intégrer chacun des ObjetPhysique selon l'Integrateur qui lui a été attribué. 
+    !!! Pour l'extension de l'énergie,  nous avons ajouter la méthode calcul_e() qui somme l'énergie mécanique
+    de chaque objet du système, "l'énergie interne" d'un systeme est une grandeur extensive !!! 
+
+7. Les affichages : 
+    Nous sommes partis de la classe SupportADessin fourni dans l'énoncé et nous en avons implémenté
+    plusieurs : TextViewer, PositionViewer, EnergieViewer et GnuplotViewer.
+
+    TextViewer : cette classe appelle les la méthode d'affichage textuel des objets dessinables. Cette
+    affichage est l'affichage console qui peut aussi être obtenu avec l'opérateur <<, surchargé pour la
+    majorité des classes (même les champs et les contraintes). Cet affichage  est assez lourd mais donne
+    les informations complète d'un objet, systeme.
+
+    PositionViewer : pour avoir un affichage plus légée mais qui nous permet de suivre une simulation, 
+    nous avons avons implémenté cet affichage qui hérite de TextViewer. Sa méthode dessine_sur() affiche 
+    simplement la position d'un PointMateriel et pour un systeme, elle appelle la méthode affiche_pos()
+    définie dans la classe Systeme qui affiche la position des différents objets qu'il contient.
+
+    EnergieViewer : elle fonctionne exactement comme PositionViewer mais sert à afficher l'énergie 
+    mécanique, sa répartition entre énergie cinétique et potentielle. Cette affichage a été implémenté 
+    pour l'extension de calcul de l'énergie.
+
+    GnuplotViewer : cette classe est plus complexe et est complement différent d'un affichage textuel.
+    Elle a été implémenté avant d'avoir des graphismes et permettent, à la fin d'une simulation, d'affichage
+    un graphe de la trajectoire de différents ObjetPhysique. Attention les données ne sont pas sauvegardées
+    pour ensuite être affchées. Le constructeur ouvre un flow de sortie vers GnuPlot et set up le graphe.
+    les données sont ajoutées petit à petit au court de la simulation et puis le flow est fermé et les 
+    données sont plots à la fin par le destructeur. Celui-ci attend qu'une touche soit pressée en console
+    pour finir la destruction, cela permet de naviguer dans le graphique tant qu'on veut.
+
+
+    De manière général, toute les classes mère d'éléments d'un systeme physique ont une surcharge pour
+    l'opérateur d'affichage, cela permet d'avoir un affichage console très détaillé avec TextViewer.
+    Mais il n'y a que les classes Syteme et PointMateriel qui hérite de la classe Dessinable qui permet de
+    les dessiner sur les différents supports implémentés de manière polymorphirque sur le dessin que demande
+    chaque support. Obj.dessine_sur(Support) -> Support.dessine(Obj) -> Obj.affiche() 
+    Avec différentes méthodes affiche(), affiche_pos(), affiche_e(), affiche_gnu().
