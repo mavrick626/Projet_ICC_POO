@@ -6,7 +6,7 @@
 #include <cmath>
 
 #include "Systeme.h"
-#include "IntegrateurRungeKutta.h"
+#include "IntegrateurNewmark.h"
 #include "PointVectAngulaire.h"
 #include "GravitationConstante.h"
 #include "ContrainteSpherique.h"
@@ -25,7 +25,7 @@ int main()
     double theta(M_PI/3);
     double phi(0.);
 
-    sys.ajout_inte(make_unique<IntegrateurRungeKutta>(dt));
+    sys.ajout_inte(make_unique<IntegrateurNewmark>(dt));
 
     sys.ajout_champ(make_unique<GravitationConstante>());
     sys.ajout_contrainte(make_unique<ContrainteSpherique>(r));

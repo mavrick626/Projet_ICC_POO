@@ -37,6 +37,7 @@ size_t Vecteur::dimension() const
 void Vecteur::set_coord(size_t index, double composante)
 {
     if(index < dimension()) coordonnees[index] = composante;
+    else cerr<<"index trop grand !"<<endl;
 }
 
 //==============================================

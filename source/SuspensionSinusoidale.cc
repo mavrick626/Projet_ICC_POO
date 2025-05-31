@@ -14,7 +14,11 @@ Vecteur SuspensionSinusoidale::force(ObjetPhysique const& obj, double t) const
     double y(obj.position().get_coord(2));
 
     double norme(k*(A*sin(2.*M_PI*(x/L)) - y));
-    return Vecteur(0, 0, norme);
+
+    size_t dim(obj.get_dim_espace_physique());
+    Vecteur f(dim);
+    f.set_coord(dim-1, norme);
+    return f;
 }
 
 double SuspensionSinusoidale::potentiel(ObjetPhysique const& obj) const

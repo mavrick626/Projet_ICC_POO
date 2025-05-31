@@ -7,15 +7,15 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-GnuplotViewer::GnuplotViewer(size_t x, size_t y, bool trois_d)
-: gnuplotpipe(_popen("gnuplot -persist", "w")), x(x), y(y), dim(trois_d)  // windows : _popen, linux/mac : popen
+GnuplotViewer::GnuplotViewer(size_t x, size_t y, bool trois_d, string const& n)
+: gnuplotpipe(_popen("gnuplot -persist", "w")), x(x), y(y), dim(trois_d), titre(n)  // windows : _popen, linux/mac : popen
 {
     if (!gnuplotpipe)
     {
         cerr << "Erreur : impossible d'ouvrir Gnuplot.\n";
     }
 
-    fprintf(gnuplotpipe, "set title 'Trajectoire'\n");
+    fprintf(gnuplotpipe,  "set title '%s' \n", titre.c_str());
     fprintf(gnuplotpipe, "set xlabel 'x'\n");
     fprintf(gnuplotpipe, "set ylabel 'y'\n");
 

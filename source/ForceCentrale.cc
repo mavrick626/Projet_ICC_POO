@@ -18,7 +18,7 @@ Vecteur ForceCentrale::quadratique_inverse(ObjetPhysique const& autre) const
     // Récupération des positions du centre et de l'objet
     Vecteur pos1(centre.position());
     Vecteur pos2(autre.position());
-    Vecteur quadra_inv(pos1.dimension());
+    Vecteur quadra_inv(autre.get_E().dimension());
 
     // Calcul de la distance r entre les 2 objets
     Vecteur diff(pos1-pos2);

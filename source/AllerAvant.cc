@@ -9,7 +9,8 @@ AllerAvant::AllerAvant(double v, double t)
 Vecteur AllerAvant::applique_force(ObjetPhysique const& obj, Vecteur const& force, double t) 
 {
     set_temps(t);
-    if(obj.get_masse() != 0) return force*(1/obj.get_masse()); // a = F/m
+    Vecteur f_prime({force.get_coord(0), force.get_coord(2)});
+    if(obj.get_masse() != 0) return f_prime*(1/obj.get_masse()); // a = F/m
     return force;
 }
 
@@ -17,12 +18,13 @@ Vecteur AllerAvant::position(ObjetPhysique const& obj) const
 {
     Vecteur pos(obj.get_dim_espace_physique());
 
-    pos.set_coord(0, obj.get_E().get_coord(0)+temps*v_scalaire);
-    for(size_t i(1); i<pos.dimension(); i++)
+    pos.set_coord(0, temps*v_scalaire);
+    for(size_t i(0); i<pos.dimension()-1; i++)
     {
-        pos.set_coord(i, obj.get_E().get_coord(i));
+        if(i<obj.get_E().dimension()) pos.set_coord(i+1, obj.get_E().get_coord(i));
+        else pos.set_coord(i, 0.);
     }
-    
+
     return pos;
 }
 
@@ -31,9 +33,10 @@ Vecteur AllerAvant::vitesse(ObjetPhysique const& obj) const
     Vecteur vit(obj.get_dim_espace_physique());
 
     vit.set_coord(0, v_scalaire);
-    for(size_t i(1); i<vit.dimension(); ++i)
+    for(size_t i(0); i<vit.dimension()-1; ++i)
     {
-        vit.set_coord(i, obj.get_E_point().get_coord(i));
+        if(i<obj.get_E().dimension()) vit.set_coord(i+1, obj.get_E_point().get_coord(i));
+        else vit.set_coord(i, 0.);
     }
 
     return vit;

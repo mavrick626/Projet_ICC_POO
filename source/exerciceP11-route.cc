@@ -22,7 +22,7 @@ int main()
     total->ajout_champ(make_unique<GravitationConstante>());
     total->ajout_champ(make_unique<SuspensionSinusoidale>(1e6, 0.1, 1.5));
     unique_ptr<PointMateriel> p(make_unique<PointMateriel>
-        ("Terre", 2500., 0., Vecteur(3), Vecteur(3), nullptr, nullptr, nullptr, 3));
+        ("Point", 2500., 0., Vecteur(2), Vecteur(2), nullptr, nullptr, nullptr, 3));
 
     Systeme sys;
 
@@ -36,7 +36,7 @@ int main()
     sys.attribuer_inte(0, 0);
     
     sys.dessine_sur(viewer);
-    for(int i(0); i<1000; i++)
+    for(int i(0); i<100; i++)
     {
         sys.evolue();
         sys.dessine_sur(viewer);
