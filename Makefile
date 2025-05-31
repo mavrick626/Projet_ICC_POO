@@ -39,12 +39,12 @@ $(EXEC) : $(OBJ)
 
 # Supression tous file.o
 clean:
-#	 rm -f $(BUILDDIR)/*.o
-	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
+	rm -f $(BUILDDIR)/*.o
+#	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
 
 # Supressoin tous file.o + file.exe
 cleanall:
-#	 rm -f $(BUILDDIR)/*.o
-#	 rm -f $(EXEC)
-	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
-	if exist $(EXEC).exe del /Q $(EXEC).exe
+	rm -f $(BUILDDIR)/*.o
+	rm -f $(EXEC)
+#	if exist $(BUILDDIR)\*.o del /Q $(BUILDDIR)\*.o
+#	if exist $(EXEC).exe del /Q $(EXEC).exe

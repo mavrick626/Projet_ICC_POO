@@ -7,8 +7,10 @@ using namespace std;
 // Constructeurs
 //==============================================
 PointMateriel::PointMateriel(string const& n, double m, double q, Vecteur const& p,
-    Vecteur const& v, ChampForce* ch, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph)
-: ObjetPhysique(n, m, q, p, v, ch, cont, inte, dim_esp_ph) {}
+    Vecteur const& v, int c, ChampForce* ch, Contrainte* cont, Integrateur* inte, unsigned int dim_esp_ph)
+: ObjetPhysique(n, m, q, p, v, ch, cont, inte, dim_esp_ph) 
+{ if(c==-1) couleur = auto_couleur();
+  else couleur = c ;}
 
 //==============================================
 // Méthodes
@@ -32,12 +34,12 @@ void PointMateriel::afficher_gnu(FILE* f, size_t x, size_t y, bool trois_d) cons
     Vecteur pos(position());
 
     if(trois_d)
-    { fprintf(f, "%f %f %f %d\n", pos.get_coord(0), pos.get_coord(1), pos.get_coord(2), couleur()); }
+    { fprintf(f, "%f %f %f %d\n", pos.get_coord(0), pos.get_coord(1), pos.get_coord(2), couleur); }
     else
-    { fprintf(f, "%f %f %d\n", pos.get_coord(x), pos.get_coord(y), couleur()); }
+    { fprintf(f, "%f %f %d\n", pos.get_coord(x), pos.get_coord(y), couleur); }
 }
 
-int PointMateriel::couleur() const
+int PointMateriel::auto_couleur()
 {
     if(nom=="Soleil") return 0xFF8000; // orange
     if(nom=="Satellite") return 0x990099; // violet

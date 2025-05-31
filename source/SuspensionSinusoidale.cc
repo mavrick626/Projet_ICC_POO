@@ -5,9 +5,15 @@
 
 using namespace std;
 
+//==============================================
+// Constructeur
+//==============================================
 SuspensionSinusoidale::SuspensionSinusoidale(double k, double a, double l)
 : k(k), A(a), L(l) {}
 
+//==============================================
+// Méthode calcul de la force et du potentiel
+//==============================================
 Vecteur SuspensionSinusoidale::force(ObjetPhysique const& obj, double t) const
 {
     double x(obj.position().get_coord(0));
@@ -25,6 +31,8 @@ double SuspensionSinusoidale::potentiel(ObjetPhysique const& obj) const
 {
     double x(obj.position().get_coord(0));
     double y(obj.position().get_coord(2));
+
+    // pot = (k*x²)/2
     return pow(k*(A*sin(2.*M_PI*(x/L)) - y), 2)/2.;
 }
 

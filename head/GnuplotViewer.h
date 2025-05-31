@@ -12,14 +12,25 @@ class GnuplotViewer : public SupportADessin
     // Constructeur/Déstructeur
         GnuplotViewer(size_t, size_t, bool trois_d=false, std::string const& n=std::string("Trajectoire"));
         ~GnuplotViewer();
-    // Méthodes
+    // Méthodes dessin
         virtual void dessine(ObjetPhysique const&) override;
         virtual void dessine(Systeme const&) override;
+    // interface utilisateur
+        void set_affichage();
+        void set_marqueur();
+        void set_taille_marqueur();
 
     private :
-        FILE* gnuplotpipe;
+        FILE* gnuplotpipe; // canal de com vers gnuplot
+        // données pour affichage 2 ou 3D
         size_t x;
         size_t y;
         bool dim;
+        // settings du plot
         std::string titre;
+        std::string t_affiche;
+        unsigned int t_marq;
+        double s_marq;
+        // fonction auxiliaire pour nettoyer cin
+        void nettoie() const;
 };

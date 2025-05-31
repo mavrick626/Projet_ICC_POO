@@ -36,7 +36,7 @@ int main()
     sys.ajout_champ(move(tot));
     sys.ajout_contrainte(make_unique<ContrainteSpherique>(r));
     sys.ajout_objet(make_unique<PointVectAngulaire>(
-        "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 1})));
+        "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 1}), 0x00d4ff));
 
     sys.attribuer_champ(0, 0); 
     sys.attribuer_cont(0, 0);  
