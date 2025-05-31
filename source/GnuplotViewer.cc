@@ -8,7 +8,7 @@ using namespace std;
 // Constructeur
 //==============================================
 GnuplotViewer::GnuplotViewer(size_t x, size_t y, bool trois_d, string const& n)
-: gnuplotpipe(_popen("gnuplot -persist", "w")), x(x), y(y), dim(trois_d), titre(n)  // windows : _popen, linux/mac : popen
+: gnuplotpipe(popen("gnuplot -persist", "w")), x(x), y(y), dim(trois_d), titre(n)  // windows : _popen, linux/mac : popen
 {
     if (!gnuplotpipe)
     {
@@ -50,13 +50,13 @@ GnuplotViewer::~GnuplotViewer()
     cout<<"Graphe affiche ! Appuie sur Enter pour quitter..."<<endl;
     cin.get();
 
-    _pclose(gnuplotpipe); // windows : _pclose, linux/mac : pclose
+    pclose(gnuplotpipe); // windows : _pclose, linux/mac : pclose
 }
 
 //==============================================
 // Dessin
 //==============================================
-void GnuplotViewer::dessine(PointMateriel const& point)
+void GnuplotViewer::dessine(ObjetPhysique const& point)
 {
     point.afficher_gnu(gnuplotpipe, x, y, dim);
 }

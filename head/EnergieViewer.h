@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "TextViewer.h"
-#include "PointMateriel.h"
+#include "ObjetPhysique.h"
 #include "Systeme.h"
 
 class EnergieViewer : public TextViewer
@@ -11,7 +11,7 @@ class EnergieViewer : public TextViewer
     // Constructeur
         EnergieViewer(std::ostream& s) : TextViewer(s) {}
     // Méthodes
-        virtual void dessine(PointMateriel const& point) override
+        virtual void dessine(ObjetPhysique const& point) override
         {
             sortie<<"Energie cin : "<<point.energie_cin()<<std::endl;
             sortie<<"Energie pot : "<<point.energie_pot()<<std::endl;

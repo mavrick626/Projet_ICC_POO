@@ -11,12 +11,14 @@
 #include "GravitationConstante.h"
 #include "ContrainteSpherique.h"
 #include "GnuplotViewer.h"
+#include "FrottementFluide.h"
+#include "ChampCompose.h"
 
 using namespace std;
 
 int main()
 {
-    GnuplotViewer viewer(0, 1, true);
+    GnuplotViewer viewer(0, 1, true, "Bille sur un bol. R=2.2, V0 = (0, 1), b=0.05");
     Systeme sys;
 
     double dt(1e-2);
@@ -27,7 +29,11 @@ int main()
 
     sys.ajout_inte(make_unique<IntegrateurNewmark>(dt));
 
-    sys.ajout_champ(make_unique<GravitationConstante>());
+    unique_ptr<ChampCompose> tot(make_unique<ChampCompose>());
+    tot->ajout_champ(make_unique<GravitationConstante>());
+    tot->ajout_champ(make_unique<FrottementFluide>(0.05));
+
+    sys.ajout_champ(move(tot));
     sys.ajout_contrainte(make_unique<ContrainteSpherique>(r));
     sys.ajout_objet(make_unique<PointVectAngulaire>(
         "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 1})));

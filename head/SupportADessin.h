@@ -1,6 +1,6 @@
 #pragma once
 
-class PointMateriel;
+class ObjetPhysique;
 class Systeme;
 
 class SupportADessin
@@ -13,6 +13,6 @@ class SupportADessin
         SupportADessin(const SupportADessin&) = delete;
         SupportADessin(SupportADessin &&) = delete;
     // Méthodes
-        virtual void dessine(PointMateriel const&) = 0;
+        virtual void dessine(ObjetPhysique const&) = 0;
         virtual void dessine(Systeme const&) = 0;
 };

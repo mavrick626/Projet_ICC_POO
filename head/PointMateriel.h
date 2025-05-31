@@ -6,10 +6,8 @@
 #include "ObjetPhysique.h"
 #include "Contrainte.h"
 #include "ChampForce.h"
-#include "SupportADessin.h"
-#include "Dessinable.h"
 
-class PointMateriel : public ObjetPhysique, public virtual Dessinable
+class PointMateriel : public ObjetPhysique
 {
     public :
     // Constructeurs
@@ -20,9 +18,6 @@ class PointMateriel : public ObjetPhysique, public virtual Dessinable
         virtual Vecteur evolution(double t) const override;
         virtual void afficher(std::ostream&) const override;
         virtual void afficher_gnu(FILE*, size_t, size_t, bool) const override;
-
-        virtual void dessine_sur(SupportADessin& support) override
-        { support.dessine(*this); }
 
     private : 
         int couleur() const;

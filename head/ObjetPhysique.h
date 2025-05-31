@@ -6,8 +6,10 @@
 #include "Vecteur.h"
 #include "Contrainte.h"
 #include "ChampForce.h"
+#include "SupportADessin.h"
+#include "Dessinable.h"
 
-class ObjetPhysique : public ObjetMobile
+class ObjetPhysique : public ObjetMobile, public Dessinable
 {
     public :
     // Constructeur/Desrtructeur
@@ -31,6 +33,9 @@ class ObjetPhysique : public ObjetMobile
         
         virtual void afficher(std::ostream&) const override;
         virtual void afficher_gnu(FILE*, size_t, size_t, bool) const = 0;
+
+        virtual void dessine_sur(SupportADessin& support) override
+        { support.dessine(*this); }
         
         double energie_cin() const;
         double energie_pot() const;

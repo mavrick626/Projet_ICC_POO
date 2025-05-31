@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "SupportADessin.h"
-#include "PointMateriel.h"
+#include "ObjetPhysique.h"
 #include "Systeme.h"
 
 class TextViewer : public SupportADessin
@@ -11,7 +11,7 @@ class TextViewer : public SupportADessin
     // Constructeur
         TextViewer(std::ostream& s) : sortie(s) {}
     // Méthodes
-        virtual void dessine(PointMateriel const& point) override
+        virtual void dessine(ObjetPhysique const& point) override
         { sortie<<point<<std::endl; }
 
         virtual void dessine(Systeme const& sys) override

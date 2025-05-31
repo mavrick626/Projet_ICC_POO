@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <string>
 #include "SupportADessin.h"
-#include "PointMateriel.h"
+#include "ObjetPhysique.h"
 #include "Systeme.h"
 
 class GnuplotViewer : public SupportADessin
@@ -13,7 +13,7 @@ class GnuplotViewer : public SupportADessin
         GnuplotViewer(size_t, size_t, bool trois_d=false, std::string const& n=std::string("Trajectoire"));
         ~GnuplotViewer();
     // Méthodes
-        virtual void dessine(PointMateriel const&) override;
+        virtual void dessine(ObjetPhysique const&) override;
         virtual void dessine(Systeme const&) override;
 
     private :
