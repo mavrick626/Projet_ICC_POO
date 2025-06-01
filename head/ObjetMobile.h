@@ -14,7 +14,7 @@ class ObjetMobile
         Vecteur get_E() const;
         Vecteur get_E_point() const;
     // Setter
-        virtual void set_E(Vecteur const& E);
+        void set_E(Vecteur const& E);
         void set_E_point(Vecteur const& E_point);
         void set_integrateur(Integrateur*);
     // Autres méthodes

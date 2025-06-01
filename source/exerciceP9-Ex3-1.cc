@@ -3,8 +3,7 @@
 #include <string>
 #include <cmath>
 
-#include "PositionViewer.h"
-#include "TextViewer.h"
+#include "GnuplotViewer.h"
 #include "Systeme.h"
 #include "IntegrateurNewmark.h"
 #include "GravitationConstante.h"
@@ -15,17 +14,18 @@ using namespace std;
 
 int main()
 {
-    TextViewer plot(cout);
+    GnuplotViewer plot(0, 2, false, "Chute de fromage et lancé de pierre");
     Systeme sys;
 
     double dt(5e-2);
 
-    double h(20.);
-    double d(50.);
-    double v(pow(9.82*(d*d+h*h)/(2*h),.5));
-    double a(atan(h/d));
-    double t(0.);
-    double tf(pow(d*d+h*h, .5)/v);
+    double h(20.); // hauteur initiale pomme
+    double d(50.); // distance entre pierre et arbre
+    double v(pow(9.82*(d*d+h*h)/(2*h),.5)); // V0 pierre
+    double a(atan(h/d)); // angle de lance
+
+    double t(0.); // t0
+    double tf(pow(d*d+h*h, .5)/v); //t vol
 
     unique_ptr<Integrateur> inte(make_unique<IntegrateurNewmark>(dt));
 
@@ -33,9 +33,9 @@ int main()
     unique_ptr<Contrainte> libre(make_unique<Libre>());
 
     unique_ptr<ObjetPhysique> fromage(make_unique<PointMateriel>
-    ("fromage", 5, 0, Vecteur(d, 0, h)));
+    ("Fromage", 5, 0, Vecteur(d, 0, h), Vecteur(3), 0x999999));
     unique_ptr<ObjetPhysique> pierre(make_unique<PointMateriel>
-    ("pierre", 1, 0, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a))));
+    ("Pierre", 1, 0, Vecteur(0, 0, 0), Vecteur(v*cos(a), 0, v*sin(a)), 0xFF0000));
 
     sys.ajout_inte(move(inte));
     sys.ajout_champ(move(gravite));

@@ -14,9 +14,7 @@ class FrottementFluide : public ChampForce
     // Méthodes (définition directe pour ne pas avoir de .cc)
         virtual Vecteur force(ObjetPhysique const& obj, double t=0.) const override
         { return (-b)*obj.vitesse(); }
-        virtual double potentiel(ObjetPhysique const& obj) const override
-        { return 0.; }
-    
+        
         virtual void afficher(std::ostream& sortie) const override
         { 
           sortie<<"Champ de frottement fluide : coef friction = ";

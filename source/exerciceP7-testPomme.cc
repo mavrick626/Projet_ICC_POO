@@ -18,10 +18,10 @@ int main()
     IntegrateurRungeKutta intEC(dt);
 
     Libre l;
-    PointMateriel terre("Terre", Mt, 0, Vecteur(0,0,-Rt), Vecteur(0,0,0), nullptr, &l);
+    PointMateriel terre("Terre", Mt, 0, Vecteur(0,0,-Rt), Vecteur(0,0,0), -1, nullptr, &l);
     ChampNewtonien gravite(terre);
 
-    PointMateriel pomme("Pomme", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0), &gravite, &l);
+    PointMateriel pomme("Pomme", .1, 0, Vecteur(0,0,10), Vecteur(0,0,0), -1, &gravite, &l);
 
     cout<<0*dt<<"  "<<pomme.position().get_coord(2)<<endl;
     for(int i(0); i<100; i++)

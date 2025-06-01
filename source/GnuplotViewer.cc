@@ -24,6 +24,9 @@ GnuplotViewer::GnuplotViewer(size_t x, size_t y, bool trois_d, string const& n)
     if(t_affiche != "line") set_marqueur();
     set_taille_marqueur();
 
+    /*On aurait pu essayer de faire une méthode plus ergonomique pour ''créer la commande
+    d'affichage pasà pas pour minimiser les répétitiona, mais faute de temps ça marche déjà
+    bien comme ça*/ 
     if(trois_d)
     {
         fprintf(gnuplotpipe, "set zlabel 'z'\n");
@@ -89,7 +92,7 @@ void GnuplotViewer::dessine(Systeme const& sys)
 }
 
 //==============================================
-// Interface
+// Interface utilisateur
 //==============================================
 void GnuplotViewer::set_affichage()
 {        
@@ -97,7 +100,7 @@ void GnuplotViewer::set_affichage()
     do
     {
         cout<<"Quel type d\'affichage voulez-vous ? Entrez le mumero correspondant"<<endl;
-        cout<<"1.points, 2.line, 3.linesp \n >";
+        cout<<"1.points, 2.line, 3.linesp \n > ";
         cin>>entree;
 
         if(cin.fail()) nettoie();
@@ -113,7 +116,7 @@ void GnuplotViewer::set_marqueur()
     unsigned int entree;
     do
     {
-        cout<<"Quel type de marqueur voulez-vous ? Entrez le mumero correspondant"<<endl;
+        cout<<"Quel type de marqueur voulez-vous ? Entrez le mumero correspondant\n > ";
         cin>>entree;
 
         if(cin.fail()) nettoie();
@@ -127,7 +130,7 @@ void GnuplotViewer::set_taille_marqueur()
     double entree;
     do
     {
-        cout<<"Quelle taille de marqueur voulez-vous ? Entrez la taille"<<endl;
+        cout<<"Quelle taille de marqueur voulez-vous ? Entrez la taille\n >";
         cin>>entree;
     
         if(cin.fail()) nettoie();
