@@ -19,6 +19,11 @@
     le constrcuteur de copie par défault était tout à fait suffisant.
 
     - P4.2 : 
+        a) il faudrait stocker ces trois valeurs dans des double ou toutes ensembles
+        dans un vector<double>
+        b) La difficulté est qu'il aurait une ambiguité entre le constructeur d'un
+        vecteur dans R3 et coordonnées catésiennes et ce vecteurs de R3 en coordonnées
+        sphériques.
 
     - P4.3 : Nous avons introduit l'opérateur d'affichage "operator<<" et
     l'opérateur d'égalité "operator==", ce dernier nous a permis de dféinir en 
