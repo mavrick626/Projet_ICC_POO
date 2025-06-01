@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer plot(0, 1, false, "Orbite autour du soleil sur une route Terre-Mars");
+    GnuplotViewer plot;
     Systeme sys;
 
 // Données du problème

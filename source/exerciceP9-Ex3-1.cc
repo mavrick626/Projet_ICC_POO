@@ -14,7 +14,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer plot(0, 2, false, "Chute de fromage et lancé de pierre");
+    GnuplotViewer plot;
     Systeme sys;
 
     double dt(5e-2);

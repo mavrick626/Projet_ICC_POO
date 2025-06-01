@@ -10,12 +10,15 @@ class GnuplotViewer : public SupportADessin
 {
     public :
     // Constructeur/Déstructeur
-        GnuplotViewer(size_t, size_t, bool trois_d=false, std::string const& n=std::string("Trajectoire"));
+        GnuplotViewer();
         ~GnuplotViewer();
     // Méthodes dessin
         virtual void dessine(ObjetPhysique const&) override;
         virtual void dessine(Systeme const&) override;
     // interface utilisateur
+        void set_dim();
+        void set_coord();
+        void set_titre();
         void set_affichage();
         void set_marqueur();
         void set_taille_marqueur();

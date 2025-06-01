@@ -8,59 +8,76 @@ using namespace std;
 //==============================================
 // Constructeur
 //==============================================
-GnuplotViewer::GnuplotViewer(size_t x, size_t y, bool trois_d, string const& n)
-: gnuplotpipe(popen("gnuplot -persist", "w")), x(x), y(y), dim(trois_d), titre(n)  // windows : _popen, linux/mac : popen
+GnuplotViewer::GnuplotViewer()
+: gnuplotpipe(popen("gnuplot -persist", "w")) // windows : _popen, linux/mac : popen
 {
     if (!gnuplotpipe)
     {
         cerr << "Erreur : impossible d'ouvrir Gnuplot.\n";
     }
-
-    fprintf(gnuplotpipe,  "set title '%s' \n", titre.c_str());
-    fprintf(gnuplotpipe, "set xlabel 'x'\n");
-    fprintf(gnuplotpipe, "set ylabel 'y'\n");
-
-    set_affichage();
-    if(t_affiche != "line") set_marqueur();
-    set_taille_marqueur();
-
-    /*On aurait pu essayer de faire une méthode plus ergonomique pour ''créer la commande
-    d'affichage pasà pas pour minimiser les répétitiona, mais faute de temps ça marche déjà
-    bien comme ça*/ 
-    if(trois_d)
+    else 
     {
-        fprintf(gnuplotpipe, "set zlabel 'z'\n");
-        fprintf(gnuplotpipe, "set ticslevel 0\n"); // Pour que le plan XY soit à z=0
-        fprintf(gnuplotpipe, "set view 60, 30\n"); // Angle de vue
-        //fprintf(gnuplotpipe, "set view equal xyz\n");
+        set_dim();
+        if(!dim) set_coord();
+        set_titre();
+        set_affichage();
+        if(t_affiche != "line") set_marqueur();
+        set_taille_marqueur();
 
-        if(t_affiche != "line")
+        fprintf(gnuplotpipe,  "set title '%s' \n", titre.c_str());
+
+
+        /*On aurait pu essayer de faire une méthode plus ergonomique pour ''créer la commande
+        d'affichage pasà pas pour minimiser les répétitiona, mais faute de temps ça marche déjà
+        bien comme ça*/ 
+        if(dim)
         {
-            fprintf(gnuplotpipe, "splot '-' using 1:2:3:4 with %s pt %u  ps %f lc rgb variable notitle\n", 
-                t_affiche.c_str(), t_marq, s_marq);
+            fprintf(gnuplotpipe, "set xlabel 'x'\n");
+            fprintf(gnuplotpipe, "set ylabel 'y'\n");
+            fprintf(gnuplotpipe, "set zlabel 'z'\n");
+            fprintf(gnuplotpipe, "set ticslevel 0\n"); // Pour que le plan XY soit à z=0
+            fprintf(gnuplotpipe, "set view 60, 30\n"); // Angle de vue
+            //fprintf(gnuplotpipe, "set view equal xyz\n");
+
+            if(t_affiche != "line")
+            {
+                fprintf(gnuplotpipe, "splot '-' using 1:2:3:4 with %s pt %u  ps %f lc rgb variable notitle\n", 
+                    t_affiche.c_str(), t_marq, s_marq);
+            }
+            else
+            {
+                fprintf(gnuplotpipe, "splot '-' using 1:2:3:4 with %s lw %f lc rgb variable notitle\n", 
+                    t_affiche.c_str(), s_marq);
+            }
         }
         else
         {
-            fprintf(gnuplotpipe, "splot '-' using 1:2:3:4 with %s lw %f lc rgb variable notitle\n", 
-                t_affiche.c_str(), s_marq);
-        }
-    }
-    else
-    {
-        fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
-        //fprintf(gnuplotpipe, "set size ratio -1\n");
-        //fprintf(gnuplotpipe, "set xrange [-2.2:2.2]\n");
-        //fprintf(gnuplotpipe, "set yrange [-.2:2.4]\n");
+            char coord1('x');
+            char coord2('y');
 
-        if(t_affiche != "line")
-        {
-            fprintf(gnuplotpipe, "plot '-' using 1:2:3 with %s pt %u  ps %f lc rgb variable notitle\n", 
-                t_affiche.c_str(), t_marq, s_marq);
-        }
-        else
-        {
-            fprintf(gnuplotpipe, "plot '-' using 1:2:3 with %s lw %f lc rgb variable notitle\n", 
-                t_affiche.c_str(), s_marq);
+            if(x==1) coord1='y';
+            if(x==2) coord1='z';
+            if(y==0) coord2='x';
+            if(y==2) coord2='z';
+
+            fprintf(gnuplotpipe, "set xlabel '%c'\n", coord1);
+            fprintf(gnuplotpipe, "set ylabel '%c'\n", coord2);
+
+            fprintf(gnuplotpipe, "set grid lt 1 lw 2 lc rgb '#b9b9b9'\n");
+            //fprintf(gnuplotpipe, "set size ratio -1\n");
+            //fprintf(gnuplotpipe, "set xrange [-2.2:2.2]\n");
+            //fprintf(gnuplotpipe, "set yrange [-.2:2.4]\n");
+
+            if(t_affiche != "line")
+            {
+                fprintf(gnuplotpipe, "plot '-' using 1:2:3 with %s pt %u  ps %f lc rgb variable notitle\n", 
+                    t_affiche.c_str(), t_marq, s_marq);
+            }
+            else
+            {
+                fprintf(gnuplotpipe, "plot '-' using 1:2:3 with %s lw %f lc rgb variable notitle\n", 
+                    t_affiche.c_str(), s_marq);
+            }
         }
     }
 }
@@ -94,6 +111,58 @@ void GnuplotViewer::dessine(Systeme const& sys)
 //==============================================
 // Interface utilisateur
 //==============================================
+// Choix vu 2 ou 3D
+void GnuplotViewer::set_dim()
+{
+    char entree;
+    do
+    {
+        cout<<"Voulez-vous un graphe 3D ? (o/n)\n > ";
+        cin>>entree;
+
+        if(cin.fail()) nettoie();
+    }while(entree!='o' && entree!='n');
+
+    if(entree == 'o') dim=true;
+    else dim=false;
+}
+
+// SI 2D choix des coordonnées
+void GnuplotViewer::set_coord()
+{
+    size_t entree;
+    do
+    {
+        cout<<"Quel est l'indice de la première coordonnee (1=x, 2=y, 3=z)?\n > ";
+        cin>>entree;
+
+        if(cin.fail()) nettoie();
+    }while(entree<1 || entree>3);
+    x = entree-1;
+
+    do
+    {
+        cout<<"L'indice de la seconde ?\n> ";
+        cin>>entree;
+
+        if(cin.fail()) nettoie();
+    }while(entree<1 || entree>3 || entree-1==x);
+    y = entree-1;
+}
+
+void GnuplotViewer::set_titre()
+{
+    string entree;
+    do
+    {
+        nettoie();
+        cout<<"Quel est le titre du graphe ?\n> ";
+        cin>>entree;
+    }while(cin.fail());
+
+    titre = entree;
+}
+
 void GnuplotViewer::set_affichage()
 {        
     int entree;

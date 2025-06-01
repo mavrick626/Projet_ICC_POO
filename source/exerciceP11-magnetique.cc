@@ -20,7 +20,7 @@ int main()
     double masse(1.5e-4);
     double q(2e-6);
 
-    GnuplotViewer viewer(0, 1);
+    GnuplotViewer viewer;
     Systeme sys;
 
     unique_ptr<ChampCompose> ch_tot(make_unique<ChampCompose>());

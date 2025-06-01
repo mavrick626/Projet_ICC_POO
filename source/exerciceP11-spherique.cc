@@ -18,7 +18,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer viewer(0, 1, true, "Bille sur un bol. R=2.2, V0 = (0, 1), b=0.01");
+    GnuplotViewer viewer;
     Systeme sys;
 
     double dt(1e-2);

@@ -14,7 +14,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer viewer(0, 2, false, "route sinusoidale");
+    GnuplotViewer viewer;
 
     double dt(1e-2);
 

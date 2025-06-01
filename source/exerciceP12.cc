@@ -20,7 +20,7 @@ int main()
     //double Rt(6371e3);
     //double Mt(5.972e24);
 
-    GnuplotViewer viewer(1, 2, false, "trajectoir pommes avec différents intégrateurs");
+    GnuplotViewer viewer;
     Systeme sys;
 
     unique_ptr<ObjetPhysique> p1(make_unique<PointMateriel>(
