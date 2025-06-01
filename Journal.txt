@@ -59,3 +59,7 @@ A faire pour plus tard :
     Comme extension, on a fait le troisième exercice complexe, on a donc fait les 3.
     On  avait déjà ajouté les 2 intégrateurs. On a ajouté le calcul de l'énergie du
     système et ObjetPhysique, ça a l'air de bien fonctionner.
+
+# Semaine 13-14 :
+    On a réussi à avoir des graphismes et om a amélioré notre GnuplotVieweravec une
+    petite interface utilisateur en console et la possibilé d'afficher en 3D.
