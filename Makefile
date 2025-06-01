@@ -23,7 +23,8 @@ F_SRC = $(filter-out $(EXCLUDE), $(SRC))
 OBJ = $(F_SRC:$(SRCDIR)/%.cc=$(BUILDDIR)/%.o)
 
 # Compilateur
-CC = g++
+CXX = g++
+CC = $(CXX)
 CXXFLAGS = -std=c++17 -pedantic -Wall -I$(INCDIR)
 
 # Cible
