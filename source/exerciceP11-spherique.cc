@@ -18,7 +18,7 @@ using namespace std;
 
 int main()
 {
-    GnuplotViewer viewer(0, 1, true, "Bille sur un bol. R=2.2, V0 = (0, 1), b=0.05");
+    GnuplotViewer viewer(0, 1, true, "Bille sur un bol. R=2.2, V0 = (0, 1), b=0.01");
     Systeme sys;
 
     double dt(1e-2);
@@ -31,12 +31,12 @@ int main()
 
     unique_ptr<ChampCompose> tot(make_unique<ChampCompose>());
     tot->ajout_champ(make_unique<GravitationConstante>());
-    tot->ajout_champ(make_unique<FrottementFluide>(0.05));
+    tot->ajout_champ(make_unique<FrottementFluide>(.01));
 
     sys.ajout_champ(move(tot));
     sys.ajout_contrainte(make_unique<ContrainteSpherique>(r));
     sys.ajout_objet(make_unique<PointVectAngulaire>(
-        "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 1}), 0x00d4ff));
+        "pendule", m, 0, Vecteur({theta, phi}), Vecteur({0, 1}), 0x000000));
 
     sys.attribuer_champ(0, 0); 
     sys.attribuer_cont(0, 0);  
