@@ -18,10 +18,10 @@ GnuplotViewer::GnuplotViewer()
     else 
     {
         set_dim();
-        if(!dim) set_coord();
+        if(!dim) set_coord(); // appelée ssi affichage 2D
         set_titre();
         set_affichage();
-        if(t_affiche != "line") set_marqueur();
+        if(t_affiche != "line") set_marqueur(); // appelée ssi affichage avec marqueurs
         set_taille_marqueur();
 
         fprintf(gnuplotpipe,  "set title '%s' \n", titre.c_str());
@@ -84,7 +84,8 @@ GnuplotViewer::GnuplotViewer()
 
 GnuplotViewer::~GnuplotViewer()
 {
-    // Nettoyage de l'entrée pour que la programme ne s'arrête pas (cf. Destructeur)
+    /* Nettoyage de l'entrée pour que la programme ne s'arrête pas
+        à cause des entrées de setup */
     nettoie();
 
     fprintf(gnuplotpipe, "e\n");
@@ -111,7 +112,7 @@ void GnuplotViewer::dessine(Systeme const& sys)
 //==============================================
 // Interface utilisateur
 //==============================================
-// Choix vu 2 ou 3D
+// Choix vue 2 ou 3D
 void GnuplotViewer::set_dim()
 {
     char entree;
@@ -150,6 +151,7 @@ void GnuplotViewer::set_coord()
     y = entree-1;
 }
 
+// Choix du titre
 void GnuplotViewer::set_titre()
 {
     string entree;
@@ -163,6 +165,7 @@ void GnuplotViewer::set_titre()
     titre = entree;
 }
 
+// Choix du type de graphe
 void GnuplotViewer::set_affichage()
 {        
     int entree;
@@ -180,6 +183,7 @@ void GnuplotViewer::set_affichage()
     if(entree==3) t_affiche = "linesp";
 }
 
+// SI marqueur, quel symbol
 void GnuplotViewer::set_marqueur()
 {
     unsigned int entree;
@@ -194,6 +198,7 @@ void GnuplotViewer::set_marqueur()
     t_marq = entree;
 }
 
+// Taille marqueur, ligne
 void GnuplotViewer::set_taille_marqueur()
 {
     double entree;
